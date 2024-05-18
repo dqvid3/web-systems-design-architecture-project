@@ -1,5 +1,0 @@
-<!ELEMENT palinsesto (cartellone+)>
-<!ELEMENT cartellone (percorso, folder, durata)>
-<!ELEMENT percorso (#PCDATA)>
-<!ELEMENT folder (#PCDATA)>
-<!ELEMENT durata (#PCDATA)>
