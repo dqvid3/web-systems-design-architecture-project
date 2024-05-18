@@ -1,0 +1,53 @@
+#mapdiv {
+    width: 100%;
+    height: 100%;
+}
+
+footer div, header div {
+    width: 50%;
+}
+
+footer img {
+    vertical-align: middle;
+    width: 5%;
+}
+
+header, main, footer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#mapcontainer {
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+    width: 90vw;
+}
+
+#filtra {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 10vw;
+}
+
+.pie {
+    margin: 20px 100px 20px 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%
+}
+
+.riga {
+    display: flex;
+    flex-direction: row;
+}
+
+#attivo {
+    color: green;
+}
+
+#nonattivo {
+    color: red;
+}

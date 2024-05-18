@@ -1,0 +1,1 @@
+https://wiki.openstreetmap.org/wiki/Openlayers_POI_layer_example

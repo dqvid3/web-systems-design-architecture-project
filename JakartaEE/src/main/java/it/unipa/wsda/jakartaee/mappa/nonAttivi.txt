@@ -1,0 +1,4 @@
+lat	lon	title	description	icon	iconSize	iconOffset
+38.110202	13.366752	Impianto 1	Stazione Palermo Centrale<br><br><B>Non attivo</B><br>Ultimo segnale: <B>2024-05-04 15:56:55</B>	red.png	58,96	-29,-96
+38.106200	13.350856	Impianto 2	Universit&agrave; degli Studi di Palermo<br><br><B>Non attivo</B><br>Ultimo segnale: <B>2024-04-28 17:52:13</B>	red.png	58,96	-29,-96
+38.124381	13.355076	Impianto 3	Piazza Castelnuovo Palermo<br><br><B>Non attivo</B><br>Ultimo segnale: <B>2024-05-04 15:56:55</B>	red.png	58,96	-29,-96
