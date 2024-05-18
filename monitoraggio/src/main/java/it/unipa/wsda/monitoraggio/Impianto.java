@@ -2,6 +2,8 @@ package it.unipa.wsda.monitoraggio;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Duration;
+// import java.time.LocalDateTime;
 
 public class Impianto {
     private int cod_impianto;

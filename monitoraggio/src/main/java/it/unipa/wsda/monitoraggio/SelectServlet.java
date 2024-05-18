@@ -4,25 +4,26 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import java.util.List;
 
-@WebServlet("/hello-servlet")
-public class HelloServlet extends HttpServlet {
+@WebServlet("/selectservlet")
+public class SelectServlet extends HttpServlet {
     private static final long serialVersionUID = 1234567L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setContentType("application/json; charset=UTF-8");
         PrintWriter out = resp.getWriter();
-
         String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
             " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
         List<Impianto> impianti = DBConnection.eseguiQuery(query);
@@ -30,20 +31,20 @@ public class HelloServlet extends HttpServlet {
             int[] totImpianti = scriviImpiantiSuFile(impianti);
             if (totImpianti.length == 2 && totImpianti[0] != -1 && totImpianti[1] != -1) {
                 resp.setStatus(HttpServletResponse.SC_OK);
-                out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," + 
+                out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," +
                     "\"attivi\": " + String.valueOf(totImpianti[0]) + ", \"nonAttivi\": " + String.valueOf(totImpianti[1]));
                 BigDecimal[] ris = calculateCenter(impianti);
                 System.out.println(ris[0] + " " + ris[1]);
                 out.println(", \"latCentro\":" + ris[0] + ", \"lonCentro\":" + ris[1] + "}");
             }
             else {
-                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);   
-                out.println("{\"status\": \"error\", \"message\": \"Errore durante la scrittura su file!\"}");               
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  
+                out.println("{\"status\": \"error\", \"message\": \"Errore durante la scrittura su file!\"}");          
             }
         }
         else {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.println("{\"status\": \"error\", \"message\": \"Errore durante l'esecuzione della query!\"}");   
+            out.println("{\"status\": \"error\", \"message\": \"Errore durante l'esecuzione della query!\"}");
         }
     }
 
@@ -58,9 +59,10 @@ public class HelloServlet extends HttpServlet {
                 nonAttivi += impianto.toString();
             }
         }
-        String path = "";
-        return (scriviStringaSuFile(path + "attivi.txt", attivi) && scriviStringaSuFile(path + "nonAttivi.txt", nonAttivi) ?
-                new int[]{contaCaratteri(attivi, "\n") - 1, contaCaratteri(nonAttivi, "\n") - 1} : new int[]{-1, -1});
+        String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
+        String pathAttivi = path + "attivi.txt", pathNonAttivi = path + "nonAttivi.txt";
+        return (scriviStringaSuFile(pathAttivi, attivi) && scriviStringaSuFile(pathNonAttivi, nonAttivi) ?
+            new int[]{contaCaratteri(attivi, "\n") - 1, contaCaratteri(nonAttivi, "\n") - 1} : new int[]{-1, -1});
     }
 
     private boolean scriviStringaSuFile(String path, String testo) {

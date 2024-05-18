@@ -1,6 +1,5 @@
 package it.unipa.wsda.monitoraggio;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,6 +53,24 @@ public class DBConnection {
     }
 
     public static int eseguiUpdate(String query, List<String> parametri) {
-        return 0;
+        int numRighe = -1;
+        try (Connection connection = DBConnection.getConnection()) {
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                try {
+                    for (int i = 0; i < parametri.size(); i++) {
+                        pstmt.setString(i + 1, parametri.get(i));
+                    }
+                    System.out.println(query);
+                    numRighe = pstmt.executeUpdate();
+                }
+                catch (SQLException eccezione) {
+                    System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
+                }
+            }
+        }
+        catch (SQLException eccezione) {
+            System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
+        }
+        return numRighe;
     }
 }
