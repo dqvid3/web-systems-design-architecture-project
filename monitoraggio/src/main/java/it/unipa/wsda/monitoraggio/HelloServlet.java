@@ -22,7 +22,6 @@ public class HelloServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setContentType("application/json; charset=UTF-8");
         PrintWriter out = resp.getWriter();
-
         String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
             " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
         List<Impianto> impianti = DBConnection.eseguiQuery(query);
@@ -58,7 +57,7 @@ public class HelloServlet extends HttpServlet {
                 nonAttivi += impianto.toString();
             }
         }
-        String path = "";
+        String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
         return (scriviStringaSuFile(path + "attivi.txt", attivi) && scriviStringaSuFile(path + "nonAttivi.txt", nonAttivi) ?
                 new int[]{contaCaratteri(attivi, "\n") - 1, contaCaratteri(nonAttivi, "\n") - 1} : new int[]{-1, -1});
     }

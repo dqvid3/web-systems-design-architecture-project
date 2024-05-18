@@ -29,7 +29,7 @@ function verificaStatoImpianti() {
 */
 function verificaStatoImpianti() {
     $.ajax({
-        url: "http://localhost:8000/JakartaEE_war_exploded/hello-servlet",
+        url: "http://localhost:8000/monitoraggio_war_exploded/hello-servlet",
         type: "GET",
         dataType: "json",
         success: function (jsonResponse) {
