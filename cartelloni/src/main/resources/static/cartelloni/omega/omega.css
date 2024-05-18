@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../../imgs/omega/sfondo_lunare.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Oxanium", sans-serif;
+    font-weight: 400;
+    color: white;
+}
+
+footer h1 {
+    animation: text-focus-in 3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+footer h3 {
+    font-style: normal;
+    animation: text-focus-in 4s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+.image-container {
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    width: 25%;
+    height: auto;
+    margin-right: 10px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.image-container img:nth-child(1) {
+    animation-delay: 1s;
+}
+.image-container img:nth-child(2) {
+    animation-delay: 2s;
+}
+.image-container img:nth-child(3) {
+    animation-delay: 3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes text-focus-in {
+0% {
+    filter: blur(12px);
+    opacity: 0;
+    }
+100% {
+    filter: blur(0px);
+    opacity: 1;
+    }
+}
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>LED Wall Palinsesto</title>
+        <link rel="stylesheet" href="led_wall.css">
+        <style id="scrollAnimation">
+            #notizie {
+                padding-left: 100%;
+                animation: scroll linear infinite;
+                font-weight: normal;
+            }
+            @keyframes scroll {
+                0% { transform: translateX(0%); }
+                100% { transform: translateX(-100%); }
+            }
+        </style>
+        <script type="text/javascript" src="api_calls.js"></script>
+        <script type="text/javascript" src="xml_loader.js"></script>
+        <script>
+            function eseguiFunzioni() {
+                updateMeteo();
+                updateTime();
+                setTimeout(updateNews, 1000);
+                loadXML("../palinsesti/palinsesto1.xml");
+            }
+        </script>
+    </head>
+    <body onload="eseguiFunzioni()">
+        <div class="container">
+            <div class="wall" id="led-wall"></div>
+            <div class="barra">
+                <div class="scroll-container">
+                    <h1 id="notizie"></h1>
+                </div>
+                <div class="tempo">
+                    <div class="ora"><h1 id="time"></h1></div>
+                    <div class="data"><h1 id="date"></h1></div>
+                </div>
+                <div class="meteo-container">
+                    <div class="meteo">
+                        <h1 id="temp"></h1>
+                        <img id="stato" src="../imgs/meteo/default.png" alt="Impossibile caricare l'immagine!"/>
+                    </div>
+                    <div class="meteo">
+                        <img class="icons" src="../imgs/meteo/vento.png" alt="Impossibile caricare l'immagine!"/>
+                        <h2 id="vento"></h2>
+                        <img class="icons" src="../imgs/meteo/umidita.png" alt="Impossibile caricare l'immagine!"/>
+                        <h2 id="umidita"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
