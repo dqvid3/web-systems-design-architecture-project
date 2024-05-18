@@ -29,7 +29,7 @@ function verificaStatoImpianti() {
 */
 function verificaStatoImpianti() {
     $.ajax({
-        url: "http://localhost:8000/helloworld/helloservlet",
+        url: "http://localhost:8000/monitoraggio/selectservlet",
         type: "GET",
         dataType: "json",
         success: function (jsonResponse) {
