@@ -1,0 +1,1 @@
+lat	lon	title	description	icon	iconSize	iconOffset

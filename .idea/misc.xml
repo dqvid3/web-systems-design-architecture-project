@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/JakartaEE/pom.xml" />
         <option value="$PROJECT_DIR$/cartelloni/pom.xml" />
+        <option value="$PROJECT_DIR$/monitoraggio/pom.xml" />
+        <option value="$PROJECT_DIR$/gestione/pom.xml" />
       </list>
     </option>
   </component>
