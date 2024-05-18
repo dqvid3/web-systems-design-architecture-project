@@ -29,16 +29,16 @@ function verificaStatoImpianti() {
 */
 function verificaStatoImpianti() {
     $.ajax({
-        url: "http://localhost:8000/monitoraggio_war_exploded/hello-servlet",
+        url: "http://localhost:8000/monitoraggio_war_exploded/selectservlet",
         type: "GET",
         dataType: "json",
         success: function (jsonResponse) {
             console.log(jsonResponse);
             var activeCount = jsonResponse.attivi;
             var inactiveCount = jsonResponse.nonAttivi;
-            alert(jsonResponse.latCentro);
-            alert(jsonResponse.lonCentro);
-            caricaMappa(activeCount, inactiveCount);
+            var latCentro = jsonResponse.latCentro;
+            var lonCentro = jsonResponse.lonCentro;
+            caricaMappa(activeCount, inactiveCount, latCentro, lonCentro);
         },
         error: function (xhr, status, error) {
             console.log("Errore durante il caricamento dei dati: " + error);
@@ -48,7 +48,7 @@ function verificaStatoImpianti() {
     $("#timestamp").text(getCurrentDateTime());
 }
 
-function caricaMappa(activeCount, inactiveCount) {
+function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
     map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());
     var attivi = new OpenLayers.Layer.Text("Impianti attivi", { location:"attivi.txt", projection: map.displayProjection });
@@ -56,8 +56,8 @@ function caricaMappa(activeCount, inactiveCount) {
     var nonAttivi = new OpenLayers.Layer.Text("Impianti non attivi", { location:"nonAttivi.txt", projection: map.displayProjection });
     map.addLayer(nonAttivi);
     var layer_switcher= new OpenLayers.Control.LayerSwitcher({}); // Create layer switcher widget in top right corner of map.
-    map.addControl(layer_switcher); // calcolare media
-    var lonLat = new OpenLayers.LonLat(13.366752, 38.120202).transform(new OpenLayers.Projection("EPSG:4326"),
+    map.addControl(layer_switcher);
+    var lonLat = new OpenLayers.LonLat(lonCentro, latCentro).transform(new OpenLayers.Projection("EPSG:4326"),
         map.getProjectionObject()); // Transform from WGS 1984 to Spherical Mercator Projection.
     var zoom = 13;
     map.setCenter (lonLat, zoom); // Set start centrepoint and zoom.

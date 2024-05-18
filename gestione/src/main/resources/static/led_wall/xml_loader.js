@@ -53,7 +53,7 @@ function adjustPaths(htmlContent, folder) {
 function aggiornaStato(ref_impianto, cod_palinsesto, nome_cartellone, durata_visualizzazione) {
     var params = `ref_impianto=${ref_impianto}&cod_palinsesto=${cod_palinsesto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
     console.log(params);
-    var url = "http://localhost:8000/monitoraggio/insertservlet";
+    var url = "http://localhost:8000/monitoraggio_war_exploded/insertservlet";
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

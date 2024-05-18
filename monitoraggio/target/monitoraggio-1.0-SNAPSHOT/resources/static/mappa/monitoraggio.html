@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title> Monitoraggio </title>
+        <title>Monitoraggio</title>
         <meta charset="UTF-8">
         <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
         <script src="monitoraggio.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="monitoraggio.css">
+        <link rel="icon" type="image/x-icon" href="/helloworld/favicon.ico">
     </head>
     <body onload="verificaStatoImpianti()">
-        <header>
-            <div>
-                <h1> Stato degli impianti: </h1>
-            </div>
-            <div class="riga">
-                <div class="pie"></div>
+        <div class="container">
+            <header>
                 <div>
-                    <h3 id="attivo"></h3>
-                    <h3 id="nonattivo"></h3>
+                    <h1>Stato degli impianti:</h1>
                 </div>
-            </div>
-        </header>
-        <main>
-            <div id="mapcontainer">
-                <div id="mapdiv" onclick="aggiornaPagina()">
+                <div class="riga">
+                    <div class="pie"></div>
+                    <div>
+                        <h3 id="attivo"></h3>
+                        <h3 id="nonattivo"></h3>
+                    </div>
                 </div>
-            </div>
-            <div id="filtra">
-                <img width="80%" src="arrow.png" alt="Impossibile caricare l'immagine!">
-                &nbsp;&nbsp;&nbsp;Filtra impianti<br>Clicca sui singoli impianti per maggiori dettagli
-            </div>
-        </main>
-        <footer>
-            <div>
-                <h1> Legenda: </h1>
-                <img src="green.png" alt="Impossibile caricare l'immagine!"> Impianto attivo negli ultimi 2 minuti <br>
-                <img src="red.png" alt="Impossibile caricare l'immagine!"> Impianto non attivo negli ultimi 2 minuti
-            </div>
-            <div>
-                <h1> Ultimo aggiornamento: </h1>
-                <h2 id="timestamp"></h2>
-                <button onclick="aggiornaPagina()"> Aggiorna </button>
-            </div>
-        </footer>
+            </header>
+            <main>
+                <div id="mapcontainer">
+                    <div id="mapdiv"></div>
+                </div>
+                <div id="filtra">
+                    <img width="80%" src="arrow.png" alt="Impossibile caricare l'immagine!">
+                    <p><B>Filtra impianti</B><br><br><br><br><br><br><br><br><br><br><br><br><br><br>Clicca sui singoli impianti per maggiori dettagli</p>
+                </div>
+            </main>
+            <footer>
+                <div class="footer-section">
+                    <h2>Legenda:</h2>
+                    <img src="green.png" alt="Impossibile caricare l'immagine!"> Impianto attivo <br> negli ultimi <br> 2 minuti
+                    <img src="red.png" alt="Impossibile caricare l'immagine!"> Impianto non attivo <br> negli ultimi <br> 2 minuti
+                    <h2>Ultimo aggiornamento:</h2>
+                    <h2 id="timestamp"></h2>
+                    <button onclick="aggiornaPagina()">Aggiorna</button>
+                </div>
+            </footer>
+        </div>
     </body>
 </html>

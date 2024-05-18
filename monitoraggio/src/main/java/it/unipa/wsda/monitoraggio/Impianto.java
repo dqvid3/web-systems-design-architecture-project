@@ -2,8 +2,6 @@ package it.unipa.wsda.monitoraggio;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Duration;
-// import java.time.LocalDateTime;
 
 public class Impianto {
     private int cod_impianto;
@@ -64,10 +62,10 @@ public class Impianto {
     public String toString() {
         StringBuilder impianto = new StringBuilder();
         impianto.append(this.getLatitudine()).append("\t").append(this.getLongitudine()).append("\tImpianto ")
-            .append(this.getCod_impianto()).append("\t").append(this.getDescrizione()).append("<br><br><B>");
+            .append(this.getCod_impianto()).append("\t").append(this.getDescrizione()).append("<br/><br/><B>");
         impianto.append(this.isAttivo() ? "Attivo" : "Non attivo");
         String ultimo_segnale = this.getUltimo_segnale().toString().substring(0, this.getUltimo_segnale().toString().indexOf("."));
-        impianto.append("</B><br>Ultimo segnale: <B>").append(ultimo_segnale).append("</B>\t");
+        impianto.append("</B><br/>Ultimo segnale: <B><br/>").append(ultimo_segnale).append("</B>\t");
         impianto.append(this.isAttivo() ? "green.png" : "red.png").append("\t58,96\t").append("-29,-96\n");
         return impianto.toString();
     }
