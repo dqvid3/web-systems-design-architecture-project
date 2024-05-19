@@ -7,14 +7,38 @@
         <script src="monitoraggio.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="monitoraggio.css">
-        <link rel="icon" type="image/x-icon" href="/helloworld/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico">
     </head>
     <body onload="verificaStatoImpianti()">
         <div class="container">
             <header>
-                <div>
-                    <h1>Stato degli impianti:</h1>
+                <h1>Stato degli impianti</h1>
+            </header>
+            <main>
+                <div id="mapdiv"></div>
+                <div class="colonna">
+                    <div id="filtra">
+                        <img height="100%" src="arrow.png" alt="Impossibile caricare l'immagine!">
+                        <p>Filtra impianti</p>
+                    </div>
+                    <div class="legenda">
+                        <h1>Legenda</h1>
+                        <div>
+                            <img src="../imgs/green.png" alt="Impossibile caricare l'immagine!">
+                            <p>Impianto attivo negli ultimi 2 minuti</p>
+                        </div>
+                        <div>
+                            <img src="../imgs/red.png" alt="Impossibile caricare l'immagine!">
+                            <p>Impianto non attivo negli ultimi 2 minuti</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <img src="../imgs/cursor.gif" alt="Impossibile caricare l'immagine!">
+                        <p>Clicca sui singoli impianti per maggiori dettagli</p>
+                    </div>
                 </div>
+            </main>
+            <footer>
                 <div class="riga">
                     <div class="pie"></div>
                     <div>
@@ -22,23 +46,11 @@
                         <h3 id="nonattivo"></h3>
                     </div>
                 </div>
-            </header>
-            <main>
-                <div id="mapcontainer">
-                    <div id="mapdiv"></div>
+                <div class="timestamp">
+                    Ultimo aggiornamento:
+                    <p id="timestamp"></p>
                 </div>
-                <div id="filtra">
-                    <img width="80%" src="arrow.png" alt="Impossibile caricare l'immagine!">
-                    <p><B>Filtra impianti</B><br><br><br><br><br><br><br><br><br><br><br><br><br><br>Clicca sui singoli impianti per maggiori dettagli</p>
-                </div>
-            </main>
-            <footer>
-                <div class="footer-section">
-                    <h2>Legenda:</h2>
-                    <img src="green.png" alt="Impossibile caricare l'immagine!"> Impianto attivo <br> negli ultimi <br> 2 minuti
-                    <img src="red.png" alt="Impossibile caricare l'immagine!"> Impianto non attivo <br> negli ultimi <br> 2 minuti
-                    <h2>Ultimo aggiornamento:</h2>
-                    <h2 id="timestamp"></h2>
+                <div class="aggiorna">
                     <button onclick="aggiornaPagina()">Aggiorna</button>
                 </div>
             </footer>

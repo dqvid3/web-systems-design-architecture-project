@@ -1,32 +1,3 @@
-/*
-function verificaStatoImpianti() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8000/helloworld/helloservlet", true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var jsonResponse = JSON.parse(xhr.responseText);
-                console.log(jsonResponse);
-                activeCount = jsonResponse.attivi;
-                inactiveCount = jsonResponse.nonAttivi;
-                alert(jsonResponse.latCentro);
-                alert(jsonResponse.lonCentro);
-                caricaMappa(activeCount, inactiveCount);
-            }
-            else {
-                console.log("xhr.status != 200");
-                document.getElementById('mapdiv').innerText = 'Errore durante il caricamento dei dati!';
-            }
-        }
-        else {
-            console.log("xhr.readyState != 4");
-            console.log(xhr.readyState);
-        }
-    };
-    xhr.send();
-    document.getElementById("timestamp").innerText = getCurrentDateTime();
-}
-*/
 function verificaStatoImpianti() {
     $.ajax({
         url: "http://localhost:8000/monitoraggio_war_exploded/selectservlet",
@@ -61,8 +32,8 @@ function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
         map.getProjectionObject()); // Transform from WGS 1984 to Spherical Mercator Projection.
     var zoom = 13;
     map.setCenter (lonLat, zoom); // Set start centrepoint and zoom.
+
     aggiornaStato(activeCount, inactiveCount);
-    // aggiungiClickListenerImmagini(38.110202, 13.366752);
 }
 
 function aggiornaPagina() {
@@ -94,26 +65,3 @@ function getCurrentDateTime() {
 }
 
 setInterval(aggiornaPagina, 2 * 60 * 1000);
-/*
-function aggiungiClickListenerImmagini(lat, lon) {
-    alert("siamo in aggiungi click listener");
-    const images = document.querySelectorAll('img[src="green.png"], img[src="red.png"]');
-    images.forEach(image => {
-        alert(image);
-        image.addEventListener('click', function() {
-            centraMappa(lon, lat);
-            alert("siamo in Centra MAppa da aggiungi click listener");
-        });
-    });
-}
-
-// Funzione per centrare la mappa sulle coordinate specificate
-function centraMappa(lon, lat) {
-    alert("siamo in Centra MAppa da centra mappa");
-    const lonLat = new OpenLayers.LonLat(lon, lat).transform(
-        new OpenLayers.Projection("EPSG:4326"), // dal sistema WGS 1984
-        window.map.getProjectionObject() // al sistema di proiezione della mappa
-    );
-    window.map.setCenter(lonLat, 12); // 12 è il livello di zoom
-}
-*/

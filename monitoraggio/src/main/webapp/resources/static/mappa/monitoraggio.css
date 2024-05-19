@@ -13,63 +13,125 @@ body, html {
 .container {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
 }
 
-header, main, footer {
+header {
     display: flex;
-    width: 100%;
+    justify-content: center;
+    align-content: center;
     align-items: center;
-    justify-content: space-around;
-}
-
-header, footer {
     height: 15%;
-    background-color: #f1f1f1;
-}
-
-header .riga, footer .footer-section {
-    display: flex;
-    align-items: center;
-}
-
-header .riga {
-    justify-content: space-between;
+    width: 100%;
 }
 
 main {
     height: 70%;
     display: flex;
-    justify-content: center; /* Centra il contenuto orizzontalmente */
-    align-items: center; /* Centra il contenuto verticalmente */
-}
-
-#mapcontainer {
-    width: 90%; /* Larghezza del container della mappa */
-    height: 100%; /* Altezza del container della mappa */
-    background-color: #e9e9e9;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 #mapdiv {
-    width: 100%;
+    width: 90%;
     height: 100%;
-    text-align: center;
+}
+
+.colonna {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    height: 100%;
 }
 
 #filtra {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background-color: #d9d9d9;
-    padding: 10px;
-    text-align: center;
-    height: 100%;
+    align-items: center;
+    height: 20%;
 }
 
-header .pie {
+.legenda {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+}
+
+.legenda div {
+    padding: 15% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.legenda div img {
+    width: 20%;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-content: end;
+    align-items: center;
+    color: grey;
+    text-align: center;
+    height: 10%;
+}
+.info img {
+    height: 50%;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 20%;
+    width: 100%;
+}
+
+.timestamp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    font-size: 22px;
+}
+
+#timestamp {
+    font-weight: bold;
+}
+
+.aggiorna {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+.riga {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
+
+.riga div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.pie {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -118,8 +180,28 @@ div.olMapViewport {
   text-align: center !important;
 }
 */
-.olPopupContent {
-    display: flex !important;
-    justify-content: center !important;
-    align-content: center !important;
+.olPopupContent .state.attivo {
+    color: green;
+}
+
+.olPopup .state.nonattivo {
+    color: red;
+}
+
+.olPopup {
+    border-radius: 10%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.olPopup * {
+    padding: 2% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
 }
