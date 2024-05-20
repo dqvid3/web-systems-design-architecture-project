@@ -26,6 +26,7 @@ public class SelectServlet extends HttpServlet {
         final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
                 " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
         List<Impianto> impianti = DBConnection.eseguiQuery(query);
+        impianti = null;
         if (impianti != null) {
             int[] totImpianti = scriviImpiantiSuFile(impianti);
             if (totImpianti.length == 2 && totImpianti[0] != -1 && totImpianti[1] != -1) {

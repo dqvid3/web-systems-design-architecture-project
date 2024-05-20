@@ -13,7 +13,7 @@ function verificaStatoImpianti() {
         },
         error: function (xhr, status, error) {
             console.log("Errore durante il caricamento dei dati: " + error);
-            $('#mapdiv').text('Errore durante il caricamento dei dati!');
+            $('.errore').text('Errore durante il caricamento dei dati: ' + error);
         }
     });
     $("#timestamp").text(getCurrentDateTime());

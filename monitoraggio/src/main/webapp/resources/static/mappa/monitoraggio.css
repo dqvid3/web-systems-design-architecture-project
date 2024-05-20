@@ -38,7 +38,16 @@ main {
     align-items: center;
 }
 
+.errore {
+    font-size: 30px;
+    color: darkblue;
+    font-weight: bold;
+}
+
 #mapdiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: solid 2px black;
     box-shadow: 6px 6px 0 rgba(0, 0, 0, .1), 6px 6px 0 rgba(0, 0, 0, 0.1);
     background-color: grey;
@@ -151,7 +160,7 @@ footer {
     height: 80px;
     border-radius: 50%;
     background-color: #ccc;
-    margin-right: 20px;
+    margin-right: 5%;
 }
 
 footer img {
