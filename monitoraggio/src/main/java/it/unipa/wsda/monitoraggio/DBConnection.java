@@ -21,11 +21,23 @@ public class DBConnection {
         Connection connection;
         try {
             ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/monitoraggio");
-            connection = ds.getConnection();
+            try {
+                ds = (DataSource) ctx.lookup("java:comp/env/jdbc/monitoraggio");
+                try {
+                    connection = ds.getConnection();
+                }
+                catch (SQLException exc) {
+                    System.err.println("Errore connessione: " + exc.getMessage());
+                    connection = null;
+                }
+            }
+            catch (NamingException exc) {
+                System.err.println("Errore context: " + exc.getMessage());
+                connection = null;
+            }
         }
-        catch (NamingException | SQLException exc) {
-            System.err.println("Errore durante la connessione: " + exc.getMessage());
+        catch (NamingException exc) {
+            System.err.println("Errore lookup: " + exc.getMessage());
             connection = null;
         }
         return connection;

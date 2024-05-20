@@ -58,6 +58,7 @@ public class Impianto {
         this.ultimo_segnale = ultimo_segnale;
     }
 
+    @Override
     public String toString() {
         StringBuilder impianto = new StringBuilder();
         impianto.append(this.getLatitudine()).append("\t").append(this.getLongitudine()).append("\t");
@@ -66,8 +67,8 @@ public class Impianto {
         String statoClass = this.isAttivo() ? "attivo" : "nonattivo";
         impianto.append("<div class='state ").append(statoClass).append("'><B>").append(this.isAttivo() ? "Attivo" : "Non attivo").append("</B></div>");
         String ultimo_segnale = this.getUltimo_segnale().toString().substring(0, this.getUltimo_segnale().toString().indexOf("."));
-        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>").append(ultimo_segnale).append("</B></div>\t");
-        impianto.append(this.isAttivo() ? "../imgs/green.png" : "../imgs/red.png").append("\t58,96\t").append("-29,-96\n");
+        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>").append(ultimo_segnale).append("</B></div>\t../imgs/");
+        impianto.append(this.isAttivo() ? "green.png" : "red.png").append("\t58,96\t").append("-29,-96\n");
         return impianto.toString();
     }
 
