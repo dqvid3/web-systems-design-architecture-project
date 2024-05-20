@@ -25,18 +25,15 @@ public class DBConnection {
                 ds = (DataSource) ctx.lookup("java:comp/env/jdbc/monitoraggio");
                 try {
                     connection = ds.getConnection();
-                }
-                catch (SQLException exc) {
+                } catch (SQLException exc) {
                     System.err.println("Errore connessione: " + exc.getMessage());
                     connection = null;
                 }
-            }
-            catch (NamingException exc) {
+            } catch (NamingException exc) {
                 System.err.println("Errore context: " + exc.getMessage());
                 connection = null;
             }
-        }
-        catch (NamingException exc) {
+        } catch (NamingException exc) {
             System.err.println("Errore lookup: " + exc.getMessage());
             connection = null;
         }
@@ -52,13 +49,13 @@ public class DBConnection {
                     while (rs.next()) {
                         // Package org.springframework.jdbc.core
                         Impianto impianto = new Impianto(rs.getInt("cod_impianto"), rs.getString("descrizione"),
-                            rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"), rs.getTimestamp("ultimo_segnale"));
+                                rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"), rs.getTimestamp("ultimo_segnale"));
                         impianti.add(impianto);
                     }
                 }
             }
-        }
-        catch (SQLException eccezione) { // Si potrebbe mettere un catch per ogni try in modo da differenziare i messaggi di errore...
+        } catch (
+                SQLException eccezione) { // Si potrebbe mettere un catch per ogni try in modo da differenziare i messaggi di errore...
             System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
         }
         return impianti;
@@ -74,13 +71,11 @@ public class DBConnection {
                     }
                     System.out.println(query);
                     numRighe = pstmt.executeUpdate();
-                }
-                catch (SQLException eccezione) {
+                } catch (SQLException eccezione) {
                     System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
                 }
             }
-        }
-        catch (SQLException eccezione) {
+        } catch (SQLException eccezione) {
             System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
         }
         return numRighe;

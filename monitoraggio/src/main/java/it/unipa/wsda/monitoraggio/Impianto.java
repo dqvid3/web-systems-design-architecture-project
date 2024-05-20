@@ -74,6 +74,6 @@ public class Impianto {
 
     public boolean isAttivo() {
         return (this.getUltimo_segnale().compareTo(new Timestamp(System.currentTimeMillis() -
-            java.time.Duration.ofMinutes(2).toMillis())) >= 0);
+                java.time.Duration.ofMinutes(2).toMillis())) >= 0);
     }
 }

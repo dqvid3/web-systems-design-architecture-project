@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,28 +20,26 @@ public class SelectServlet extends HttpServlet {
     private static final long serialVersionUID = 1234567L;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json; charset=UTF-8");
         PrintWriter out = resp.getWriter();
-        String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
-            " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
+        final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
+                " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
         List<Impianto> impianti = DBConnection.eseguiQuery(query);
         if (impianti != null) {
             int[] totImpianti = scriviImpiantiSuFile(impianti);
             if (totImpianti.length == 2 && totImpianti[0] != -1 && totImpianti[1] != -1) {
                 resp.setStatus(HttpServletResponse.SC_OK);
                 out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," +
-                    "\"attivi\": " + String.valueOf(totImpianti[0]) + ", \"nonAttivi\": " + String.valueOf(totImpianti[1]));
+                        "\"attivi\": " + totImpianti[0] + ", \"nonAttivi\": " + totImpianti[1]);
                 BigDecimal[] ris = calculateCenter(impianti);
-                System.out.println(ris[0] + " " + ris[1]);
+                assert ris != null;
                 out.println(", \"latCentro\":" + ris[0] + ", \"lonCentro\":" + ris[1] + "}");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                out.println("{\"status\": \"error\", \"message\": \"Errore durante la scrittura su file!\"}");
             }
-            else {
-                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  
-                out.println("{\"status\": \"error\", \"message\": \"Errore durante la scrittura su file!\"}");          
-            }
-        }
-        else {
+        } else {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.println("{\"status\": \"error\", \"message\": \"Errore durante l'esecuzione della query!\"}");
         }
@@ -50,19 +47,19 @@ public class SelectServlet extends HttpServlet {
 
     private int[] scriviImpiantiSuFile(List<Impianto> impianti) {
         final String titolo = "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
-        String attivi = titolo, nonAttivi = titolo;
+        StringBuilder attivi = new StringBuilder(titolo);
+        StringBuilder nonAttivi = new StringBuilder(titolo);
         for (Impianto impianto : impianti) {
             if (impianto.isAttivo()) {
-                attivi += impianto.toString();
-            }
-            else {
-                nonAttivi += impianto.toString();
+                attivi.append(impianto);
+            } else {
+                nonAttivi.append(impianto);
             }
         }
         String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
         String pathAttivi = path + "attivi.txt", pathNonAttivi = path + "nonAttivi.txt";
-        return (scriviStringaSuFile(pathAttivi, attivi) && scriviStringaSuFile(pathNonAttivi, nonAttivi) ?
-            new int[]{contaCaratteri(attivi, "\n") - 1, contaCaratteri(nonAttivi, "\n") - 1} : new int[]{-1, -1});
+        return (scriviStringaSuFile(pathAttivi, attivi.toString()) && scriviStringaSuFile(pathNonAttivi, nonAttivi.toString()) ?
+                new int[]{contaCaratteri(attivi.toString(), "\n") - 1, contaCaratteri(nonAttivi.toString(), "\n") - 1} : new int[]{-1, -1});
     }
 
     private boolean scriviStringaSuFile(String path, String testo) {
@@ -73,8 +70,7 @@ public class SelectServlet extends HttpServlet {
             bufferedWriter.close();
             System.out.println("Stringa scritta sul file con successo.");
             return true;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Errore durante la scrittura sul file.");
             e.printStackTrace();
             return false;
