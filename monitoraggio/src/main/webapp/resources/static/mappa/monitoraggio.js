@@ -19,6 +19,7 @@ function verificaStatoImpianti() {
     $("#timestamp").text(getCurrentDateTime());
 }
 
+// https://wiki.openstreetmap.org/wiki/Openlayers_POI_layer_example
 function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
     map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());

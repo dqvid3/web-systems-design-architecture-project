@@ -16,7 +16,7 @@ public class InsertServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
         String query = "INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, " + 
