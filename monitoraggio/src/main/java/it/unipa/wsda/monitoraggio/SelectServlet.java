@@ -71,8 +71,7 @@ public class SelectServlet extends HttpServlet {
             System.out.println("Stringa scritta sul file con successo.");
             return true;
         } catch (IOException e) {
-            System.out.println("Errore durante la scrittura sul file.");
-            e.printStackTrace();
+            System.out.printf("Errore durante la scrittura sul file: %s", e.getMessage());
             return false;
         }
     }

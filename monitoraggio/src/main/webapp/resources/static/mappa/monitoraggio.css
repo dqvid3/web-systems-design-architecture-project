@@ -16,7 +16,12 @@ body, html {
     height: 100vh;
 }
 
+h1 {
+    color: darkblue;
+}
+
 header {
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #d5a2ff 100%);
     display: flex;
     justify-content: center;
     align-content: center;
@@ -34,12 +39,18 @@ main {
 }
 
 #mapdiv {
+    border: solid 2px black;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, .1), 6px 6px 0 rgba(0, 0, 0, 0.1);
+    background-color: grey;
     width: 90%;
     height: 100%;
 }
 
 .colonna {
+    padding: 1%;
+    background-color: #d5a2ff;
     display: flex;
+    align-items: center;
     flex-direction: column;
     width: 10%;
     height: 100%;
@@ -80,8 +91,8 @@ main {
     flex-direction: row;
     align-content: end;
     align-items: center;
-    color: grey;
     text-align: center;
+    font-style: italic;
     height: 10%;
 }
 .info img {
@@ -89,6 +100,7 @@ main {
 }
 
 footer {
+    background-image: linear-gradient(0deg, #A9C9FF 0%, #d5a2ff 100%);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -103,6 +115,10 @@ footer {
     align-items: center;
     width: 45%;
     font-size: 22px;
+}
+
+.timestamp h3 {
+    color: darkblue;
 }
 
 #timestamp {
@@ -132,6 +148,7 @@ footer {
 }
 
 .pie {
+    border: solid 2px black;
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -156,10 +173,10 @@ footer .footer-section > * {
 }
 
 button {
+    border: solid 2px black;
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
 }
