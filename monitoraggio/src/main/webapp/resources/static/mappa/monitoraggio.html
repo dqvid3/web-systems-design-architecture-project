@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
         <script src="monitoraggio.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="monitoraggio.css">
         <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico">
     </head>
@@ -18,7 +18,7 @@
                 <div id="mapdiv"><div class="errore"></div></div>
                 <div class="colonna">
                     <div id="filtra">
-                        <img height="100%" src="../imgs/arrow.png" alt="Impossibile caricare l'immagine!">
+                        <img src="../imgs/arrow.png" alt="Impossibile caricare l'immagine!">
                         <h4>Filtra impianti</h4>
                     </div>
                     <div class="legenda">
@@ -42,8 +42,8 @@
                 <div class="riga">
                     <div class="pie"></div>
                     <div>
-                        <h3 id="attivo"></h3>
-                        <h3 id="nonattivo"></h3>
+                        <h3 id="attivo">Impianti attivi -/-</h3>
+                        <h3 id="nonattivo">Impianti non attivi -/-</h3>
                     </div>
                 </div>
                 <div class="timestamp">

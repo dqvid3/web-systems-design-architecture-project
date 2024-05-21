@@ -72,6 +72,10 @@ main {
     height: 20%;
 }
 
+#filtra img{
+    height: 100%
+}
+
 .legenda {
     text-align: center;
     display: flex;
@@ -184,7 +188,7 @@ button {
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;
-    border-radius: 5px;
+    border-radius: 1%;
     cursor: pointer;
 }
 
@@ -199,11 +203,7 @@ button:hover {
 #nonattivo {
     color: red;
 }
-/*
-div.olMapViewport {
-  text-align: center !important;
-}
-*/
+
 .olPopupContent .state.attivo {
     color: green;
 }
@@ -213,8 +213,8 @@ div.olMapViewport {
 }
 
 .olPopup {
+    border: solid 1px black !important;
     border-radius: 10%;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
