@@ -15,6 +15,8 @@ import java.util.LinkedList;
 
 @WebServlet("/insertservlet")
 public class InsertServlet extends HttpServlet {
+    private static final long serialVersionUID = 1234569L;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final List<String> allowedOrigins = new ArrayList<>(Arrays.asList("http://localhost:8080", "http://localhost:63342"));
@@ -31,17 +33,13 @@ public class InsertServlet extends HttpServlet {
         parametri.add(request.getParameter("cod_palinsesto"));
         parametri.add(request.getParameter("nome_cartellone"));
         parametri.add(request.getParameter("durata_visualizzazione"));
-        if (!parametri.contains(null)) {
-            if (DBConnection.eseguiUpdate(query, parametri) != -1) {
-                response.setStatus(HttpServletResponse.SC_OK);
-                out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"}");
-            } else {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.println("{\"status\": \"error\", \"message\": \"Errore durante l'esecuzione della query!\"}");
-            }
-        } else {
+        try {
+            DBConnection.eseguiUpdate(query, parametri);
+            response.setStatus(HttpServletResponse.SC_OK);
+            out.println("{\"status\": \"success\", \"message\": \"Operazione UPDATE eseguita con successo!\"}");
+        } catch (MonitoraggioException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.println("{\"status\": \"error\", \"message\": \"Errore numero di parametri!\"}");
+            out.println(e);
         }
     }
 }

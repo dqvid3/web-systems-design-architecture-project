@@ -20,32 +20,26 @@ public class SelectServlet extends HttpServlet {
     private static final long serialVersionUID = 1234567L;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter out = response.getWriter();
         final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
                 " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
-        List<Impianto> impianti = DBConnection.eseguiQuery(query);
-        if (impianti != null) {
+        try {
+            List<Impianto> impianti = DBConnection.eseguiQuery(query);
             int[] totImpianti = scriviImpiantiSuFile(impianti);
-            if (totImpianti.length == 2 && totImpianti[0] != -1 && totImpianti[1] != -1) {
-                resp.setStatus(HttpServletResponse.SC_OK);
-                out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," +
-                        "\"attivi\": " + totImpianti[0] + ", \"nonAttivi\": " + totImpianti[1]);
-                BigDecimal[] ris = calculateCenter(impianti);
-                assert ris != null;
-                out.println(", \"latCentro\":" + ris[0] + ", \"lonCentro\":" + ris[1] + "}");
-            } else {
-                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.println("{\"status\": \"error\", \"message\": \"Errore durante la scrittura su file!\"}");
-            }
-        } else {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.println("{\"status\": \"error\", \"message\": \"Errore durante l'esecuzione della query!\"}");
+            response.setStatus(HttpServletResponse.SC_OK);
+            out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," +
+                    "\"attivi\": " + totImpianti[0] + ", \"nonAttivi\": " + totImpianti[1]);
+            BigDecimal[] ris = calculateCenter(impianti);
+            out.println(", \"latCentro\":" + ris[0] + ", \"lonCentro\":" + ris[1] + "}");
+        } catch (MonitoraggioException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.println(e);
         }
     }
 
-    private int[] scriviImpiantiSuFile(List<Impianto> impianti) {
+    private int[] scriviImpiantiSuFile(List<Impianto> impianti) throws MonitoraggioException {
         final String titolo = "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
         StringBuilder attivi = new StringBuilder(titolo);
         StringBuilder nonAttivi = new StringBuilder(titolo);
@@ -56,23 +50,25 @@ public class SelectServlet extends HttpServlet {
                 nonAttivi.append(impianto);
             }
         }
-        String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
-        String pathAttivi = path + "attivi.txt", pathNonAttivi = path + "nonAttivi.txt";
-        return (scriviStringaSuFile(pathAttivi, attivi.toString()) && scriviStringaSuFile(pathNonAttivi, nonAttivi.toString()) ?
-                new int[]{contaCaratteri(attivi.toString(), "\n") - 1, contaCaratteri(nonAttivi.toString(), "\n") - 1} : new int[]{-1, -1});
+        final String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
+        final String pathAttivi = path + "attivi.txt", pathNonAttivi = path + "nonAttivi.txt";
+        try {
+            scriviStringaSuFile(pathAttivi, attivi.toString());
+            scriviStringaSuFile(pathNonAttivi, nonAttivi.toString());
+            return new int[]{contaCaratteri(attivi.toString(), "\n") - 1, contaCaratteri(nonAttivi.toString(), "\n") - 1};
+        } catch (MonitoraggioException e) {
+            throw new MonitoraggioException("scriviImpiantiSuFile()");
+        }
     }
 
-    private boolean scriviStringaSuFile(String path, String testo) {
+    private void scriviStringaSuFile(String path, String testo) throws MonitoraggioException {
         try {
             FileWriter fileWriter = new FileWriter(path);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(testo);
             bufferedWriter.close();
-            System.out.println("Stringa scritta sul file con successo.");
-            return true;
         } catch (IOException e) {
-            System.out.printf("Errore durante la scrittura sul file: %s", e.getMessage());
-            return false;
+            throw new MonitoraggioException("scriviStringaSuFile()");
         }
     }
 
@@ -80,21 +76,23 @@ public class SelectServlet extends HttpServlet {
         return (stringa.length() - stringa.replace(carattere, "").length());
     }
 
-    private BigDecimal[] calculateCenter(List<Impianto> impianti) {
-        BigDecimal totalLatitude = BigDecimal.ZERO;
-        BigDecimal totalLongitude = BigDecimal.ZERO;
-        int count = 0;
+    private BigDecimal[] calculateCenter(List<Impianto> impianti) throws MonitoraggioException {
+        BigDecimal totLatitude = BigDecimal.ZERO;
+        BigDecimal totLongitude = BigDecimal.ZERO;
+        int totImpianti = 0;
         for (Impianto impianto : impianti) {
-            totalLatitude = totalLatitude.add(impianto.getLatitudine());
-            totalLongitude = totalLongitude.add(impianto.getLongitudine());
-            count++;
+            totLatitude = totLatitude.add(impianto.getLatitudine());
+            totLongitude = totLongitude.add(impianto.getLongitudine());
+            totImpianti++;
         }
-        if (count > 0) {
-            BigDecimal countBD = new BigDecimal(count);
-            BigDecimal centerLatitude = totalLatitude.divide(countBD, RoundingMode.HALF_UP);
-            BigDecimal centerLongitude = totalLongitude.divide(countBD, RoundingMode.HALF_UP);
+        if (totImpianti > 0) {
+            BigDecimal totImpiantiBD = new BigDecimal(totImpianti);
+            BigDecimal centerLatitude = totLatitude.divide(totImpiantiBD, RoundingMode.HALF_UP);
+            BigDecimal centerLongitude = totLongitude.divide(totImpiantiBD, RoundingMode.HALF_UP);
             return new BigDecimal[]{centerLatitude, centerLongitude};
         }
-        return null;
+        else {
+            throw new MonitoraggioException("calculateCenter()");
+        }
     }
 }

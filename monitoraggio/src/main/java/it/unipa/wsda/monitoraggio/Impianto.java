@@ -1,25 +1,31 @@
 package it.unipa.wsda.monitoraggio;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Impianto {
-    private int cod_impianto;
+public class Impianto implements Serializable {
+    private int codImpianto;
     private String descrizione;
     private BigDecimal latitudine;
     private BigDecimal longitudine;
-    private Timestamp ultimo_segnale;
-
-    public Impianto(int cod_impianto, String descrizione, BigDecimal latitudine, BigDecimal longitudine, Timestamp ultimo_segnale) {
-        this.setCod_impianto(cod_impianto);
-        this.setDescrizione(descrizione);
-        this.setLatitudine(latitudine);
-        this.setLongitudine(longitudine);
-        this.setUltimo_segnale(ultimo_segnale);
+    private Timestamp ultimoSegnale;
+    private static final long serialVersionUID = 12345;
+    /*
+    public Impianto() {
+        this(0, "", BigDecimal.ZERO, BigDecimal.ZERO, new Timestamp(System.currentTimeMillis()));
+    }
+    */
+    public Impianto(int codImpianto, String descrizione, BigDecimal latitudine, BigDecimal longitudine, Timestamp ultimoSegnale) {
+        this.codImpianto = codImpianto;
+        this.descrizione = descrizione;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
+        this.ultimoSegnale = ultimoSegnale;
     }
 
-    public int getCod_impianto() {
-        return this.cod_impianto;
+    public int getCodImpianto() {
+        return this.codImpianto;
     }
 
     public String getDescrizione() {
@@ -34,12 +40,12 @@ public class Impianto {
         return this.longitudine;
     }
 
-    public Timestamp getUltimo_segnale() {
-        return this.ultimo_segnale;
+    public Timestamp getUltimoSegnale() {
+        return this.ultimoSegnale;
     }
 
-    public void setCod_impianto(int cod_impianto) {
-        this.cod_impianto = cod_impianto;
+    public void setCodImpianto(int codImpianto) {
+        this.codImpianto = codImpianto;
     }
 
     public void setDescrizione(String descrizione) {
@@ -54,26 +60,26 @@ public class Impianto {
         this.longitudine = longitudine;
     }
 
-    public void setUltimo_segnale(Timestamp ultimo_segnale) {
-        this.ultimo_segnale = ultimo_segnale;
+    public void setUltimoSegnale(Timestamp ultimoSegnale) {
+        this.ultimoSegnale = ultimoSegnale;
     }
 
     @Override
     public String toString() {
         StringBuilder impianto = new StringBuilder();
         impianto.append(this.getLatitudine()).append("\t").append(this.getLongitudine()).append("\t");
-        impianto.append("<div class='title'>Impianto ").append(this.getCod_impianto()).append("</div>\t");
+        impianto.append("<div class='title'>Impianto ").append(this.getCodImpianto()).append("</div>\t");
         impianto.append("<div class='description'>").append(this.getDescrizione()).append("</div>");
         String statoClass = this.isAttivo() ? "attivo" : "nonattivo";
         impianto.append("<div class='state ").append(statoClass).append("'><B>").append(this.isAttivo() ? "Attivo" : "Non attivo").append("</B></div>");
-        String ultimo_segnale = this.getUltimo_segnale().toString().substring(0, this.getUltimo_segnale().toString().indexOf("."));
-        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>").append(ultimo_segnale).append("</B></div>\t../imgs/");
+        String ultimoSegnale = this.getUltimoSegnale().toString().substring(0, this.getUltimoSegnale().toString().indexOf("."));
+        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>").append(ultimoSegnale).append("</B></div>\t../imgs/");
         impianto.append(this.isAttivo() ? "green.png" : "red.png").append("\t58,96\t").append("-29,-96\n");
         return impianto.toString();
     }
 
     public boolean isAttivo() {
-        return (this.getUltimo_segnale().compareTo(new Timestamp(System.currentTimeMillis() -
+        return (this.getUltimoSegnale().compareTo(new Timestamp(System.currentTimeMillis() -
                 java.time.Duration.ofMinutes(2).toMillis())) >= 0);
     }
 }

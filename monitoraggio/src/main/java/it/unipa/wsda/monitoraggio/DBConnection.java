@@ -15,7 +15,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class DBConnection {
-    public static Connection getConnection() {
+    public static Connection getConnection() throws MonitoraggioException {
         Context ctx;
         DataSource ds;
         Connection connection;
@@ -26,43 +26,45 @@ public class DBConnection {
                 try {
                     connection = ds.getConnection();
                 } catch (SQLException exc) {
-                    System.err.println("Errore connessione: " + exc.getMessage());
-                    connection = null;
+                    throw new MonitoraggioException("ds.getConnection()");
                 }
             } catch (NamingException exc) {
-                System.err.println("Errore context: " + exc.getMessage());
-                connection = null;
+                throw new MonitoraggioException("ctx.lookup()");
             }
         } catch (NamingException exc) {
-            System.err.println("Errore lookup: " + exc.getMessage());
-            connection = null;
+            throw new MonitoraggioException("new InitialContext()");
         }
         return connection;
     }
 
-    public static List<Impianto> eseguiQuery(String query) {
-        List<Impianto> impianti = null;
+    public static List<Impianto> eseguiQuery(String query) throws MonitoraggioException {
+        List<Impianto> impianti;
         try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     impianti = new LinkedList<>();
                     while (rs.next()) {
-                        // Package org.springframework.jdbc.core
                         Impianto impianto = new Impianto(rs.getInt("cod_impianto"), rs.getString("descrizione"),
                                 rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"), rs.getTimestamp("ultimo_segnale"));
                         impianti.add(impianto);
                     }
+                } catch (SQLException e) {
+                    throw new MonitoraggioException("pstmt.executeQuery()");
                 }
+            } catch (SQLException e) {
+                throw new MonitoraggioException("connection.prepareStatement()");
             }
-        } catch (
-                SQLException eccezione) { // Si potrebbe mettere un catch per ogni try in modo da differenziare i messaggi di errore...
-            System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
+        } catch (SQLException e) {
+            throw new MonitoraggioException("DBConnection.getConnection()");
         }
         return impianti;
     }
 
-    public static int eseguiUpdate(String query, List<String> parametri) {
-        int numRighe = -1;
+    public static int eseguiUpdate(String query, List<String> parametri) throws MonitoraggioException {
+        if (parametri.contains(null)) {
+            throw new MonitoraggioException("parametri.contains(null)");
+        }
+        int numRighe;
         try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 try {
@@ -71,12 +73,14 @@ public class DBConnection {
                     }
                     System.out.println(query);
                     numRighe = pstmt.executeUpdate();
-                } catch (SQLException eccezione) {
-                    System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
+                } catch (SQLException e) {
+                    throw new MonitoraggioException("pstmt.executeUpdate()");
                 }
+            } catch (SQLException e) {
+                throw new MonitoraggioException("connection.prepareStatement()");
             }
-        } catch (SQLException eccezione) {
-            System.err.println("Errore durante l'esecuzione della query: " + eccezione.getMessage());
+        } catch (SQLException e) {
+            throw new MonitoraggioException("DBConnection.getConnection()");
         }
         return numRighe;
     }
