@@ -12,8 +12,8 @@ function verificaStatoImpianti() {
             caricaMappa(activeCount, inactiveCount, latCentro, lonCentro);
         },
         error: function (xhr, status, error) {
-            console.log("Errore durante il caricamento dei dati: " + error);
-            $('.errore').text('Errore durante il caricamento dei dati: ' + error);
+            var jsonResponse = JSON.parse(xhr.responseText);
+            $('.errore').text("Errore durante l'esecuzione di " + jsonResponse.message + "!");
         }
     });
     $("#timestamp").text(getCurrentDateTime());
@@ -33,7 +33,6 @@ function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
         map.getProjectionObject()); // Transform from WGS 1984 to Spherical Mercator Projection.
     var zoom = 13;
     map.setCenter (lonLat, zoom); // Set start centrepoint and zoom.
-
     aggiornaStato(activeCount, inactiveCount);
 }
 
@@ -43,6 +42,7 @@ function aggiornaPagina() {
 }
 
 function aggiornaStato(activeCount, inactiveCount) {
+    // Si potrebbe fare anche con <canvas>...
     var pieChart = document.querySelector('.pie');
     var totalCount = activeCount + inactiveCount;
     var activePercentage = (activeCount / totalCount) * 100;
