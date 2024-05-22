@@ -1,6 +1,6 @@
 function createXHR(url, onSuccess, onError) {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200)
                 onSuccess(xhr);
@@ -61,12 +61,12 @@ function aggiornaStato(ref_impianto, cod_palinsesto, nome_cartellone, durata_vis
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log("Tutto ok!");
-            }
-            else {
+                document.title = "LED Wall Palinsesto " + String.fromCodePoint(0x1F7E2);
+            } else {
                 console.log("xhr.status != 200");
+                document.title = "LED Wall Palinsesto " + String.fromCodePoint(0x1F534);
             }
-        }
-        else {
+        } else {
             console.log("xhr.readyState != 4");
             console.log(xhr.readyState);
         }
