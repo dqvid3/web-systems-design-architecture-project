@@ -71,7 +71,6 @@ public class DBConnection {
                     for (int i = 0; i < parametri.size(); i++) {
                         pstmt.setString(i + 1, parametri.get(i));
                     }
-                    System.out.println(query);
                     numRighe = pstmt.executeUpdate();
                 } catch (SQLException e) {
                     throw new MonitoraggioException("pstmt.executeUpdate()");
