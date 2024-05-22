@@ -1,9 +1,6 @@
 package it.unipa.wsda.monitoraggio;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +14,7 @@ import java.util.List;
 
 @WebServlet("/selectservlet")
 public class SelectServlet extends HttpServlet {
+    @Serial
     private static final long serialVersionUID = 1234567L;
 
     @Override

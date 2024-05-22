@@ -29,7 +29,7 @@ function loadXML(palinsestoURL) {
 }
 
 let currentIndex = 0;
-var ref_impianto = 1; // Nel rilascio finale NON sara' cosi'!
+let ref_impianto = 1; // Nel rilascio finale NON sara' cosi'!
 function loadHTMLs(percorsi, folders, durate, palinsestoURL) {
     const index = currentIndex % percorsi.length;
     createXHR(percorsi[index], (xhr) => {
@@ -51,10 +51,10 @@ function adjustPaths(htmlContent, folder) {
 }
 
 function aggiornaStato(ref_impianto, cod_palinsesto, nome_cartellone, durata_visualizzazione) {
-    var params = `ref_impianto=${ref_impianto}&cod_palinsesto=${cod_palinsesto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
+    let params = `ref_impianto=${ref_impianto}&cod_palinsesto=${cod_palinsesto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
     console.log(params);
-    var url = "http://localhost:8000/monitoraggio_war_exploded/insertservlet";
-    var xhr = new XMLHttpRequest();
+    let url = "http://localhost:8000/monitoraggio_war_exploded/insertservlet";
+    let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {

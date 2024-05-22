@@ -5,14 +5,14 @@ function verificaStatoImpianti() {
         dataType: "json",
         success: function (jsonResponse) {
             console.log(jsonResponse);
-            var activeCount = jsonResponse.attivi;
-            var inactiveCount = jsonResponse.nonAttivi;
-            var latCentro = jsonResponse.latCentro;
-            var lonCentro = jsonResponse.lonCentro;
+            let activeCount = jsonResponse.attivi;
+            let inactiveCount = jsonResponse.nonAttivi;
+            let latCentro = jsonResponse.latCentro;
+            let lonCentro = jsonResponse.lonCentro;
             caricaMappa(activeCount, inactiveCount, latCentro, lonCentro);
         },
         error: function (xhr, status, error) {
-            var jsonResponse = JSON.parse(xhr.responseText);
+            let jsonResponse = JSON.parse(xhr.responseText);
             $('.errore').text("Errore durante l'esecuzione di " + jsonResponse.message + "!");
         }
     });
@@ -23,30 +23,29 @@ function verificaStatoImpianti() {
 function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
     map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());
-    var attivi = new OpenLayers.Layer.Text("Impianti attivi", { location:"attivi.txt", projection: map.displayProjection });
+    let attivi = new OpenLayers.Layer.Text("Impianti attivi", { location:"attivi.txt", projection: map.displayProjection });
     map.addLayer(attivi);
-    var nonAttivi = new OpenLayers.Layer.Text("Impianti non attivi", { location:"nonAttivi.txt", projection: map.displayProjection });
+    let nonAttivi = new OpenLayers.Layer.Text("Impianti non attivi", { location:"nonAttivi.txt", projection: map.displayProjection });
     map.addLayer(nonAttivi);
-    var layer_switcher= new OpenLayers.Control.LayerSwitcher({}); // Create layer switcher widget in top right corner of map.
+    let layer_switcher= new OpenLayers.Control.LayerSwitcher({}); // Create layer switcher widget in top right corner of map.
     map.addControl(layer_switcher);
-    var lonLat = new OpenLayers.LonLat(lonCentro, latCentro).transform(new OpenLayers.Projection("EPSG:4326"),
+    let lonLat = new OpenLayers.LonLat(lonCentro, latCentro).transform(new OpenLayers.Projection("EPSG:4326"),
         map.getProjectionObject()); // Transform from WGS 1984 to Spherical Mercator Projection.
-    var zoom = 13;
+    let zoom = 13;
     map.setCenter (lonLat, zoom); // Set start centrepoint and zoom.
     aggiornaStato(activeCount, inactiveCount);
 }
 
 function aggiornaPagina() {
-    // location.reload(true); Cache
     location.reload();
 }
 
 function aggiornaStato(activeCount, inactiveCount) {
     // Si potrebbe fare anche con <canvas>...
-    var pieChart = document.querySelector('.pie');
-    var totalCount = activeCount + inactiveCount;
-    var activePercentage = (activeCount / totalCount) * 100;
-    var inactivePercentage = (inactiveCount / totalCount) * 100;
+    let pieChart = document.querySelector('.pie');
+    let totalCount = activeCount + inactiveCount;
+    let activePercentage = (activeCount / totalCount) * 100;
+    let inactivePercentage = (inactiveCount / totalCount) * 100;
     pieChart.style.backgroundImage = "conic-gradient(green " + activePercentage + "%, red " +
         activePercentage + "%, red " + (activePercentage + inactivePercentage) +
         "%, transparent " + (activePercentage + inactivePercentage) + "%)";

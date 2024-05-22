@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 
 @WebServlet("/insertservlet")
 public class InsertServlet extends HttpServlet {
+    @Serial
     private static final long serialVersionUID = 1234569L;
 
     @Override

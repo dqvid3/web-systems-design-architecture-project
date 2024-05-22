@@ -1,5 +1,6 @@
 package it.unipa.wsda.monitoraggio;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ public class Impianto implements Serializable {
     private BigDecimal latitudine;
     private BigDecimal longitudine;
     private Timestamp ultimoSegnale;
+    @Serial
     private static final long serialVersionUID = 12345;
     /*
     public Impianto() {
