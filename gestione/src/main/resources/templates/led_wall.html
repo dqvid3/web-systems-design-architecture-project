@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"/>
         <title>LED Wall Palinsesto</title>
-        <link rel="stylesheet" href="led_wall/led_wall.css">
-        <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" id="favicon">
+        <link rel="stylesheet" href="led_wall/led_wall.css"/>
+        <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" id="favicon"/>
         <style id="scrollAnimation">
             #notizie {
                 padding-left: 100%;
@@ -23,7 +23,7 @@
                 updateMeteo();
                 updateTime();
                 setTimeout(updateNews, 1000);
-                loadXML("palinsesti/palinsesto1.xml");
+                loadXML("[[${path}]]");
             }
         </script>
     </head>
