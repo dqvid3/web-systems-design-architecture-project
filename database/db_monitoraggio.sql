@@ -97,3 +97,7 @@ INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata
 VALUES (3, 2, 4, 20);
 INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
 VALUES (1, 2, 5, 20, '2024-04-29 19:50:43');
+INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (4, 2, 5, 20, '2024-04-27 18:50:43');
+INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (5, 2, 5, 20, '2024-04-28 17:50:43');
