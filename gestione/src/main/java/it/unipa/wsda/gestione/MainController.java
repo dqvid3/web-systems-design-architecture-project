@@ -14,9 +14,9 @@ public class MainController {
 
     @GetMapping("/impianto")
     public String impianto(@RequestParam("id") int codImpianto, Model model) {
-        Impianto impianto = impiantoRepository.findById(codImpianto);
+        Impianto impianto = impiantoRepository.findByCodImpianto(codImpianto);
         int codPalinsesto = impianto.getRefPalinsesto();
-        Palinsesto palinsesto = palinsestoRepository.findById(codPalinsesto);
+        Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);
         String path = palinsesto.getPathPalinsesto();
         System.out.println(path);
         model.addAttribute("path", path);

@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PalinsestoRepository extends CrudRepository<Palinsesto, Integer>{
 
-    Palinsesto findById(int id);
+    Palinsesto findByCodPalinsesto(int codPalinsesto);
 }
