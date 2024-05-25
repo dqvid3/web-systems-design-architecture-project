@@ -5,17 +5,17 @@
 <palinsesto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="palinsesto.xsd">
     <cartellone>
-        <percorso>../cartelloni/tommy/tommy.html</percorso>
+        <percorso>cartelloni/tommy/tommy.html</percorso>
         <folder>tommy</folder>
         <durata>10</durata>
     </cartellone>
     <cartellone>
-        <percorso>../cartelloni/arcteryx/arcteryx.html</percorso>
+        <percorso>cartelloni/arcteryx/arcteryx.html</percorso>
         <folder>arcteryx</folder>
         <durata>10</durata>
     </cartellone>
     <cartellone>
-        <percorso>../cartelloni/omega/omega.html</percorso>
+        <percorso>cartelloni/omega/omega.html</percorso>
         <folder>omega</folder>
         <durata>10</durata>
     </cartellone>

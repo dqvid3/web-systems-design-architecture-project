@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>LED Wall Palinsesto</title>
-        <link rel="stylesheet" href="led_wall.css">
-        <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico" id="favicon">
+        <link rel="stylesheet" href="led_wall/led_wall.css">
+        <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" id="favicon">
         <style id="scrollAnimation">
             #notizie {
                 padding-left: 100%;
@@ -16,14 +16,14 @@
                 100% { transform: translateX(-100%); }
             }
         </style>
-        <script src="api_calls.js"></script>
-        <script src="xml_loader.js"></script>
+        <script src="led_wall/api_calls.js"></script>
+        <script src="led_wall/xml_loader.js"></script>
         <script>
             function eseguiFunzioni() {
                 updateMeteo();
                 updateTime();
                 setTimeout(updateNews, 1000);
-                loadXML("../palinsesti/palinsesto1.xml");
+                loadXML("palinsesti/palinsesto1.xml");
             }
         </script>
     </head>
@@ -41,12 +41,12 @@
                 <div class="meteo-container">
                     <div class="meteo">
                         <h1 id="temp">--.- &deg;C</h1>
-                        <img id="stato" src="../imgs/meteo/default.png" alt="Impossibile caricare l'immagine!"/>
+                        <img id="stato" src="imgs/meteo/default.png" alt="Impossibile caricare l'immagine!"/>
                     </div>
                     <div class="meteo">
-                        <img class="icons" src="../imgs/meteo/vento.png" alt="Impossibile caricare l'immagine!"/>
+                        <img class="icons" src="imgs/meteo/vento.png" alt="Impossibile caricare l'immagine!"/>
                         <h2 id="vento">--.- km/h</h2>
-                        <img class="icons" src="../imgs/meteo/umidita.png" alt="Impossibile caricare l'immagine!"/>
+                        <img class="icons" src="imgs/meteo/umidita.png" alt="Impossibile caricare l'immagine!"/>
                         <h2 id="umidita">-- %</h2>
                     </div>
                 </div>

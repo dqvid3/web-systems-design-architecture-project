@@ -5,17 +5,17 @@
 <palinsesto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="palinsesto.xsd">
     <cartellone>
-        <percorso>../cartelloni/guinness/guinness.html</percorso>
+        <percorso>cartelloni/guinness/guinness.html</percorso>
         <folder>guinness</folder>
         <durata>10</durata>
     </cartellone>
     <cartellone>
-        <percorso>../cartelloni/pizza/pizza.html</percorso>
+        <percorso>cartelloni/pizza/pizza.html</percorso>
         <folder>pizza</folder>
         <durata>10</durata>
     </cartellone>
     <cartellone>
-        <percorso>../cartelloni/tesla/tesla.html</percorso>
+        <percorso>cartelloni/tesla/tesla.html</percorso>
         <folder>tesla</folder>
         <durata>10</durata>
     </cartellone>

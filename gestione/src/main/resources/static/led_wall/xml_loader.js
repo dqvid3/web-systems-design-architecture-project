@@ -52,7 +52,6 @@ function adjustPaths(htmlContent, folder) {
 
 function aggiornaStato(ref_impianto, cod_palinsesto, nome_cartellone, durata_visualizzazione) {
     let params = `ref_impianto=${ref_impianto}&cod_palinsesto=${cod_palinsesto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
-    console.log(params);
     let url = "http://localhost:8000/monitoraggio_war_exploded/insertservlet";
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
