@@ -40,3 +40,8 @@ WHERE i.cod_impianto = 1;
 SELECT p.path_palinsesto
 FROM palinsesto p
 WHERE p.cod_palinsesto = 1;
+
+UPDATE impianto
+SET stato = 1
+WHERE cod_impianto = 1;
+
