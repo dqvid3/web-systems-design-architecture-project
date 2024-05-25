@@ -1,22 +1,26 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     background-image: url("../../imgs/arcteryx/bg.jpeg");
     background-size: cover;
     height: 100vh;
 }
+
 .container {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 .page {
     display: flex;
     flex-direction: row;
     height: 100%;
 }
+
 .right {
     display: flex;
     flex-direction: column;
@@ -24,14 +28,17 @@ body {
     align-items: center;
     width: 35%;
 }
+
 .main {
     width: 65%;
     overflow: hidden;
     position: relative;
 }
+
 .img {
     position: absolute;
 }
+
 .img:nth-child(1) {
     position: absolute;
     left: -30%;
@@ -51,9 +58,11 @@ body {
     z-index: -2;
     animation: switch3 7s infinite;
 }
+
 .logo {
     width: 50%;
 }
+
 .txt {
     text-align: center;
     font-size: 65px;

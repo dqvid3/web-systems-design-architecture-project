@@ -8,11 +8,10 @@ import jakarta.persistence.Id;
 @Entity
 public class Impianto {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codImpianto;
     private Integer refPalinsesto;
     private boolean stato;
-
 
     public Integer getCodImpianto() {
         return codImpianto;

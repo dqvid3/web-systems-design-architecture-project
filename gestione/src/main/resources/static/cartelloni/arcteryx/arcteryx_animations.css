@@ -1,33 +1,35 @@
-@keyframes switch1{
+@keyframes switch1 {
     33.3% {
         content: url("../../imgs/arcteryx/viola.png");
     }
     66.6% {
         content: url("../../imgs/arcteryx/nero.png");
     }
-    100%{
+    100% {
         content: url("../../imgs/arcteryx/bianco.png");
     }
 }
-@keyframes switch2{
+
+@keyframes switch2 {
     33.3% {
         content: url("../../imgs/arcteryx/nero.png");
     }
     66.6% {
         content: url("../../imgs/arcteryx/bianco.png");
     }
-    100%{
+    100% {
         content: url("../../imgs/arcteryx/viola.png");
     }
 }
-@keyframes switch3{
+
+@keyframes switch3 {
     33.3% {
         content: url("../../imgs/arcteryx/bianco.png");
     }
     66.6% {
         content: url("../../imgs/arcteryx/viola.png");
     }
-    100%{
+    100% {
         content: url("../../imgs/arcteryx/nero.png");
     }
 }

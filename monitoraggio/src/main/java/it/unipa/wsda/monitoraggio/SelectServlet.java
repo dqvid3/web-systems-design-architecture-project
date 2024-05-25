@@ -1,15 +1,13 @@
 package it.unipa.wsda.monitoraggio;
 
-import java.io.*;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import java.util.List;
 
 @WebServlet("/selectservlet")
@@ -88,8 +86,7 @@ public class SelectServlet extends HttpServlet {
             BigDecimal centerLatitude = totLatitude.divide(totImpiantiBD, RoundingMode.HALF_UP);
             BigDecimal centerLongitude = totLongitude.divide(totImpiantiBD, RoundingMode.HALF_UP);
             return new BigDecimal[]{centerLatitude, centerLongitude};
-        }
-        else {
+        } else {
             throw new MonitoraggioException("calculateCenter()");
         }
     }

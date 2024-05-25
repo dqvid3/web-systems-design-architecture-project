@@ -3,11 +3,13 @@ body {
     font-family: Arial, sans-serif;
     height: 100vh;
 }
+
 .container {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 footer {
     background-image: url('../../imgs/lidl/lavagna.avif');
     height: 20%;
@@ -17,12 +19,14 @@ footer {
     align-items: center;
     flex-direction: column;
 }
+
 footer p {
     text-align: center;
     color: white;
     font-size: 20px;
     margin: 10px;
 }
+
 header {
     display: flex;
     justify-content: center;
@@ -32,17 +36,20 @@ header {
     height: 10%;
     width: 100%;
 }
+
 header h1 {
     text-align: center;
     font-size: 35px;
     color: white;
 }
+
 .main {
     position: relative;
     overflow: hidden;
     width: 100%;
     height: 70%;
 }
+
 .section1 {
     position: absolute;
     width: 100%;
@@ -52,6 +59,7 @@ header h1 {
     animation: showHide 10s infinite ease-in-out;
     animation-delay: 5s;
 }
+
 .aside {
     background-size: cover;
     background-repeat: no-repeat;
@@ -59,15 +67,18 @@ header h1 {
     background-image: url('../../imgs/lidl/lista-spesa.avif');
     text-align: center;
 }
+
 .img_container {
     width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .img {
     height: 100%;
 }
+
 .section2 {
     width: 100%;
     height: 100%;
@@ -110,10 +121,12 @@ header h1 {
     color: red;
     font-size: 70px;
 }
+
 .prezzo {
     font-weight: lighter;
     font-size: 20px;
 }
+
 .prezzo::before {
     content: "[";
 }

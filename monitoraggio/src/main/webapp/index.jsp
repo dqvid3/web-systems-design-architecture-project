@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Monitoraggio</title>
+    <title>Monitoraggio</title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
+<h1><%= "Hello World!" %>
+</h1>
 <br/>
 <a href="selectservlet">Select Servlet</a>
 <a href="insertservlet">Insert Servlet</a>

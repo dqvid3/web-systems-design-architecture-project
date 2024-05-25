@@ -1,6 +1,10 @@
 function updateTime() {
     const currentTime = new Date();
-    let [day, month, year] = currentTime.toLocaleDateString("default", { day: "2-digit", month: "2-digit", year: "numeric" }).split('/');
+    let [day, month, year] = currentTime.toLocaleDateString("default", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    }).split('/');
     document.getElementById('date').innerText = `${day}/${month}/${year}`;
     document.getElementById('time').innerText = currentTime.toLocaleTimeString();
     setTimeout(updateTime, 1000);
@@ -9,11 +13,11 @@ function updateTime() {
 function getWeatherIconCode(weatherCode) {
     console.log(weatherCode)
     //https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
-    if (weatherCode === 0 || weatherCode === 1 ) return '../imgs/meteo/sole.png';
+    if (weatherCode === 0 || weatherCode === 1) return '../imgs/meteo/sole.png';
     if (weatherCode === 2 || weatherCode === 3) return '../imgs/meteo/nuvoloso.png';
     if ((weatherCode > 19 && weatherCode < 28) || (weatherCode >= 50 && weatherCode <= 69)) return '../imgs/meteo/pioggia.png';
     if (weatherCode === 29 || (weatherCode >= 91 && weatherCode <= 99)) return '../imgs/meteo/temporale.png';
-    if (weatherCode >= 70  && weatherCode <= 79) return '../imgs/meteo/neve.png';
+    if (weatherCode >= 70 && weatherCode <= 79) return '../imgs/meteo/neve.png';
     return '../imgs/meteo/sole.png';
 }
 
@@ -21,8 +25,12 @@ function updateMeteo() {
     const url = 'https://api.open-meteo.com/v1/forecast?latitude=38.12&longitude=13.36&current=temperature_2m,relative_humidity_2m,is_day,weather_code,surface_pressure,wind_speed_10m&timezone=auto&forecast_days=1';
     createXHR(url, (xhr) => {
         const weatherData = JSON.parse(xhr.responseText)
-        const { temperature_2m, wind_speed_10m, relative_humidity_2m, weather_code } = weatherData.current;
-        const { temperature_2m: tempUnit, wind_speed_10m: windUnit, relative_humidity_2m: humidityUnit } = weatherData.current_units;
+        const {temperature_2m, wind_speed_10m, relative_humidity_2m, weather_code} = weatherData.current;
+        const {
+            temperature_2m: tempUnit,
+            wind_speed_10m: windUnit,
+            relative_humidity_2m: humidityUnit
+        } = weatherData.current_units;
         document.getElementById('temp').innerText = `${temperature_2m} ${tempUnit}`;
         document.getElementById('vento').innerText = `${wind_speed_10m} ${windUnit}`;
         document.getElementById('umidita').innerText = `${relative_humidity_2m} ${humidityUnit}`;

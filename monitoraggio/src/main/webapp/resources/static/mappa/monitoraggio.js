@@ -23,16 +23,22 @@ function verificaStatoImpianti() {
 function caricaMappa(activeCount, inactiveCount, latCentro, lonCentro) {
     map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());
-    let attivi = new OpenLayers.Layer.Text("Impianti attivi", { location:"attivi.txt", projection: map.displayProjection });
+    let attivi = new OpenLayers.Layer.Text("Impianti attivi", {
+        location: "attivi.txt",
+        projection: map.displayProjection
+    });
     map.addLayer(attivi);
-    let nonAttivi = new OpenLayers.Layer.Text("Impianti non attivi", { location:"nonAttivi.txt", projection: map.displayProjection });
+    let nonAttivi = new OpenLayers.Layer.Text("Impianti non attivi", {
+        location: "nonAttivi.txt",
+        projection: map.displayProjection
+    });
     map.addLayer(nonAttivi);
-    let layer_switcher= new OpenLayers.Control.LayerSwitcher({}); // Create layer switcher widget in top right corner of map.
+    let layer_switcher = new OpenLayers.Control.LayerSwitcher({}); // Create layer switcher widget in top right corner of map.
     map.addControl(layer_switcher);
     let lonLat = new OpenLayers.LonLat(lonCentro, latCentro).transform(new OpenLayers.Projection("EPSG:4326"),
         map.getProjectionObject()); // Transform from WGS 1984 to Spherical Mercator Projection.
     let zoom = 13;
-    map.setCenter (lonLat, zoom); // Set start centrepoint and zoom.
+    map.setCenter(lonLat, zoom); // Set start centrepoint and zoom.
     aggiornaStato(activeCount, inactiveCount);
 }
 

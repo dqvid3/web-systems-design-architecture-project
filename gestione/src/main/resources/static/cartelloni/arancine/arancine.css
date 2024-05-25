@@ -1,34 +1,36 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 body {
-  margin: 0;
-  background-image: url("../../imgs/arancine/maioliche.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
+    margin: 0;
+    background-image: url("../../imgs/arancine/maioliche.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  height: 10%;
-  width: 80%;
-  font-size: 50px;
-  font-family: "Bona nova", serif;
-  color: #ffbf00;
-  background-color: rgb(29, 125, 203);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    height: 10%;
+    width: 80%;
+    font-size: 50px;
+    font-family: "Bona nova", serif;
+    color: #ffbf00;
+    background-color: rgb(29, 125, 203);
 }
 
 .footer {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  height: 15%
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 15%
 }
+
 .txt {
     font-size: 28px;
     padding-right: 50px;
@@ -44,77 +46,84 @@ body {
     font-size: 20px;
     font-family: "Bona nova", serif;
     color: #ffbf00;
-    background-color:  rgb(29, 125, 203);
+    background-color: rgb(29, 125, 203);
 }
-.main {
-  height: 75%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.descrizione img {
-  margin: 0 10px; /* Spazio tra le immagini */
-  width: 80%;
-  animation: slide-in-top 10s infinite, fadeIn 10s infinite;
-  opacity: 0;
-}        
 
-#img1  {
-  animation-delay: 1s, 1s;
+.main {
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.descrizione img {
+    margin: 0 10px; /* Spazio tra le immagini */
+    width: 80%;
+    animation: slide-in-top 10s infinite, fadeIn 10s infinite;
+    opacity: 0;
+}
+
+#img1 {
+    animation-delay: 1s, 1s;
+}
+
 #img2 {
-  animation-delay: 2s, 2s; 
+    animation-delay: 2s, 2s;
 }
+
 #img3 {
-  animation-delay: 3s, 3s; 
+    animation-delay: 3s, 3s;
 }
+
 #img4 {
-  animation-delay: 4s, 4s; 
+    animation-delay: 4s, 4s;
 }
+
 #img5 {
-  animation-delay: 5s, 5s; 
+    animation-delay: 5s, 5s;
 }
 
 .descrizione {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .descrizione h3 {
-  color: #ffbf00;
-  background-color: rgb(29, 125, 203);
-  border-radius: 5px;
-  font-size: 20px;
-  font-family: "Bona nova", serif;
-  padding: 5px;
+    color: #ffbf00;
+    background-color: rgb(29, 125, 203);
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: "Bona nova", serif;
+    padding: 5px;
 }
 
 @keyframes slide-in-top {
-  0% {
-    transform: translateY(-1000px);
-    opacity: 0;
-  }
-  20% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0;
+    }
+    20% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

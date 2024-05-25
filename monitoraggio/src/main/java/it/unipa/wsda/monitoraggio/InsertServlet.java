@@ -7,12 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.io.Serial;
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 @WebServlet("/insertservlet")
 public class InsertServlet extends HttpServlet {

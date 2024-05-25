@@ -12,6 +12,7 @@
         transform-origin: right;
     }
 }
+
 @keyframes switch {
     0% {
         content: url("../../imgs/guinness/vuota.png");
@@ -22,8 +23,9 @@
 }
 
 .pinta {
-    animation:switch 8s linear infinite;
+    animation: switch 8s linear infinite;
 }
+
 .birra {
     animation: rotate-90-right-cw 8s linear infinite both;
 }

@@ -6,13 +6,14 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Impianto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 12345;
     private int codImpianto;
     private String descrizione;
     private BigDecimal latitudine;
     private BigDecimal longitudine;
     private Timestamp ultimoSegnale;
-    @Serial
-    private static final long serialVersionUID = 12345;
+
     /*
     public Impianto() {
         this(0, "", BigDecimal.ZERO, BigDecimal.ZERO, new Timestamp(System.currentTimeMillis()));
@@ -30,36 +31,36 @@ public class Impianto implements Serializable {
         return this.codImpianto;
     }
 
-    public String getDescrizione() {
-        return this.descrizione;
-    }
-
-    public BigDecimal getLatitudine() {
-        return this.latitudine;
-    }
-
-    public BigDecimal getLongitudine() {
-        return this.longitudine;
-    }
-
-    public Timestamp getUltimoSegnale() {
-        return this.ultimoSegnale;
-    }
-
     public void setCodImpianto(int codImpianto) {
         this.codImpianto = codImpianto;
+    }
+
+    public String getDescrizione() {
+        return this.descrizione;
     }
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
 
+    public BigDecimal getLatitudine() {
+        return this.latitudine;
+    }
+
     public void setLatitudine(BigDecimal latitudine) {
         this.latitudine = latitudine;
     }
 
+    public BigDecimal getLongitudine() {
+        return this.longitudine;
+    }
+
     public void setLongitudine(BigDecimal longitudine) {
         this.longitudine = longitudine;
+    }
+
+    public Timestamp getUltimoSegnale() {
+        return this.ultimoSegnale;
     }
 
     public void setUltimoSegnale(Timestamp ultimoSegnale) {

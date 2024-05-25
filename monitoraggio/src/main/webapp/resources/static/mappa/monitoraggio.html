@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <title>Monitoraggio</title>
-        <meta charset="UTF-8">
-        <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
-        <script src="monitoraggio.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="monitoraggio.css">
-        <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico">
-    </head>
-    <body onload="verificaStatoImpianti()">
-        <div class="container">
-            <header>
-                <h1>Stato degli impianti</h1>
-            </header>
-            <main>
-                <div id="mapdiv"><div class="errore"></div></div>
-                <div class="colonna">
-                    <div id="filtra">
-                        <img src="../imgs/arrow.png" alt="Impossibile caricare l'immagine!">
-                        <h4>Filtra impianti</h4>
-                    </div>
-                    <div class="legenda">
-                        <h1>Legenda</h1>
-                        <div>
-                            <img src="../imgs/green.png" alt="Impossibile caricare l'immagine!">
-                            <p>Impianto attivo negli ultimi 2 minuti</p>
-                        </div>
-                        <div>
-                            <img src="../imgs/red.png" alt="Impossibile caricare l'immagine!">
-                            <p>Impianto non attivo negli ultimi 2 minuti</p>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <p>Clicca sui singoli impianti per maggiori dettagli</p>
-                        <img src="../imgs/cursor.gif" alt="Impossibile caricare l'immagine!">
-                    </div>
-                </div>
-            </main>
-            <footer>
-                <div class="riga">
-                    <div class="pie"></div>
-                    <div>
-                        <h3 id="attivo">Impianti attivi -/-</h3>
-                        <h3 id="nonattivo">Impianti non attivi -/-</h3>
-                    </div>
-                </div>
-                <div class="timestamp">
-                    <h3>Ultimo aggiornamento:</h3>
-                    <p id="timestamp"></p>
-                </div>
-                <div class="aggiorna">
-                    <button onclick="aggiornaPagina()">Aggiorna</button>
-                </div>
-            </footer>
+<head>
+    <title>Monitoraggio</title>
+    <meta charset="UTF-8">
+    <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="monitoraggio.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="monitoraggio.css" rel="stylesheet">
+    <link href="../imgs/favicon.ico" rel="icon" type="image/x-icon">
+</head>
+<body onload="verificaStatoImpianti()">
+<div class="container">
+    <header>
+        <h1>Stato degli impianti</h1>
+    </header>
+    <main>
+        <div id="mapdiv">
+            <div class="errore"></div>
         </div>
-    </body>
+        <div class="colonna">
+            <div id="filtra">
+                <img alt="Impossibile caricare l'immagine!" src="../imgs/arrow.png">
+                <h4>Filtra impianti</h4>
+            </div>
+            <div class="legenda">
+                <h1>Legenda</h1>
+                <div>
+                    <img alt="Impossibile caricare l'immagine!" src="../imgs/green.png">
+                    <p>Impianto attivo negli ultimi 2 minuti</p>
+                </div>
+                <div>
+                    <img alt="Impossibile caricare l'immagine!" src="../imgs/red.png">
+                    <p>Impianto non attivo negli ultimi 2 minuti</p>
+                </div>
+            </div>
+            <div class="info">
+                <p>Clicca sui singoli impianti per maggiori dettagli</p>
+                <img alt="Impossibile caricare l'immagine!" src="../imgs/cursor.gif">
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="riga">
+            <div class="pie"></div>
+            <div>
+                <h3 id="attivo">Impianti attivi -/-</h3>
+                <h3 id="nonattivo">Impianti non attivi -/-</h3>
+            </div>
+        </div>
+        <div class="timestamp">
+            <h3>Ultimo aggiornamento:</h3>
+            <p id="timestamp"></p>
+        </div>
+        <div class="aggiorna">
+            <button onclick="aggiornaPagina()">Aggiorna</button>
+        </div>
+    </footer>
+</div>
+</body>
 </html>

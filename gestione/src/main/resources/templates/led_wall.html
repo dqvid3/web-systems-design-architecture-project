@@ -1,56 +1,61 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>LED Wall Palinsesto</title>
-        <link rel="stylesheet" href="led_wall/led_wall.css"/>
-        <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" id="favicon"/>
-        <style id="scrollAnimation">
-            #notizie {
-                padding-left: 100%;
-                animation: scroll linear infinite;
-                font-weight: normal;
+<head>
+    <meta charset="UTF-8"/>
+    <title>LED Wall Palinsesto</title>
+    <link href="led_wall/led_wall.css" rel="stylesheet"/>
+    <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
+    <style id="scrollAnimation">
+        #notizie {
+            padding-left: 100%;
+            animation: scroll linear infinite;
+            font-weight: normal;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0%);
             }
-            @keyframes scroll {
-                0% { transform: translateX(0%); }
-                100% { transform: translateX(-100%); }
+            100% {
+                transform: translateX(-100%);
             }
-        </style>
-        <script src="led_wall/api_calls.js"></script>
-        <script src="led_wall/xml_loader.js"></script>
-        <script>
-            function eseguiFunzioni() {
-                updateMeteo();
-                updateTime();
-                setTimeout(updateNews, 1000);
-                loadXML("[[${path}]]");
-            }
-        </script>
-    </head>
-    <body onload="eseguiFunzioni()">
-        <div class="container">
-            <div class="wall" id="led-wall"></div>
-            <div class="barra">
-                <div class="scroll-container">
-                    <h1 id="notizie">&nbsp;</h1>
-                </div>
-                <div class="tempo">
-                    <div class="ora"><h1 id="time">--:--:--</h1></div>
-                    <div class="data"><h1 id="date">--/--/----</h1></div>
-                </div>
-                <div class="meteo-container">
-                    <div class="meteo">
-                        <h1 id="temp">--.- &deg;C</h1>
-                        <img id="stato" src="imgs/meteo/default.png" alt="Impossibile caricare l'immagine!"/>
-                    </div>
-                    <div class="meteo">
-                        <img class="icons" src="imgs/meteo/vento.png" alt="Impossibile caricare l'immagine!"/>
-                        <h2 id="vento">--.- km/h</h2>
-                        <img class="icons" src="imgs/meteo/umidita.png" alt="Impossibile caricare l'immagine!"/>
-                        <h2 id="umidita">-- %</h2>
-                    </div>
-                </div>
+        }
+    </style>
+    <script src="led_wall/api_calls.js"></script>
+    <script src="led_wall/xml_loader.js"></script>
+    <script>
+        function eseguiFunzioni() {
+            updateMeteo();
+            updateTime();
+            setTimeout(updateNews, 1000);
+            loadXML("[[${path}]]");
+        }
+    </script>
+</head>
+<body onload="eseguiFunzioni()">
+<div class="container">
+    <div class="wall" id="led-wall"></div>
+    <div class="barra">
+        <div class="scroll-container">
+            <h1 id="notizie">&nbsp;</h1>
+        </div>
+        <div class="tempo">
+            <div class="ora"><h1 id="time">--:--:--</h1></div>
+            <div class="data"><h1 id="date">--/--/----</h1></div>
+        </div>
+        <div class="meteo-container">
+            <div class="meteo">
+                <h1 id="temp">--.- &deg;C</h1>
+                <img alt="Impossibile caricare l'immagine!" id="stato" src="imgs/meteo/default.png"/>
+            </div>
+            <div class="meteo">
+                <img alt="Impossibile caricare l'immagine!" class="icons" src="imgs/meteo/vento.png"/>
+                <h2 id="vento">--.- km/h</h2>
+                <img alt="Impossibile caricare l'immagine!" class="icons" src="imgs/meteo/umidita.png"/>
+                <h2 id="umidita">-- %</h2>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

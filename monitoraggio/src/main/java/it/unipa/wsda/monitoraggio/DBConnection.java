@@ -1,18 +1,15 @@
 package it.unipa.wsda.monitoraggio;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import javax.sql.DataSource;
 
 public class DBConnection {
     public static Connection getConnection() throws MonitoraggioException {
