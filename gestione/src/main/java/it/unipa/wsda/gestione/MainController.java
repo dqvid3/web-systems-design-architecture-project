@@ -15,10 +15,11 @@ public class MainController {
     @GetMapping("/impianto")
     public String impianto(@RequestParam("id") int codImpianto, Model model) {
         Impianto impianto = impiantoRepository.findByCodImpianto(codImpianto);
+        if (!impianto.isAttivo())
+            return "error";
         int codPalinsesto = impianto.getRefPalinsesto();
         Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);
         String path = palinsesto.getPathPalinsesto();
-        System.out.println(path);
         model.addAttribute("path", path);
         return "led_wall";
     }

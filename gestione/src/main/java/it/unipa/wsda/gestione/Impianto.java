@@ -10,8 +10,9 @@ public class Impianto {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer codImpianto;
-
     private Integer refPalinsesto;
+    private boolean stato;
+
 
     public Integer getCodImpianto() {
         return codImpianto;
@@ -22,10 +23,18 @@ public class Impianto {
     }
 
     public Integer getRefPalinsesto() {
-        return this.refPalinsesto;
+        return refPalinsesto;
     }
 
     public void setRefPalinsesto(Integer refPalinsesto) {
         this.refPalinsesto = refPalinsesto;
+    }
+
+    public boolean isAttivo() {
+        return stato;
+    }
+
+    public void setStato(boolean stato) {
+        this.stato = stato;
     }
 }
