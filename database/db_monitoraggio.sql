@@ -34,11 +34,11 @@ CREATE TABLE visualizzazione (
     FOREIGN KEY (ref_cartellone) REFERENCES cartellone(cod_cartellone)
 );
 
-INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 1', '../palinsesti/palinsesto1.xml');
-INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 2', '../palinsesti/palinsesto2.xml');
-INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 3', '../palinsesti/palinsesto3.xml');
-INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 4', '../palinsesti/palinsesto4.xml');
-INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 5', '../palinsesti/palinsesto5.xml');
+INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 1', 'palinsesti/palinsesto1.xml');
+INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 2', 'palinsesti/palinsesto2.xml');
+INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 3', 'palinsesti/palinsesto3.xml');
+INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 4', 'palinsesti/palinsesto4.xml');
+INSERT INTO palinsesto(nome_palinsesto, path_palinsesto) VALUES ('Palinsesto 5', 'palinsesti/palinsesto5.xml');
 
 INSERT INTO impianto(descrizione, latitudine, longitudine, ref_palinsesto) VALUES ('Stazione Palermo Centrale', 38.110202, 13.366752, 1);
 INSERT INTO impianto(descrizione, latitudine, longitudine, ref_palinsesto) VALUES ('Universit&agrave; degli Studi di Palermo', 38.106200, 13.350856, 2);

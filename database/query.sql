@@ -23,3 +23,6 @@ GROUP BY v.ref_impianto;
 
 -- Fuso orario:
 SELECT @@global.time_zone, @@session.time_zone;
+
+SELECT i.ref_palinsesto FROM impianto i WHERE i.cod_impianto = 1;
+SELECT p.path_palinsesto FROM palinsesto p WHERE p.cod_palinsesto = 1;
