@@ -1,12 +1,13 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.repositories;
 
+import it.unipa.wsda.gestione.entities.Report;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ReportRepository extends CrudRepository<ReportEntry, Integer> {
+public interface ReportRepository extends CrudRepository<Report, Integer> {
 
     @Query(value = "SELECT v.ref_cartellone, c.nome, COUNT(*) AS numero_visualizzazioni " +
             "FROM visualizzazione v, cartellone c " +
@@ -17,5 +18,5 @@ public interface ReportRepository extends CrudRepository<ReportEntry, Integer> {
             "HAVING numero_visualizzazioni > :minViews " +
             "ORDER BY numero_visualizzazioni DESC " +
             "LIMIT 3", nativeQuery = true)
-    List<ReportEntry> findCustomReport(LocalDateTime startDate, LocalDateTime endDate, String cartelloneName, int minViews);
+    List<Report> findCustomReport(LocalDateTime startDate, LocalDateTime endDate, String cartelloneName, int minViews);
 }

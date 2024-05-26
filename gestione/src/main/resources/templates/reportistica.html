@@ -2,6 +2,24 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title> Reportistica </title>
+        <script>
+            // Function to format the date and time as required by the input type="datetime-local"
+            function getFormattedDateTime(date) {
+                const pad = num => num.toString().padStart(2, '0');
+                const year = date.getFullYear();
+                const month = pad(date.getMonth() + 1);
+                const day = pad(date.getDate());
+                const hours = pad(date.getHours());
+                const minutes = pad(date.getMinutes());
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+
+            window.onload = function() {
+                // Set current date and time for the endDate input field
+                const currentDate = new Date();
+                document.getElementById('endDate').value = new Date();
+            };
+        </script>
     </head>
     <body>
         <div style="display: flex;">
@@ -9,7 +27,7 @@
                 <form th:action="@{/reportistica}" method="post">
                     <div>
                         <label>Intervallo Date:</label>
-                        <input type="datetime-local" id="startDate" name="startDate" required>
+                        <input type="datetime-local" id="startDate" name="startDate" value="01-01-2024T00:00" required>
                         <input type="datetime-local" id="endDate" name="endDate" required>
                     </div>
                     <div>
@@ -36,7 +54,7 @@
                     </div>
                     <div>
                         <label for="minViews">Numero Minimo Visualizzazioni:</label>
-                        <input type="number" id="minViews" name="minViews" value="14" min="0">
+                        <input type="number" id="minViews" name="minViews" value="0" min="0">
                     </div>
                     <div>
                         <button type="submit">Genera Report</button>

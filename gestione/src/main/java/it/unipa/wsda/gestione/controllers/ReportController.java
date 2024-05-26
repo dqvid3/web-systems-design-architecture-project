@@ -1,5 +1,8 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.controllers;
 
+import it.unipa.wsda.gestione.repositories.ReportRepository;
+import it.unipa.wsda.gestione.services.ReportService;
+import it.unipa.wsda.gestione.entities.Report;
 import it.unipa.wsda.gestione.repositories.CartelloneRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,7 @@ public class ReportController {
     @Autowired
     private CartelloneRepository cartelloneRepository;
 
-    private List<ReportEntry> results;
+    private List<Report> results;
 
     @GetMapping("/reportistica")
     public String showReportForm(Model model) {

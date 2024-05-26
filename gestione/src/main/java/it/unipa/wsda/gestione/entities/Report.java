@@ -1,14 +1,11 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class ReportEntry {
+public class Report {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int refCartellone;
     private String nome;
     private int numeroVisualizzazioni;

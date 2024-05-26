@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.controllers;
 
 import it.unipa.wsda.gestione.entities.Impianto;
 import it.unipa.wsda.gestione.entities.Palinsesto;
