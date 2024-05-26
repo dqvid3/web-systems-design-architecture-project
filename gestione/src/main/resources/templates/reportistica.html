@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title> Reportistica </title>
+    </head>
+    <body>
+        <div style="display: flex;">
+            <div style="flex: 1;">
+                <form th:action="@{/reportistica}" method="post">
+                    <div>
+                        <label for="dateRange">Intervallo Date:</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                        <!--<input type="date" id="endDate" name="endDate" required>-->
+                    </div>
+                    <div>
+                        <label for="cartelloneName">Nome Cartellone:</label>
+                        <select id="cartelloneName" name="cartelloneName">
+                            <option value="all">Tutti i cartelloni</option>
+                            <option th:each="cartellone : ${cartelloni}" th:text="${cartellone}" th:value="${cartellone}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="operator">Operatore:</label>
+                        <select id="operator" name="operator">
+                            <option value="count">COUNT</option>
+                            <option value="sum">SUM</option>
+                            <option value="max">MAX</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sortOrder">Ordinamento:</label>
+                        <input type="radio" id="asc" name="sortOrder" value="ASC">
+                        <label for="asc">Ascendente</label>
+                        <input type="radio" id="desc" name="sortOrder" value="DESC" checked>
+                        <label for="desc">Discendente</label>
+                    </div>
+                    <div>
+                        <label for="minViews">Numero Minimo Visualizzazioni:</label>
+                        <input type="number" id="minViews" name="minViews" value="14" min="0">
+                    </div>
+                    <div>
+                        <button type="submit">Genera Report</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div style="flex: 2;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ref Cartellone</th>
+                            <th>Nome</th>
+                            <th>Numero Visualizzazioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="entry : ${results}">
+                            <td th:text="${entry.refCartellone}"></td>
+                            <td th:text="${entry.nome}"></td>
+                            <td th:text="${entry.numeroVisualizzazioni}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <form th:action="@{/reportistica/esporta?formato=xlsx}" method="get">
+                        <button type="submit">
+                            <img src="imgs/reportistica/icon_xlsx.svg" alt="Excel" style="width: 16px; height: 16px; vertical-align: middle;"> Esporta XLSX
+                        </button>
+                    </form>
+                    <form th:action="@{/reportistica/esporta?formato=pdf}" method="get">
+                        <button type="submit">
+                            <img src="imgs/reportistica/icon_pdf.svg" alt="PDF" style="width: 16px; height: 16px; vertical-align: middle;"> Esporta PDF
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
