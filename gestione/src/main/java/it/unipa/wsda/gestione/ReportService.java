@@ -2,38 +2,23 @@ package it.unipa.wsda.gestione;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import jakarta.persistence.Query;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ReportService {
 
-    @Autowired
-    private ReportRepository reportRepository;
-
-    @Autowired
-    private EntityManager entityManager;
     public void exportToExcel(HttpServletResponse response, List<ReportEntry> results) {
-        // Implementazione dell'esportazione in Excel
-        System.out.println("Excel");
-
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=report.xlsx");
 
@@ -61,8 +46,6 @@ public class ReportService {
     }
 
     public void exportToPDF(HttpServletResponse response, List<ReportEntry> results) {
-        // Implementazione dell'esportazione in PDF
-        System.out.println("PDF");
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
 
