@@ -8,14 +8,14 @@
             <div style="flex: 1;">
                 <form th:action="@{/reportistica}" method="post">
                     <div>
-                        <label for="dateRange">Intervallo Date:</label>
-                        <input type="date" id="startDate" name="startDate" required>
-                        <!--<input type="date" id="endDate" name="endDate" required>-->
+                        <label>Intervallo Date:</label>
+                        <input type="datetime-local" id="startDate" name="startDate" required>
+                        <input type="datetime-local" id="endDate" name="endDate" required>
                     </div>
                     <div>
                         <label for="cartelloneName">Nome Cartellone:</label>
                         <select id="cartelloneName" name="cartelloneName">
-                            <option value="all">Tutti i cartelloni</option>
+                            <option value="%">Tutti i cartelloni</option>
                             <option th:each="cartellone : ${cartelloni}" th:text="${cartellone}" th:value="${cartellone}"></option>
                         </select>
                     </div>
@@ -28,7 +28,7 @@
                         </select>
                     </div>
                     <div>
-                        <label for="sortOrder">Ordinamento:</label>
+                        <label>Ordinamento:</label>
                         <input type="radio" id="asc" name="sortOrder" value="ASC">
                         <label for="asc">Ascendente</label>
                         <input type="radio" id="desc" name="sortOrder" value="DESC" checked>
@@ -62,12 +62,14 @@
                     </tbody>
                 </table>
                 <div>
-                    <form th:action="@{/reportistica/esporta?formato=xlsx}" method="get">
+                    <form th:action="@{/reportistica/esporta}" method="get">
+                        <input type="hidden" name="formato" value="xlsx">
                         <button type="submit">
                             <img src="imgs/reportistica/icon_xlsx.svg" alt="Excel" style="width: 16px; height: 16px; vertical-align: middle;"> Esporta XLSX
                         </button>
                     </form>
-                    <form th:action="@{/reportistica/esporta?formato=pdf}" method="get">
+                    <form th:action="@{/reportistica/esporta}" method="get">
+                        <input type="hidden" name="formato" value="pdf">
                         <button type="submit">
                             <img src="imgs/reportistica/icon_pdf.svg" alt="PDF" style="width: 16px; height: 16px; vertical-align: middle;"> Esporta PDF
                         </button>

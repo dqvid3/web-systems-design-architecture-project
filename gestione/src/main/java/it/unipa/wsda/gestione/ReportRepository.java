@@ -1,8 +1,9 @@
 package it.unipa.wsda.gestione;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReportRepository extends CrudRepository<ReportEntry, Integer> {
@@ -14,10 +15,7 @@ public interface ReportRepository extends CrudRepository<ReportEntry, Integer> {
             "AND c.nome LIKE :cartelloneName " +
             "GROUP BY v.ref_cartellone " +
             "HAVING numero_visualizzazioni > :minViews " +
-            "ORDER BY numero_visualizzazioni :sortOrder " +
+            "ORDER BY numero_visualizzazioni DESC " +
             "LIMIT 3", nativeQuery = true)
-    List<ReportEntry> findCustomReport(String startDate, String endDate, String cartelloneName, int minViews, String sortOrder);
-
-    @Query("SELECT DISTINCT c.nome FROM Cartellone c")
-    List<String> findAllCartelloni();
+    List<ReportEntry> findCustomReport(LocalDateTime startDate, LocalDateTime endDate, String cartelloneName, int minViews);
 }

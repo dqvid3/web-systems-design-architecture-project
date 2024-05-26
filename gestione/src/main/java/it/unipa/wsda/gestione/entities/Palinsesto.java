@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ public class Palinsesto {
     private String pathPalinsesto;
 
     public String getPathPalinsesto() {
-        return this.pathPalinsesto;
+        return pathPalinsesto;
     }
 
     public void setPathPalinsesto(String pathPalinsesto) {

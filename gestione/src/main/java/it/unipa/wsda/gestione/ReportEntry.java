@@ -9,13 +9,9 @@ import jakarta.persistence.Id;
 public class ReportEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
-    public ReportEntry(int refCartellone, String nome, int numeroVisualizzazioni) {
-        this.refCartellone = refCartellone;
-        this.nome = nome;
-        this.numeroVisualizzazioni = numeroVisualizzazioni;
-    }
+    private int refCartellone;
+    private String nome;
+    private int numeroVisualizzazioni;
 
     public int getRefCartellone() {
         return refCartellone;

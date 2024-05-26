@@ -1,5 +1,9 @@
 package it.unipa.wsda.gestione;
 
+import it.unipa.wsda.gestione.entities.Impianto;
+import it.unipa.wsda.gestione.entities.Palinsesto;
+import it.unipa.wsda.gestione.repositories.ImpiantoRepository;
+import it.unipa.wsda.gestione.repositories.PalinsestoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

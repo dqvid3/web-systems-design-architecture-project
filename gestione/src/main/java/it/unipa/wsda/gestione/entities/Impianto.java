@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +13,12 @@ public class Impianto {
     private Integer refPalinsesto;
     private boolean stato;
 
+
     public Integer getCodImpianto() {
         return codImpianto;
     }
 
-    public void setCodImpianto(Integer codImpianto) {
+    public void setCodImpianto(int codImpianto) {
         this.codImpianto = codImpianto;
     }
 
@@ -25,7 +26,7 @@ public class Impianto {
         return refPalinsesto;
     }
 
-    public void setRefPalinsesto(Integer refPalinsesto) {
+    public void setRefPalinsesto(int refPalinsesto) {
         this.refPalinsesto = refPalinsesto;
     }
 
