@@ -8,10 +8,26 @@ import jakarta.persistence.Id;
 @Entity
 public class Palinsesto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codPalinsesto;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer codPalinsesto;
+    private String nomePalinsesto;
     private String pathPalinsesto;
+
+    public int getCodPalinsesto() {
+        return codPalinsesto;
+    }
+
+    public void setCodPalinsesto(int codPalinsesto) {
+        this.codPalinsesto = codPalinsesto;
+    }
+
+    public String getNomePalinsesto() {
+        return nomePalinsesto;
+    }
+
+    public void setNomePalinsesto(String nomePalinsesto) {
+        this.nomePalinsesto = nomePalinsesto;
+    }
 
     public String getPathPalinsesto() {
         return pathPalinsesto;

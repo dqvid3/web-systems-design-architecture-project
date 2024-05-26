@@ -32,11 +32,12 @@ CREATE TABLE visualizzazione
 (
     cod_segnalazione       INT AUTO_INCREMENT PRIMARY KEY,
     ref_impianto           INT NOT NULL,
-    cod_palinsesto         INT NOT NULL,
+    ref_palinsesto         INT NOT NULL, -- palinsesto al momento della visualizzazione
     ref_cartellone         INT NOT NULL,
     durata_visualizzazione INT NOT NULL,
     ultimo_segnale         DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ref_impianto) REFERENCES impianto (cod_impianto),
+    FOREIGN KEY (ref_palinsesto) REFERENCES palinsesto (cod_palinsesto),
     FOREIGN KEY (ref_cartellone) REFERENCES cartellone (cod_cartellone)
 );
 
@@ -101,3 +102,7 @@ INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata
 VALUES (4, 2, 5, 20, '2024-04-27 18:50:43');
 INSERT INTO visualizzazione(ref_impianto, cod_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
 VALUES (5, 2, 5, 20, '2024-04-28 17:50:43');
+
+UPDATE impianto
+SET stato = 1
+WHERE cod_impianto = 1;

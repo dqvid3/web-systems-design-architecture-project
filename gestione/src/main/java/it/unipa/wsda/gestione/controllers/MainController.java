@@ -22,7 +22,7 @@ public class MainController {
         Impianto impianto = impiantoRepository.findByCodImpianto(codImpianto);
         if (!impianto.isAttivo())
             return "error";
-        int codPalinsesto = impianto.getRefPalinsesto();
+        int codPalinsesto = impianto.getPalinsesto().getCodPalinsesto();
         Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);
         String path = palinsesto.getPathPalinsesto();
         model.addAttribute("path", path);

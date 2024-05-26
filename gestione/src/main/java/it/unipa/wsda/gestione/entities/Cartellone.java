@@ -8,15 +8,15 @@ import jakarta.persistence.Id;
 @Entity
 public class Cartellone {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codCartellone;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer codCartellone;
     private String nome;
 
     public Integer getCodCartellone() {
         return codCartellone;
     }
 
-    public void setCodCartellone(int codCartellone) {
+    public void setCodCartellone(Integer codCartellone) {
         this.codCartellone = codCartellone;
     }
 
