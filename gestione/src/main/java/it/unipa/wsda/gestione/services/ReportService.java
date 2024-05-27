@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,7 +22,8 @@ public class ReportService {
 
     public void exportToExcel(HttpServletResponse response, List<Report> results) {
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; filename=report.xlsx");
+        LocalDateTime now = LocalDateTime.now();
+        response.setHeader("Content-Disposition", "attachment; filename=report_" + now + ".xlsx");
 
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Report");
@@ -48,7 +50,8 @@ public class ReportService {
 
     public void exportToPDF(HttpServletResponse response, List<Report> results) {
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
+        LocalDateTime now = LocalDateTime.now();
+        response.setHeader("Content-Disposition", "attachment; filename=report_" + now + ".pdf");
 
         try {
             Document document = new Document();
