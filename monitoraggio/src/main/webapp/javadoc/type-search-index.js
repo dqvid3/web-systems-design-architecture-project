@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"it.unipa.wsda.monitoraggio","l":"DBConnection"},{"p":"it.unipa.wsda.monitoraggio","l":"Impianto"},{"p":"it.unipa.wsda.monitoraggio","l":"MonitoraggioException"}];updateSearchResults();
