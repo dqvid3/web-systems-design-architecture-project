@@ -1,9 +1,26 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Reportistica</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td, th {
+            text-align: center;
+            border: 1px solid #ddd; padding: 8px;
+        }
+    </style>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    Welcome <b><span sec:authentication="name">Username</span></b>
+    &nbsp;
+    <i><span sec:authentication="principal.authorities">Roles</span></i>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 <h1>Genera Report</h1>
 <form th:action="@{/reportistica}" method="post">
     <label for="startDate">Data Inizio:</label>
@@ -29,6 +46,7 @@
         <option value="SUM" th:selected="${operator == 'SUM'}">Somma</option>
         <option value="MAX" th:selected="${operator == 'MAX'}">Massimo</option>
         <option value="MIN" th:selected="${operator == 'MIN'}">Minimo</option>
+        <!-- COUNT(*) / DATEDIFF(MAX(ultimo_segnale), MIN(ultimo_segnale)) -->
         <!-- <option value="MIN" th:selected="${operator == ''}">Elenca</option> -->
     </select>
 
@@ -45,6 +63,7 @@
     <input type="number" id="limit" name="limit" min="1" th:value="${limit}" required>
 
     <button type="submit">Genera Report</button>
+    <button type="reset">Reset</button>
 </form>
 
 <h2>Risultati</h2>

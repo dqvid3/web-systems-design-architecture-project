@@ -41,7 +41,22 @@ SELECT p.path_palinsesto
 FROM palinsesto p
 WHERE p.cod_palinsesto = 1;
 
-UPDATE impianto
-SET stato = 1
-WHERE cod_impianto = 1;
+-- Esempio di annidata (inizialmente i cartelloni non avevano un id, ma solo un nome...):
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (1, 1, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = 'omega'), 30);
+-- Altri esempi:
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (1, 1, 30);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (1, 3, 20);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (2, 1, 10, '2024-04-28 17:52:13');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (3, 4, 20);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (1, 5, 20, '2024-04-29 19:50:43');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (4, 5, 20, '2024-04-27 18:50:43');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (5, 5, 20, '2024-04-28 17:50:43');
 

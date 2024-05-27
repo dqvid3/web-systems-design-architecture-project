@@ -41,6 +41,32 @@ CREATE TABLE visualizzazione
     FOREIGN KEY (ref_cartellone) REFERENCES cartellone (cod_cartellone)
 );
 
+CREATE TABLE utente
+(
+    cod_utente INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username   VARCHAR(50) NOT NULL,
+    cognome    VARCHAR(50) NOT NULL,
+    nome       VARCHAR(50) NOT NULL,
+    email      VARCHAR(80) NOT NULL UNIQUE,
+    password_hash       VARCHAR(64) NOT NULL,
+    enabled    BIT            NOT NULL DEFAULT 1
+);
+
+CREATE TABLE ruolo
+(
+    cod_ruolo INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome      varchar(45) NOT NULL
+);
+
+CREATE TABLE ruolo_utente
+(
+    ref_utente INT NOT NULL,
+    ref_ruolo  INT NOT NULL,
+    PRIMARY KEY (ref_utente, ref_ruolo),
+    FOREIGN KEY (ref_utente) REFERENCES utente (cod_utente),
+    FOREIGN KEY (ref_ruolo) REFERENCES ruolo (cod_ruolo)
+);
+
 INSERT INTO palinsesto(nome_palinsesto, path_palinsesto)
 VALUES ('Palinsesto 1', 'palinsesti/palinsesto1.xml');
 INSERT INTO palinsesto(nome_palinsesto, path_palinsesto)
@@ -84,25 +110,19 @@ VALUES ('tesla');
 INSERT INTO cartellone(nome)
 VALUES ('tommy');
 
--- Esempio di annidata (inizialmente i cartelloni non avevano un id, ma solo un nome...):
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 1, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = 'omega'), 30);
--- Altri esempi:
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 1, 30);
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 3, 20);
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (2, 1, 10, '2024-04-28 17:52:13');
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
-VALUES (3, 4, 20);
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (1, 5, 20, '2024-04-29 19:50:43');
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (4, 5, 20, '2024-04-27 18:50:43');
-INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (5, 5, 20, '2024-04-28 17:50:43');
-
 UPDATE impianto
 SET stato = 1
 WHERE cod_impianto = 1;
+
+INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('davidebonura', 'Bonura', 'Davide', 'davide.bonura@mailfalsa.com', '$2y$10$z2aKc.WqF.w.9CnzLMXFk.UejZZKN/aed7y/ptSirnmgV3P82jl.y'); -- pass = '124'
+INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('gabrielebova01', 'Bova', 'Gabriele', 'gabriele.bova@mailfalsa.com',
+                                                                          '$2a$10$5tkWlCPD2.fJMoE3ppYdpeGEP/a6.qkaLbXCbxs6AEG/P4TxEodaq'); -- pass = 'prova'
+INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('ciaosalvo', 'D\'Anna', 'Salvatore', 'salvodanna@mailfalsa.com', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1e8aKg0xRE2McMhqdbI83bt15bU6'); -- pass = 'qwerty'
+
+INSERT INTO ruolo(nome) VALUES ('ADMIN');
+INSERT INTO ruolo(nome) VALUES ('REPORTISTICA');
+INSERT INTO ruolo(nome) VALUES ('GESTIONE');
+
+INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (1, 1);
+INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (2, 2);
+INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (3, 3);
