@@ -27,11 +27,10 @@ public class InsertServlet extends HttpServlet {
         }
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        final String query = "INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, " +
-                "durata_visualizzazione) VALUES (?, ?, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = ?), ?)";
+        final String query = "INSERT INTO visualizzazione(ref_impianto, ref_cartellone, " +
+                "durata_visualizzazione) VALUES (?, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = ?), ?);";
         List<String> parametri = new LinkedList<>();
         parametri.add(request.getParameter("ref_impianto"));
-        parametri.add(request.getParameter("ref_palinsesto"));
         parametri.add(request.getParameter("nome_cartellone"));
         parametri.add(request.getParameter("durata_visualizzazione"));
         try {

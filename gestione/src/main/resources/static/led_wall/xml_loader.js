@@ -11,8 +11,7 @@ function createXHR(url, onSuccess, onError) {
     xhr.open("GET", url);
     xhr.send();
 }
-
-function loadXML(palinsestoURL) {
+function loadXML(palinsestoURL, refImpianto) {
     createXHR(palinsestoURL, (xhr) => {
         const xml = xhr.responseXML;
         const cartelloni = xml.getElementsByTagName('cartellone');
@@ -22,23 +21,23 @@ function loadXML(palinsestoURL) {
             folders.push(cartellone.getElementsByTagName('folder')[0].textContent);
             durate.push(parseInt(cartellone.getElementsByTagName('durata')[0].textContent));
         });
-        loadHTMLs(percorsi, folders, durate, palinsestoURL);
+        loadHTMLs(percorsi, folders, durate, palinsestoURL, refImpianto);
     }, (error) => {
         console.error("Errore durante il caricamento del palinsesto:", error);
     });
 }
 
 let currentIndex = 0;
-let ref_impianto = 1; // Nel rilascio finale NON sara' cosi'!
-function loadHTMLs(percorsi, folders, durate, palinsestoURL) {
+
+function loadHTMLs(percorsi, folders, durate, palinsestoURL, refImpianto) {
     const index = currentIndex % percorsi.length;
     createXHR(percorsi[index], (xhr) => {
         let htmlContent = xhr.responseText;
         htmlContent = adjustPaths(htmlContent, folders[index]);
         document.getElementById('led-wall').innerHTML = htmlContent;
-        aggiornaStato(ref_impianto, palinsestoURL.match(/\d+/)[0], folders[index], durate[index]);
+        aggiornaStato(refImpianto, folders[index], durate[index]);
         currentIndex++;
-        setTimeout(() => loadHTMLs(percorsi, folders, durate, palinsestoURL), durate[index] * 1000);
+        setTimeout(() => loadHTMLs(percorsi, folders, durate, palinsestoURL, refImpianto), durate[index] * 1000);
     }, (error) => {
         console.error("Errore durante il caricamento del contenuto HTML:", error);
     });
@@ -50,8 +49,8 @@ function adjustPaths(htmlContent, folder) {
         .replace(/href="([^"]*\.css)"/g, `href="../cartelloni/${folder}/$1"`);
 }
 
-function aggiornaStato(ref_impianto, ref_palinsesto, nome_cartellone, durata_visualizzazione) {
-    let params = `ref_impianto=${ref_impianto}&ref_palinsesto=${ref_palinsesto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
+function aggiornaStato(ref_impianto, nome_cartellone, durata_visualizzazione) {
+    let params = `ref_impianto=${ref_impianto}&nome_cartellone=${nome_cartellone}&durata_visualizzazione=${durata_visualizzazione}`;
     let url = "http://localhost:8000/monitoraggio_war_exploded/insertservlet";
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);

@@ -26,6 +26,7 @@ public class MainController {
         Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);
         String path = palinsesto.getPathPalinsesto();
         model.addAttribute("path", path);
+        model.addAttribute("codImpianto", codImpianto);
         return "led_wall";
     }
 }

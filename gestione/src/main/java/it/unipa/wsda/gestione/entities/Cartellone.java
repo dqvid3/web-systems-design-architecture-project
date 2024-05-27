@@ -30,6 +30,6 @@ public class Cartellone {
 
     @Override
     public String toString(){
-        return nome;
+        return codCartellone + " - " + nome;
     }
 }

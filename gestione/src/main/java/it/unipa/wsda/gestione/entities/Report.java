@@ -11,7 +11,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer refCartellone;
     private String nome;
-    private Integer numeroVisualizzazioni;
+    private Integer risultato;
 
     public Integer getRefCartellone() {
         return refCartellone;
@@ -29,11 +29,11 @@ public class Report {
         this.nome = nome;
     }
 
-    public int getNumeroVisualizzazioni() {
-        return numeroVisualizzazioni;
+    public int getRisultato() {
+        return risultato;
     }
 
-    public void setNumeroVisualizzazioni(int numeroVisualizzazioni) {
-        this.numeroVisualizzazioni = numeroVisualizzazioni;
+    public void setNumeroVisualizzazioni(Integer risultato) {
+        this.risultato = risultato;
     }
 }

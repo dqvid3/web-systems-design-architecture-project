@@ -14,17 +14,20 @@ public class Impianto implements Serializable {
     private BigDecimal longitudine;
     private Timestamp ultimoSegnale;
 
+    private boolean stato;
+
     /*
     public Impianto() {
         this(0, "", BigDecimal.ZERO, BigDecimal.ZERO, new Timestamp(System.currentTimeMillis()));
     }
     */
-    public Impianto(int codImpianto, String descrizione, BigDecimal latitudine, BigDecimal longitudine, Timestamp ultimoSegnale) {
+    public Impianto(int codImpianto, String descrizione, BigDecimal latitudine, BigDecimal longitudine, Timestamp ultimoSegnale, boolean stato) {
         this.codImpianto = codImpianto;
         this.descrizione = descrizione;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
         this.ultimoSegnale = ultimoSegnale;
+        this.stato = stato;
     }
 
     public int getCodImpianto() {

@@ -19,8 +19,10 @@ public class SelectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, MAX(v.ultimo_segnale)" +
-                " AS ultimo_segnale FROM visualizzazione v, impianto i WHERE v.ref_impianto = i.cod_impianto GROUP BY v.ref_impianto;";
+        final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, i.stato, " +
+                "MAX(v.ultimo_segnale) as ultimo_segnale " +
+                "FROM impianto i JOIN visualizzazione v ON i.cod_impianto = v.ref_impianto " +
+                "GROUP BY i.cod_impianto;";
         try {
             List<Impianto> impianti = DBConnection.eseguiQuery(query);
             int[] totImpianti = scriviImpiantiSuFile(impianti);

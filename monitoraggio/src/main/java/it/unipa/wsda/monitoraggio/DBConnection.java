@@ -35,14 +35,14 @@ public class DBConnection {
     }
 
     public static List<Impianto> eseguiQuery(String query) throws MonitoraggioException {
-        List<Impianto> impianti;
+        List<Impianto> impianti = new LinkedList<>();
         try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    impianti = new LinkedList<>();
                     while (rs.next()) {
                         Impianto impianto = new Impianto(rs.getInt("cod_impianto"), rs.getString("descrizione"),
-                                rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"), rs.getTimestamp("ultimo_segnale"));
+                                rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"),
+                                rs.getTimestamp("ultimo_segnale"), rs.getBoolean("stato"));
                         impianti.add(impianto);
                     }
                 } catch (SQLException e) {

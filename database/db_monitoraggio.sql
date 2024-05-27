@@ -32,12 +32,12 @@ CREATE TABLE visualizzazione
 (
     cod_segnalazione       INT AUTO_INCREMENT PRIMARY KEY,
     ref_impianto           INT NOT NULL,
-    ref_palinsesto         INT NOT NULL, -- palinsesto al momento della visualizzazione
+    -- ref_palinsesto         INT NOT NULL, -- palinsesto al momento della visualizzazione
     ref_cartellone         INT NOT NULL,
     durata_visualizzazione INT NOT NULL,
     ultimo_segnale         DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ref_impianto) REFERENCES impianto (cod_impianto),
-    FOREIGN KEY (ref_palinsesto) REFERENCES palinsesto (cod_palinsesto),
+    -- FOREIGN KEY (ref_palinsesto) REFERENCES palinsesto (cod_palinsesto),
     FOREIGN KEY (ref_cartellone) REFERENCES cartellone (cod_cartellone)
 );
 
@@ -85,23 +85,23 @@ INSERT INTO cartellone(nome)
 VALUES ('tommy');
 
 -- Esempio di annidata (inizialmente i cartelloni non avevano un id, ma solo un nome...):
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione)
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
 VALUES (1, 1, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = 'omega'), 30);
 -- Altri esempi:
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 1, 1, 30);
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 2, 3, 20);
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (2, 3, 1, 10, '2024-04-28 17:52:13');
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione)
-VALUES (3, 2, 4, 20);
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (1, 2, 5, 20, '2024-04-29 19:50:43');
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (4, 2, 5, 20, '2024-04-27 18:50:43');
-INSERT INTO visualizzazione(ref_impianto, ref_palinsesto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
-VALUES (5, 2, 5, 20, '2024-04-28 17:50:43');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (1, 1, 30);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (1, 3, 20);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (2, 1, 10, '2024-04-28 17:52:13');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
+VALUES (3, 4, 20);
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (1, 5, 20, '2024-04-29 19:50:43');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (4, 5, 20, '2024-04-27 18:50:43');
+INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione, ultimo_segnale)
+VALUES (5, 5, 20, '2024-04-28 17:50:43');
 
 UPDATE impianto
 SET stato = 1

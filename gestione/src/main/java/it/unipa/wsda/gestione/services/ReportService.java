@@ -37,7 +37,7 @@ public class ReportService {
                 Row row = sheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(entry.getRefCartellone());
                 row.createCell(1).setCellValue(entry.getNome());
-                row.createCell(2).setCellValue(entry.getNumeroVisualizzazioni());
+                row.createCell(2).setCellValue(entry.getRisultato());
             }
 
             workbook.write(response.getOutputStream());
@@ -63,7 +63,7 @@ public class ReportService {
             for (Report entry : results) {
                 table.addCell(String.valueOf(entry.getRefCartellone()));
                 table.addCell(entry.getNome());
-                table.addCell(String.valueOf(entry.getNumeroVisualizzazioni()));
+                table.addCell(String.valueOf(entry.getRisultato()));
             }
 
             document.add(table);
