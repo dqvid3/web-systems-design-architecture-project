@@ -82,7 +82,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70%;
+    align-content: center;
+    height: 80%;
 }
 
 .legenda div {
@@ -98,19 +99,6 @@ main {
     width: 20%;
 }
 
-.info {
-    display: flex;
-    flex-direction: row;
-    align-content: end;
-    align-items: center;
-    text-align: center;
-    font-style: italic;
-    height: 10%;
-}
-
-.info img {
-    height: 50%;
-}
 
 footer {
     display: flex;
@@ -125,7 +113,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 45%;
+    width: 35%;
     font-size: 22px;
 }
 
@@ -135,6 +123,16 @@ footer {
 
 #timestamp {
     font-weight: bold;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-content: end;
+    align-items: center;
+    text-align: center;
+    font-style: italic;
+    width: 20%;
 }
 
 .aggiorna {
@@ -149,7 +147,7 @@ footer {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 45%;
+    width: 35%;
 }
 
 .riga div {
@@ -204,6 +202,9 @@ button:hover {
 #nonattivo {
     color: red;
 }
+#spento {
+    color: yellow;
+}
 
 .olPopupContent .state.attivo {
     color: green;
@@ -211,6 +212,10 @@ button:hover {
 
 .olPopup .state.nonattivo {
     color: red;
+}
+
+.olPopup .state.spento {
+    color: #cccc18;
 }
 
 .olPopup {

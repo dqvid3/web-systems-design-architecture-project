@@ -70,21 +70,57 @@ public class Impianto implements Serializable {
         this.ultimoSegnale = ultimoSegnale;
     }
 
+    public boolean isAcceso() {
+        return stato;
+    }
+
+    public void setStato(boolean stato) {
+        this.stato = stato;
+    }
+
+    public String getStatoImpianto() {
+        if (!isAcceso())
+            return "spento"; // giallo
+        if (isAttivo())
+            return "attivo"; // verde
+        // if (!isAttivo())
+        return "nonattivo"; // rosso
+    }
+
     @Override
     public String toString() {
         StringBuilder impianto = new StringBuilder();
         impianto.append(this.getLatitudine()).append("\t").append(this.getLongitudine()).append("\t");
         impianto.append("<div class='title'>Impianto ").append(this.getCodImpianto()).append("</div>\t");
         impianto.append("<div class='description'>").append(this.getDescrizione()).append("</div>");
-        String statoClass = this.isAttivo() ? "attivo" : "nonattivo";
-        impianto.append("<div class='state ").append(statoClass).append("'><B>").append(this.isAttivo() ? "Attivo" : "Non attivo").append("</B></div>");
-        String ultimoSegnale = this.getUltimoSegnale().toString().substring(0, this.getUltimoSegnale().toString().indexOf("."));
-        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>").append(ultimoSegnale).append("</B></div>\t../imgs/");
-        impianto.append(this.isAttivo() ? "green.png" : "red.png").append("\t58,96\t").append("-29,-96\n");
+        String statoClass = getStatoImpianto();
+        String statoText = "";
+        String statoIcon = "";
+        switch (statoClass) {
+            case "attivo":
+                statoText = "Attivo";
+                statoIcon = "green.png";
+                break;
+            case "nonattivo":
+                statoText = "Non attivo";
+                statoIcon = "red.png";
+                break;
+            case "spento":
+                statoText = "Spento";
+                statoIcon = "yellow.png";
+                break;
+        }
+        String ultimoSegnale = (this.getUltimoSegnale() != null) ?
+                this.getUltimoSegnale().toString().substring(0, this.getUltimoSegnale().toString().indexOf(".")) : "N/A";
+        impianto.append("<div class='state ").append(statoClass).append("'><B>").append(statoText).append("</B></div>");
+        impianto.append("<div class='heartbeat'>Ultimo segnale: <B>")
+                .append(ultimoSegnale).append("</B></div>\t../imgs/");
+        impianto.append(statoIcon).append("\t58,96\t").append("-29,-96\n");
         return impianto.toString();
     }
 
     public boolean isAttivo() {
+        if (this.getUltimoSegnale() == null) return false;
         return (this.getUltimoSegnale().compareTo(new Timestamp(System.currentTimeMillis() -
                 java.time.Duration.ofMinutes(2).toMillis())) >= 0);
     }

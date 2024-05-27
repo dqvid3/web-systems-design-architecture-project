@@ -9,6 +9,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/selectservlet")
 public class SelectServlet extends HttpServlet {
@@ -21,14 +22,15 @@ public class SelectServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, i.stato, " +
                 "MAX(v.ultimo_segnale) as ultimo_segnale " +
-                "FROM impianto i JOIN visualizzazione v ON i.cod_impianto = v.ref_impianto " +
+                "FROM impianto i LEFT JOIN visualizzazione v ON i.cod_impianto = v.ref_impianto " +
                 "GROUP BY i.cod_impianto;";
         try {
             List<Impianto> impianti = DBConnection.eseguiQuery(query);
             int[] totImpianti = scriviImpiantiSuFile(impianti);
             response.setStatus(HttpServletResponse.SC_OK);
             out.println("{\"status\": \"success\", \"message\": \"Operazione eseguita con successo!\"," +
-                    "\"attivi\": " + totImpianti[0] + ", \"nonAttivi\": " + totImpianti[1]);
+                    "\"attivi\": " + totImpianti[0] + ", \"nonAttivi\": " + totImpianti[1]
+                    + ", \"spenti\": " + totImpianti[2]);
             BigDecimal[] ris = calculateCenter(impianti);
             out.println(", \"latCentro\":" + ris[0] + ", \"lonCentro\":" + ris[1] + "}");
         } catch (MonitoraggioException e) {
@@ -41,19 +43,19 @@ public class SelectServlet extends HttpServlet {
         final String titolo = "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
         StringBuilder attivi = new StringBuilder(titolo);
         StringBuilder nonAttivi = new StringBuilder(titolo);
+        StringBuilder spenti = new StringBuilder(titolo);
         for (Impianto impianto : impianti) {
-            if (impianto.isAttivo()) {
-                attivi.append(impianto);
-            } else {
-                nonAttivi.append(impianto);
-            }
+            if (impianto.getStatoImpianto().equals("attivo")) attivi.append(impianto);
+            else if (impianto.getStatoImpianto().equals("nonattivo")) nonAttivi.append(impianto);
+            else if (impianto.getStatoImpianto().equals("spento")) spenti.append(impianto);
         }
         final String path = getServletContext().getRealPath("/") + "resources/static/mappa/";
-        final String pathAttivi = path + "attivi.txt", pathNonAttivi = path + "nonAttivi.txt";
         try {
-            scriviStringaSuFile(pathAttivi, attivi.toString());
-            scriviStringaSuFile(pathNonAttivi, nonAttivi.toString());
-            return new int[]{contaCaratteri(attivi.toString(), "\n") - 1, contaCaratteri(nonAttivi.toString(), "\n") - 1};
+            scriviStringaSuFile(path + "attivi.txt", attivi.toString());
+            scriviStringaSuFile(path + "nonAttivi.txt", nonAttivi.toString());
+            scriviStringaSuFile(path + "spenti.txt", spenti.toString());
+            return new int[]{contaCaratteri(attivi.toString(), "\n") - 1, contaCaratteri(nonAttivi.toString(), "\n") - 1,
+                    contaCaratteri(spenti.toString(), "\n") - 1};
         } catch (MonitoraggioException e) {
             throw new MonitoraggioException("scriviImpiantiSuFile()");
         }
