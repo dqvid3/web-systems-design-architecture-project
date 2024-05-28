@@ -17,9 +17,10 @@ public class ImpiantoService {
 
     public String getPathPalinsesto(int codImpianto) {
         Impianto impianto = impiantoRepository.findByCodImpianto(codImpianto);
-        if (!impianto.isAttivo()) {
-            throw new IllegalStateException("Impianto non attivo");
-        }
+        if (impianto == null)
+            throw new IllegalStateException("Impianto non esistente");
+        if (!impianto.isAttivo())
+            throw new IllegalStateException("Impianto spento");
         int codPalinsesto = impianto.getPalinsesto().getCodPalinsesto();
         Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);
         return palinsesto.getPathPalinsesto();

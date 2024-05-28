@@ -21,11 +21,6 @@ public class ReportController {
 
     @Autowired
     private ReportService reportService;
-    @Autowired
-    private ReportRepository reportRepository;
-    @Autowired
-    private CartelloneRepository cartelloneRepository;
-
     private List<Report> results;
     private Iterable<Cartellone> cartelloni;
     private int limit = 1000;
@@ -33,7 +28,7 @@ public class ReportController {
 
     @GetMapping("/reportistica")
     public String showReportForm(Model model) {
-        cartelloni = cartelloneRepository.findAll();
+        cartelloni = reportService.getCartelloni();
         model.addAttribute("cartelloni", cartelloni);
         model.addAttribute("limit", limit);
         model.addAttribute("minViews", minViews);
@@ -49,7 +44,7 @@ public class ReportController {
                                  @RequestParam int minViews,
                                  @RequestParam int limit,
                                  Model model) {
-        results = reportRepository.findCustomReport(startDate, endDate, cartelloneName, operator, minViews, sortOrder, limit);
+        results = reportService.getReports(startDate, endDate, cartelloneName, operator, sortOrder, minViews, limit);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
         model.addAttribute("startDate", startDate);

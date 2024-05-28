@@ -4,14 +4,19 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import it.unipa.wsda.gestione.entities.Cartellone;
 import it.unipa.wsda.gestione.entities.Report;
+import it.unipa.wsda.gestione.repositories.CartelloneRepository;
+import it.unipa.wsda.gestione.repositories.ReportRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,6 +24,25 @@ import java.util.List;
 
 @Service
 public class ReportService {
+
+    @Autowired
+    private ReportRepository reportRepository;
+    @Autowired
+    private CartelloneRepository cartelloneRepository;
+
+    public Iterable<Cartellone> getCartelloni() {
+        return cartelloneRepository.findAll();
+    }
+
+    public List<Report> getReports(LocalDateTime startDate,
+                                   LocalDateTime endDate,
+                                   String cartelloneName,
+                                   String operator,
+                                   String sortOrder,
+                                   int minViews,
+                                   int limit) {
+        return reportRepository.findCustomReport(startDate, endDate, cartelloneName, operator, minViews, sortOrder, limit);
+    }
 
     public void exportToExcel(HttpServletResponse response, List<Report> results) {
         response.setContentType("application/octet-stream");

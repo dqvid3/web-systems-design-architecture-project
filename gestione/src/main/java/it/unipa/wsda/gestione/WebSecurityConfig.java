@@ -35,6 +35,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/reportistica").hasAnyAuthority("REPORTISTICA", "ADMIN")
                         .requestMatchers("/impianto").hasAnyAuthority("GESTIONE", "ADMIN")
+                        .requestMatchers("/gestione").hasAnyAuthority("GESTIONE", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login.permitAll())
