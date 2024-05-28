@@ -54,6 +54,7 @@ function aggiornaPagina() {
 }
 
 function aggiornaStato(activeCount, inactiveCount, offCount) {
+    // Si potrebbe fare anche con <canvas> oppure <svg>...
     let pieChart = document.querySelector('.pie');
     let totalCount = activeCount + inactiveCount + offCount;
     let activePercentage = (activeCount / totalCount) * 100;
@@ -61,9 +62,9 @@ function aggiornaStato(activeCount, inactiveCount, offCount) {
     let offPercentage = (offCount / totalCount) * 100;
 
     pieChart.style.backgroundImage = "conic-gradient(green 0%, green " + activePercentage + "%, yellow " +
-        (activePercentage) + "%, yellow " + (activePercentage + inactivePercentage) + "%, red " +
-        (activePercentage + inactivePercentage) + "%, red " + (activePercentage + inactivePercentage + offPercentage) + "%, transparent " +
-        (activePercentage + inactivePercentage + offPercentage) + "%)";
+        (activePercentage) + "%, yellow " + (activePercentage + offPercentage) + "%, red " +
+        (activePercentage + offPercentage) + "%, red " + (activePercentage + offPercentage + inactivePercentage) + "%, transparent " +
+        (activePercentage + offPercentage + inactivePercentage) + "%)";
 
 
     document.getElementById("attivo").innerHTML = `Impianti attivi: ${activeCount}/${totalCount}`;
