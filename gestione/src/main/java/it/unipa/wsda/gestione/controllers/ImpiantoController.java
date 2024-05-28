@@ -13,7 +13,7 @@ public class ImpiantoController {
     private ImpiantoService impiantoService;
 
     @GetMapping("/impianto")
-    public String impianto(@RequestParam("id") int codImpianto, Model model) {
+    public String showImpianto(@RequestParam("id") int codImpianto, Model model) {
         try {
             String path = impiantoService.getPathPalinsesto(codImpianto);
             model.addAttribute("path", path);

@@ -21,27 +21,27 @@
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
 
             switch (range) {
-                case 'today':
+                case 'Oggi':
                     startDate = new Date(now.setHours(0, 0, 0, 0));
                     endDate = new Date(now.setHours(23, 59, 59, 999));
                     break;
-                case 'yesterday':
+                case 'Ieri':
                     startDate = new Date(now.setDate(now.getDate() - 1));
                     startDate.setHours(0, 0, 0, 0);
                     endDate = new Date(now.setHours(23, 59, 59, 999));
                     break;
-                case 'lastWeek':
+                case 'Ultima settimana':
                     const dayOfWeek = now.getDay();
                     startDate = new Date(now.setDate(now.getDate() - dayOfWeek - 6));
                     startDate.setHours(0, 0, 0, 0);
                     endDate = new Date(now.setDate(now.getDate() + 6));
                     endDate.setHours(23, 59, 59, 999);
                     break;
-                case 'lastMonth':
+                case 'Ultimo mese':
                     startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
                     endDate = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
                     break;
-                case 'lastYear':
+                case 'Ultimo anno':
                     startDate = new Date(now.getFullYear() - 1, 0, 1);
                     endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
                     break;
@@ -57,8 +57,8 @@
             document.getElementById('customDates').classList.add('hidden');
         }
 
-        window.onload = function() {
-            setDateRange('today');
+        window.onload = function () {
+            setDateRange(document.getElementById('dateRange').value)
         }
     </script>
 </head>
@@ -72,18 +72,18 @@
     <input type="submit" value="Logout" />
 </form>
 <h1>Genera Report</h1>
-<form th:action="@{/reportistica}" method="post">
+<form th:action="@{/reportistica}" method="post" id="generaReport">
     <label for="dateRange">Intervallo di Date:</label>
-    <select id="dateRange" name="dateRange" onchange="setDateRange(this.value)">
-        <option value="today">Oggi</option>
-        <option value="yesterday">Ieri</option>
-        <option value="lastWeek">Ultima settimana</option>
-        <option value="lastMonth">Ultimo mese</option>
-        <option value="lastYear">Ultimo anno</option>
-        <option value="custom">Intervallo personalizzato</option>
+    <select id="dateRange" name="dateRange" th:value="${dateRange}" onchange="setDateRange(this.value)">
+        <option value="Oggi" th:selected="${dateRange == 'Oggi'}">Oggi</option>
+        <option value="Ieri" th:selected="${dateRange == 'Ieri'}">Ieri</option>
+        <option value="Ultima settimana" th:selected="${dateRange == 'Ultima Settimana'}">Ultima settimana</option>
+        <option value="Ultimo mese" th:selected="${dateRange == 'Ultimo mese'}">Ultimo mese</option>
+        <option value="Ultimo anno" th:selected="${dateRange == 'Ultimo anno'}">Ultimo anno</option>
+        <option value="custom" th:selected="${dateRange == 'custom'}">Intervallo personalizzato</option>
     </select>
 
-    <div id="customDates" class="hidden">
+    <div id="customDates" th:class="${dateRange == 'custom' ? '' : 'hidden'}">
         <label for="startDate">Data Inizio:</label>
         <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" required>
 
@@ -117,10 +117,10 @@
     </select>
 
     <label for="minViews">Visualizzazioni Minime:</label>
-    <input type="number" id="minViews" name="minViews" min="0" th:value="${minViews}" required>
+    <input type="number" id="minViews" name="minViews" min="0" th:value="${minViews != null ? minViews : 0}" required>
 
     <label for="limit">Numero di Risultati:</label>
-    <input type="number" id="limit" name="limit" min="1" th:value="${limit}" required>
+    <input type="number" id="limit" name="limit" min="1" th:value="${limit != null ? limit : 1000}" required>
 
     <button type="submit">Genera Report</button>
     <button type="reset">Reset</button>
@@ -128,6 +128,8 @@
 
 <h2>Risultati</h2>
 <div th:if="${results != null}">
+    <h3 th:text="${dateRange == 'custom' ?  (startDate + ' - ' + endDate) : dateRange}"/>
+
     <table>
         <thead>
         <tr>

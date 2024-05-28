@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gestione</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td, th {
+            text-align: center;
+            border: 1px solid #ddd; padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<h2>Risultati</h2>
+<div th:if="${impianti != null}">
+    <table>
+        <thead>
+        <tr>
+            <th>Codice Impianto</th>
+            <th>Descrizione</th>
+            <th>Latitudine</th>
+            <th>Longitudine</th>
+            <th>Palinsesto</th>
+            <th>Stato</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="impianto : ${impianti}">
+            <td th:text="${impianto.codImpianto}">Codice Impianto</td>
+            <td th:text="${impianto.descrizione}">Descrizione</td>
+            <td th:text="${impianto.latitudine}">Latitudine</td>
+            <td th:text="${impianto.longitudine}">Longitudine</td>
+            <td th:text="${impianto.palinsesto.getNomePalinsesto()}">Palinsesto</td>
+            <td th:text="${impianto.isAttivo()?'Acceso':'Spento'}">Stato</td>
+            <td>
+                <form th:action="@{/gestione}" method="post">
+                    <input type="hidden" name="id" th:value="${impianto.codImpianto}">
+                    <button type="submit">Modifica</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+
+</div>
+</body>

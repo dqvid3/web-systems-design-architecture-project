@@ -2,10 +2,9 @@ package it.unipa.wsda.gestione.controllers;
 
 import it.unipa.wsda.gestione.entities.Cartellone;
 import it.unipa.wsda.gestione.entities.Report;
-import it.unipa.wsda.gestione.repositories.CartelloneRepository;
-import it.unipa.wsda.gestione.repositories.ReportRepository;
 import it.unipa.wsda.gestione.services.ReportService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +20,31 @@ public class ReportController {
 
     @Autowired
     private ReportService reportService;
-    private List<Report> results;
-    private Iterable<Cartellone> cartelloni;
-    private int limit = 1000;
-    private int minViews = 0;
 
     @GetMapping("/reportistica")
-    public String showReportForm(Model model) {
-        cartelloni = reportService.getCartelloni();
+    public String showReportForm(HttpSession session, Model model) {
+        Iterable<Cartellone> cartelloni;
+        try {
+            cartelloni = reportService.getCartelloni();
+        } catch (IllegalStateException e) {
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
+        session.setAttribute("cartelloni", cartelloni);
+
+        // Genera il report con parametri predefiniti
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endDate = now.withHour(23).withMinute(59).withSecond(59).withNano(0);
+        String operator = "COUNT";
+
+        List<Report> results = reportService.getReports(startDate, endDate, "%", operator, "DESC", 0, 1000);
+        session.setAttribute("results", results);
+        model.addAttribute("results", results);
+        model.addAttribute("operator", operator);
+        model.addAttribute("dateRange", "Oggi");
         model.addAttribute("cartelloni", cartelloni);
-        model.addAttribute("limit", limit);
-        model.addAttribute("minViews", minViews);
+
         return "reportistica";
     }
 
@@ -43,8 +56,11 @@ public class ReportController {
                                  @RequestParam String sortOrder,
                                  @RequestParam int minViews,
                                  @RequestParam int limit,
+                                 @RequestParam String dateRange,
+                                 HttpSession session,
                                  Model model) {
-        results = reportService.getReports(startDate, endDate, cartelloneName, operator, sortOrder, minViews, limit);
+        List<Report> results = reportService.getReports(startDate, endDate, cartelloneName, operator, sortOrder, minViews, limit);
+        session.setAttribute("results", results);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
         model.addAttribute("startDate", startDate);
@@ -53,18 +69,27 @@ public class ReportController {
         model.addAttribute("sortOrder", sortOrder);
         model.addAttribute("minViews", minViews);
         model.addAttribute("limit", limit);
-        model.addAttribute("cartelloni", cartelloni);
+        model.addAttribute("dateRange", dateRange);
+        model.addAttribute("cartelloni", session.getAttribute("cartelloni"));
         return "reportistica";
     }
 
     @GetMapping("/reportistica/esporta")
-    public void exportReport(@RequestParam String formato, HttpServletResponse response) {
-        if (formato.equalsIgnoreCase("pdf")) {
-            reportService.exportToPDF(response, results);
-        } else if (formato.equalsIgnoreCase("xlsx")) {
-            reportService.exportToExcel(response, results);
-        } else {
-            throw new IllegalArgumentException("Formato non supportato: " + formato);
-        }
+    public void exportReport(@RequestParam String formato, HttpServletResponse response, HttpSession session, Model model) {
+        List<Report> results = (List<Report>) session.getAttribute("results");
+        if (results != null) {
+            try {
+                if (formato.equalsIgnoreCase("pdf")) {
+                    reportService.exportToPDF(response, results);
+                } else if (formato.equalsIgnoreCase("xlsx")) {
+                    reportService.exportToExcel(response, results);
+                } else {
+                    throw new IllegalArgumentException("Formato non supportato: " + formato);
+                }
+            } catch (RuntimeException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        } else
+            throw new IllegalArgumentException("Risultati non validi");
     }
 }

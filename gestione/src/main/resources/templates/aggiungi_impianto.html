@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Aggiungi Impianto</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td, th {
+            text-align: center;
+            border: 1px solid #ddd; padding: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <label for="descrizione"></label>
+    <textarea id="descrizione" name="descrizione" required="required">Descrizione</textarea>
+
+    <label for="latitudine"></label>
+    <input id ="latitudine" type="number" step="any" required="required">
+
+    <label for="longitudine"></label>
+    <input id ="longitudine" type="number" step="any" required="required"/>
+
+    <label for="palinsestoName">Nome Palinsesto:</label>
+    <select id="palinsestoName" name="palinsestoName" required>
+        <option th:each="palinsesto : ${palinsesti}"
+                th:value="${palinsesto.nome}"
+                th:text="${palinsesto.nome}"
+                th:selected="${palinsesto.nome == palinsestoName}">
+        </option>
+    </select>
+    <button type="submit">Aggiungi</button>
+</form>
+
+
+</body>

@@ -41,7 +41,9 @@ public class ReportService {
                                    String sortOrder,
                                    int minViews,
                                    int limit) {
-        return reportRepository.findCustomReport(startDate, endDate, cartelloneName, operator, minViews, sortOrder, limit);
+        List<Report> reports = reportRepository.findCustomReport(startDate, endDate, cartelloneName, operator, minViews, sortOrder, limit);
+        if (reports == null) throw new IllegalStateException("Risultati non trovati");
+        return reports;
     }
 
     public void exportToExcel(HttpServletResponse response, List<Report> results) {
