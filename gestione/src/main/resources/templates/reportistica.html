@@ -10,7 +10,57 @@
             text-align: center;
             border: 1px solid #ddd; padding: 8px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
+    <script>
+        function setDateRange(range) {
+            const now = new Date();
+            let startDate, endDate;
+            let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+
+            switch (range) {
+                case 'today':
+                    startDate = new Date(now.setHours(0, 0, 0, 0));
+                    endDate = new Date(now.setHours(23, 59, 59, 999));
+                    break;
+                case 'yesterday':
+                    startDate = new Date(now.setDate(now.getDate() - 1));
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(now.setHours(23, 59, 59, 999));
+                    break;
+                case 'lastWeek':
+                    const dayOfWeek = now.getDay();
+                    startDate = new Date(now.setDate(now.getDate() - dayOfWeek - 6));
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(now.setDate(now.getDate() + 6));
+                    endDate.setHours(23, 59, 59, 999);
+                    break;
+                case 'lastMonth':
+                    startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
+                    break;
+                case 'lastYear':
+                    startDate = new Date(now.getFullYear() - 1, 0, 1);
+                    endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
+                    break;
+                case 'custom':
+                    document.getElementById('customDates').classList.remove('hidden');
+                    return;
+                default:
+                    startDate = new Date();
+                    endDate = new Date();
+            }
+            document.getElementById('startDate').value = new Date(startDate - tzoffset).toISOString().slice(0, 16);
+            document.getElementById('endDate').value = new Date(endDate - tzoffset).toISOString().slice(0, 16);
+            document.getElementById('customDates').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            setDateRange('today');
+        }
+    </script>
 </head>
 <body>
 <div sec:authorize="isAuthenticated()">
@@ -23,11 +73,23 @@
 </form>
 <h1>Genera Report</h1>
 <form th:action="@{/reportistica}" method="post">
-    <label for="startDate">Data Inizio:</label>
-    <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" required>
+    <label for="dateRange">Intervallo di Date:</label>
+    <select id="dateRange" name="dateRange" onchange="setDateRange(this.value)">
+        <option value="today">Oggi</option>
+        <option value="yesterday">Ieri</option>
+        <option value="lastWeek">Ultima settimana</option>
+        <option value="lastMonth">Ultimo mese</option>
+        <option value="lastYear">Ultimo anno</option>
+        <option value="custom">Intervallo personalizzato</option>
+    </select>
 
-    <label for="endDate">Data Fine:</label>
-    <input type="datetime-local" id="endDate" name="endDate" th:value="${endDate}" required>
+    <div id="customDates" class="hidden">
+        <label for="startDate">Data Inizio:</label>
+        <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" required>
+
+        <label for="endDate">Data Fine:</label>
+        <input type="datetime-local" id="endDate" name="endDate" th:value="${endDate}" required>
+    </div>
 
     <label for="cartelloneName">Nome Cartellone:</label>
     <select id="cartelloneName" name="cartelloneName" required>
@@ -46,8 +108,6 @@
         <option value="SUM" th:selected="${operator == 'SUM'}">Somma</option>
         <option value="MAX" th:selected="${operator == 'MAX'}">Massimo</option>
         <option value="MIN" th:selected="${operator == 'MIN'}">Minimo</option>
-        <!-- COUNT(*) / DATEDIFF(MAX(ultimo_segnale), MIN(ultimo_segnale)) -->
-        <!-- <option value="MIN" th:selected="${operator == ''}">Elenca</option> -->
     </select>
 
     <label for="sortOrder">Ordine:</label>
