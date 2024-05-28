@@ -43,7 +43,7 @@ WHERE p.cod_palinsesto = 1;
 
 -- Esempio di annidata (inizialmente i cartelloni non avevano un id, ma solo un nome...):
 INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
-VALUES (1, 1, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = 'omega'), 30);
+VALUES (1, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = 'omega'), 30);
 -- Altri esempi:
 INSERT INTO visualizzazione(ref_impianto, ref_cartellone, durata_visualizzazione)
 VALUES (1, 1, 30);
