@@ -2,65 +2,9 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Reportistica</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        td, th {
-            text-align: center;
-            border: 1px solid #ddd; padding: 8px;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-    <script>
-        function setDateRange(range) {
-            const now = new Date();
-            let startDate, endDate;
-            let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-
-            switch (range) {
-                case 'Oggi':
-                    startDate = new Date(now.setHours(0, 0, 0, 0));
-                    endDate = new Date(now.setHours(23, 59, 59, 999));
-                    break;
-                case 'Ieri':
-                    startDate = new Date(now.setDate(now.getDate() - 1));
-                    startDate.setHours(0, 0, 0, 0);
-                    endDate = new Date(now.setHours(23, 59, 59, 999));
-                    break;
-                case 'Ultima settimana':
-                    const dayOfWeek = now.getDay();
-                    startDate = new Date(now.setDate(now.getDate() - dayOfWeek - 6));
-                    startDate.setHours(0, 0, 0, 0);
-                    endDate = new Date(now.setDate(now.getDate() + 6));
-                    endDate.setHours(23, 59, 59, 999);
-                    break;
-                case 'Ultimo mese':
-                    startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-                    endDate = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
-                    break;
-                case 'Ultimo anno':
-                    startDate = new Date(now.getFullYear() - 1, 0, 1);
-                    endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
-                    break;
-                case 'custom':
-                    document.getElementById('customDates').classList.remove('hidden');
-                    return;
-                default:
-                    startDate = new Date();
-                    endDate = new Date();
-            }
-            document.getElementById('startDate').value = new Date(startDate - tzoffset).toISOString().slice(0, 16);
-            document.getElementById('endDate').value = new Date(endDate - tzoffset).toISOString().slice(0, 16);
-            document.getElementById('customDates').classList.add('hidden');
-        }
-
-        window.onload = function () {
-            setDateRange(document.getElementById('dateRange').value)
-        }
-    </script>
+    <script src="reportistica/script.js"></script>
+    <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
+    <link href="reportistica/style.css" rel="stylesheet"/>
 </head>
 <body>
 <div sec:authorize="isAuthenticated()">
@@ -69,15 +13,15 @@
     <i><span sec:authentication="principal.authorities">Roles</span></i>
 </div>
 <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
+    <input type="submit" value="Logout"/>
 </form>
 <h1>Genera Report</h1>
 <form th:action="@{/reportistica}" method="post" id="generaReport">
     <label for="dateRange">Intervallo di Date:</label>
-    <select id="dateRange" name="dateRange" th:value="${dateRange}" onchange="setDateRange(this.value)">
+    <select id="dateRange" name="dateRange" th:value="Oggi" onchange="setDateRange(this.value)">
         <option value="Oggi" th:selected="${dateRange == 'Oggi'}">Oggi</option>
         <option value="Ieri" th:selected="${dateRange == 'Ieri'}">Ieri</option>
-        <option value="Ultima settimana" th:selected="${dateRange == 'Ultima Settimana'}">Ultima settimana</option>
+        <option value="Ultima settimana" th:selected="${dateRange == 'Ultima settimana'}">Ultima settimana</option>
         <option value="Ultimo mese" th:selected="${dateRange == 'Ultimo mese'}">Ultimo mese</option>
         <option value="Ultimo anno" th:selected="${dateRange == 'Ultimo anno'}">Ultimo anno</option>
         <option value="custom" th:selected="${dateRange == 'custom'}">Intervallo personalizzato</option>
@@ -103,6 +47,7 @@
 
     <label for="operator">Operatore:</label>
     <select id="operator" name="operator" th:value="COUNT" required>
+        <option value="COUNT" th:selected="${operator == 'LIST'}">Lista</option>
         <option value="COUNT" th:selected="${operator == 'COUNT'}">Conteggio</option>
         <option value="AVG" th:selected="${operator == 'AVG'}">Media</option>
         <option value="SUM" th:selected="${operator == 'SUM'}">Somma</option>
@@ -111,7 +56,7 @@
     </select>
 
     <label for="sortOrder">Ordine:</label>
-    <select id="sortOrder" name="sortOrder">
+    <select id="sortOrder" name="sortOrder" th:value="ASC">
         <option value="ASC" th:selected="${sortOrder == 'ASC'}">Ascendente</option>
         <option value="DESC" th:selected="${sortOrder == 'DESC'}">Discendente</option>
     </select>
@@ -123,7 +68,7 @@
     <input type="number" id="limit" name="limit" min="1" th:value="${limit != null ? limit : 1000}" required>
 
     <button type="submit">Genera Report</button>
-    <button type="reset">Reset</button>
+    <button type="button" onclick="setDefaultParams()">Reset</button>
 </form>
 
 <h2>Risultati</h2>
@@ -135,6 +80,7 @@
         <tr>
             <th>Ref Cartellone</th>
             <th>Nome</th>
+            <th th:if="${operator == 'LIST'}">bo Visualizzazioni</th>
             <th th:if="${operator == 'COUNT'}">Numero Visualizzazioni</th>
             <th th:if="${operator == 'AVG'}">Durata Media Visualizzazioni</th>
             <th th:if="${operator == 'SUM'}">Durata Totale Visualizzazioni</th>
@@ -154,12 +100,14 @@
 
 <h2>Esporta</h2>
 <form th:action="@{/reportistica/esporta}" method="get">
-    <label for="formato">Formato:</label>
-    <select id="formato" name="formato">
+    <label for="formato">Formato: </label>
+    <select id="formato" name="formato" onchange="updateIcon()">
         <option value="pdf">PDF</option>
         <option value="xlsx">Excel</option>
     </select>
-    <button type="submit">Esporta</button>
+    <button type="submit">Esporta
+        <img id="icon" src="imgs/reportistica/icon_pdf.svg" alt="Excel" style="width: 16px; height: 16px; vertical-align: middle;"/>
+    </button>
 </form>
 </body>
 </html>

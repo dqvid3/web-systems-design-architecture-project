@@ -1,17 +1,15 @@
-package it.unipa.wsda.gestione.entities;
+package it.unipa.wsda.gestione.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
-public class Report {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReportDTO {
     private Integer refCartellone;
     private String nome;
     private Integer risultato;
+
+    public ReportDTO(Integer refCartellone, String nome, Integer risultato) {
+        this.refCartellone = refCartellone;
+        this.nome = nome;
+        this.risultato = risultato;
+    }
 
     public Integer getRefCartellone() {
         return refCartellone;
@@ -33,7 +31,7 @@ public class Report {
         return risultato;
     }
 
-    public void setNumeroVisualizzazioni(Integer risultato) {
+    public void setRisultato(Integer risultato) {
         this.risultato = risultato;
     }
 }

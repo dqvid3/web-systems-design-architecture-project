@@ -1,7 +1,7 @@
 package it.unipa.wsda.gestione.controllers;
 
+import it.unipa.wsda.gestione.dto.ReportDTO;
 import it.unipa.wsda.gestione.entities.Cartellone;
-import it.unipa.wsda.gestione.entities.Report;
 import it.unipa.wsda.gestione.services.ReportService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -38,11 +38,13 @@ public class ReportController {
         LocalDateTime endDate = now.withHour(23).withMinute(59).withSecond(59).withNano(0);
         String operator = "COUNT";
 
-        List<Report> results = reportService.getReports(startDate, endDate, "%", operator, "DESC", 0, 1000);
+        List<ReportDTO> results = reportService.getReports(startDate, endDate, "%", operator, "DESC", 0, 1000);
+        System.out.println(results.size());
+        for(ReportDTO r : results)
+            System.out.println(r.getRisultato());
         session.setAttribute("results", results);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
-        model.addAttribute("dateRange", "Oggi");
         model.addAttribute("cartelloni", cartelloni);
 
         return "reportistica";
@@ -59,7 +61,7 @@ public class ReportController {
                                  @RequestParam String dateRange,
                                  HttpSession session,
                                  Model model) {
-        List<Report> results = reportService.getReports(startDate, endDate, cartelloneName, operator, sortOrder, minViews, limit);
+        List<ReportDTO> results = reportService.getReports(startDate, endDate, cartelloneName, operator, sortOrder, minViews, limit);
         session.setAttribute("results", results);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
@@ -76,7 +78,7 @@ public class ReportController {
 
     @GetMapping("/reportistica/esporta")
     public void exportReport(@RequestParam String formato, HttpServletResponse response, HttpSession session, Model model) {
-        List<Report> results = (List<Report>) session.getAttribute("results");
+        List<ReportDTO> results = (List<ReportDTO>) session.getAttribute("results");
         if (results != null) {
             try {
                 if (formato.equalsIgnoreCase("pdf")) {
