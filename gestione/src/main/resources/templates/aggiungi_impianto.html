@@ -11,28 +11,24 @@
             text-align: center;
             border: 1px solid #ddd; padding: 8px;
         }
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
-<form>
+<form th:action="@{/aggiungi_impianto}" method="post" th:object="${impianto}">
     <label for="descrizione"></label>
-    <textarea id="descrizione" name="descrizione" required="required">Descrizione</textarea>
+    <textarea id="descrizione" name="descrizione" required="required" th:field="*{descrizione}">Descrizione</textarea>
 
     <label for="latitudine"></label>
-    <input id ="latitudine" name="latitudine" type="number" step="any" required="required">
+    <input id ="latitudine" name="latitudine" type="number" step="any" required="required" th:field="*{latitudine}">
 
     <label for="longitudine"></label>
-    <input id ="longitudine" name="longitudine" type="number" step="any" required="required"/>
+    <input id ="longitudine" name="longitudine" type="number" step="any" required="required" th:field="*{longitudine}"/>
 
-    <label for="palinsestoName">Nome Palinsesto:</label>
-    <select id="palinsestoName" name="palinsestoName" required>
+    <label for="palinsesto">Nome Palinsesto:</label>
+    <select id="palinsesto" name="palinsesto" required th:field="*{palinsesto}">
         <option th:each="palinsesto : ${palinsesti}"
-                th:value="${palinsesto}"
-                th:text="${palinsesto.nomePalinsesto}"
-                th:selected="${palinsesto.nomePalinsesto == palinsestoName}">
+                th:value="${palinsesto.codPalinsesto}"
+                th:text="${palinsesto.nomePalinsesto}">
         </option>
     </select>
     <button type="submit">Aggiungi</button>

@@ -24,6 +24,15 @@ public class Impianto {
     private Palinsesto palinsesto;
     private boolean stato;
 
+    public Impianto(String descrizione, BigDecimal latitudine, BigDecimal longitudine, Palinsesto palinsesto) {
+        this.descrizione = descrizione;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
+        this.palinsesto = palinsesto;
+    }
+
+    public Impianto() {}
+
     public Integer getCodImpianto() {
         return codImpianto;
     }

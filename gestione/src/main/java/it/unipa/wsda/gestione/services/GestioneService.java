@@ -7,6 +7,8 @@ import it.unipa.wsda.gestione.repositories.PalinsestoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 public class GestioneService {
     @Autowired
@@ -18,7 +20,19 @@ public class GestioneService {
     public Iterable<Impianto> getImpianti() {
         return impiantoRepository.findAll();
     }
+    public Impianto getImpianto(Integer codImpianto) {
+        return impiantoRepository.findByCodImpianto(codImpianto);
+    }
+
     public Iterable<Palinsesto> getPalinsesti() {
         return palinsestoRepository.findAll();
+    }
+
+    public void aggiungiImpianto(Impianto impianto) {
+        try {
+            impiantoRepository.save(impianto);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

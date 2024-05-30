@@ -36,7 +36,7 @@
             <td th:text="${impianto.latitudine}">Latitudine</td>
             <td th:text="${impianto.longitudine}">Longitudine</td>
             <td th:text="${impianto.palinsesto.getNomePalinsesto()}">Palinsesto</td>
-            <td th:text="${impianto.isAttivo()?'Acceso':'Spento'}">Stato</td>
+            <td th:text="${impianto.isAttivo() ? 'Acceso':'Spento'}">Stato</td>
             <td>
                 <form th:action="@{/gestione}" method="post">
                     <input type="hidden" name="id" th:value="${impianto.codImpianto}">
