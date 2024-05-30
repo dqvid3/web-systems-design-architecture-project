@@ -29,7 +29,7 @@ function setDateRange(range) {
             endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
             break;
         case 'custom':
-            document.getElementById('customDates').classList.remove('hidden');
+            document.getElementById('customDates').style.display = 'flex';
             return;
         default:
             startDate = new Date();
@@ -37,7 +37,7 @@ function setDateRange(range) {
     }
     document.getElementById('startDate').value = new Date(startDate - tzoffset).toISOString().slice(0, 16);
     document.getElementById('endDate').value = new Date(endDate - tzoffset).toISOString().slice(0, 16);
-    document.getElementById('customDates').classList.add('hidden');
+    document.getElementById('customDates').style.display = 'none';
 }
 
 window.onload = function () {

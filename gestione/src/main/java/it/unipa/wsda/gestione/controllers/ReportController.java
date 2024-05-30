@@ -46,6 +46,7 @@ public class ReportController {
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
         model.addAttribute("cartelloni", cartelloni);
+        model.addAttribute("dateRange", "Oggi");
 
         return "reportistica";
     }

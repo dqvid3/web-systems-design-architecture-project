@@ -1,5 +1,6 @@
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 td, th {
@@ -8,20 +9,60 @@ td, th {
     padding: 8px;
 }
 
-.hidden {
-    display: none;
+th {
+    color: #c90909;
+    font-size: 25px;
+    background-color: #f2f2f2;
+}
+
+td {
+    font-size: 20px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 body {
     height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#role {
+    color: green;
 }
 
 header {
+    font-size: 24px;
     display: flex;
     justify-content: right;
-    align-content: center;
+    align-items: center;
     flex-direction: row;
     height: 10%;
+}
+
+header div {
+    padding: 0 1%;;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+}
+
+
+button {
+    border: solid 2px gray;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 main {
@@ -31,13 +72,52 @@ main {
 }
 
 .filtri {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
+.filtri div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 0;
+}
+
+.filtri div label {
+    padding-bottom: 2%;
 }
 
 .risultati {
-
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-footer {
+.esporta {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.esporta div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10% 0;
+}
+
+.esporta div label {
+    padding-bottom: 5%;
+}
+
+.esporta div select {
+    width: 100%;
+}
+
+label {
+    font-size: 20px;
 }
