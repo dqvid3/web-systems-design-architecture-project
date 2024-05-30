@@ -38,7 +38,7 @@
             <td th:text="${impianto.palinsesto.getNomePalinsesto()}">Palinsesto</td>
             <td th:text="${impianto.isAttivo()?'Acceso':'Spento'}">Stato</td>
             <td>
-                <form th:action="@{/gestione}" method="post">
+                <form th:action="@{/aggiungi_impianto}" method="post">
                     <input type="hidden" name="id" th:value="${impianto.codImpianto}">
                     <button type="submit">Modifica</button>
                 </form>

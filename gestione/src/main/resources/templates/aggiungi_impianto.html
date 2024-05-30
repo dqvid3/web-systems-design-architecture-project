@@ -30,9 +30,9 @@
     <label for="palinsestoName">Nome Palinsesto:</label>
     <select id="palinsestoName" name="palinsestoName" required>
         <option th:each="palinsesto : ${palinsesti}"
-                th:value="${palinsesto.nome}"
-                th:text="${palinsesto.nome}"
-                th:selected="${palinsesto.nome == palinsestoName}">
+                th:value="${palinsesto.nomePalinsesto}"
+                th:text="${palinsesto.nomePalinsesto}"
+                th:selected="${palinsesto.nomePalinsesto == palinsestoName}">
         </option>
     </select>
     <button type="submit">Aggiungi</button>

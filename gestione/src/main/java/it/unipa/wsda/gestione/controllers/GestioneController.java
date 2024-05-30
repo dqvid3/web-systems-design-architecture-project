@@ -18,9 +18,9 @@ public class GestioneController {
         model.addAttribute("impianti",  gestioneService.getImpianti());
         return "gestione";
     }
-    @PostMapping("/gestione")
+    @PostMapping("/aggiungi_impianto")
     public String modificaImpianto(Model model, @RequestParam Integer id){
-        System.out.println(id);
+        model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         return "aggiungi_impianto";
     }
 }
