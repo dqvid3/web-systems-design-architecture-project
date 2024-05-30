@@ -22,15 +22,15 @@
     <textarea id="descrizione" name="descrizione" required="required">Descrizione</textarea>
 
     <label for="latitudine"></label>
-    <input id ="latitudine" type="number" step="any" required="required">
+    <input id ="latitudine" name="latitudine" type="number" step="any" required="required">
 
     <label for="longitudine"></label>
-    <input id ="longitudine" type="number" step="any" required="required"/>
+    <input id ="longitudine" name="longitudine" type="number" step="any" required="required"/>
 
     <label for="palinsestoName">Nome Palinsesto:</label>
     <select id="palinsestoName" name="palinsestoName" required>
         <option th:each="palinsesto : ${palinsesti}"
-                th:value="${palinsesto.nomePalinsesto}"
+                th:value="${palinsesto}"
                 th:text="${palinsesto.nomePalinsesto}"
                 th:selected="${palinsesto.nomePalinsesto == palinsestoName}">
         </option>
