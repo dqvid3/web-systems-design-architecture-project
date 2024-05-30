@@ -35,4 +35,20 @@ public class GestioneService {
             throw new RuntimeException(e);
         }
     }
+
+    public void eliminaImpianto(Integer codImpianto) {
+        try {
+            impiantoRepository.deleteById(codImpianto);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void modificaImpianto(Impianto impianto) {
+        try {
+            impiantoRepository.save(impianto);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

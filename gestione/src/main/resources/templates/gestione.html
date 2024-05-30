@@ -32,15 +32,25 @@
         <tbody>
         <tr th:each="impianto : ${impianti}">
             <td th:text="${impianto.codImpianto}">Codice Impianto</td>
-            <td th:text="${impianto.descrizione}">Descrizione</td>
+            <td th:utext="${impianto.descrizione}">Descrizione</td>
             <td th:text="${impianto.latitudine}">Latitudine</td>
             <td th:text="${impianto.longitudine}">Longitudine</td>
             <td th:text="${impianto.palinsesto.getNomePalinsesto()}">Palinsesto</td>
             <td th:text="${impianto.isAttivo() ? 'Acceso':'Spento'}">Stato</td>
             <td>
-                <form th:action="@{/gestione}" method="post">
-                    <input type="hidden" name="id" th:value="${impianto.codImpianto}">
+                <form th:action="@{/modifica_impianto}" method="post">
+                    <input type="hidden" name="cod" th:value="${impianto.codImpianto}">
+                    <input type="hidden" name="desc" th:value="${impianto.descrizione}">
+                    <input type="hidden" name="lat" th:value="${impianto.latitudine}">
+                    <input type="hidden" name="lon" th:value="${impianto.longitudine}">
+                    <input type="hidden" name="pal" th:value="${impianto.palinsesto.getNomePalinsesto()}">
                     <button type="submit">Modifica</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/elimina_impianto}" method="post">
+                    <input type="hidden" name="codImpianto" th:value="${impianto.codImpianto}">
+                    <button type="submit">Elimina</button>
                 </form>
             </td>
         </tr>
