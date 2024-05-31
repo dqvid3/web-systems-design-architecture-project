@@ -1,14 +1,9 @@
 package it.unipa.wsda.gestione.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Impianto {
@@ -23,6 +18,9 @@ public class Impianto {
     @JoinColumn(name = "ref_palinsesto", nullable = false)
     private Palinsesto palinsesto;
     private boolean stato;
+
+    @OneToMany(mappedBy = "impianto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Visualizzazione> visualizzazioni;
 
     public Integer getCodImpianto() {
         return codImpianto;

@@ -43,13 +43,13 @@ CREATE TABLE visualizzazione
 
 CREATE TABLE utente
 (
-    cod_utente INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username   VARCHAR(50) NOT NULL,
-    cognome    VARCHAR(50) NOT NULL,
-    nome       VARCHAR(50) NOT NULL,
-    email      VARCHAR(80) NOT NULL UNIQUE,
-    password_hash       VARCHAR(64) NOT NULL,
-    enabled    BIT            NOT NULL DEFAULT 1
+    cod_utente    INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username      VARCHAR(50) NOT NULL,
+    cognome       VARCHAR(50) NOT NULL,
+    nome          VARCHAR(50) NOT NULL,
+    email         VARCHAR(80) NOT NULL UNIQUE,
+    password_hash VARCHAR(64) NOT NULL,
+    enabled       BIT         NOT NULL DEFAULT 1
 );
 
 CREATE TABLE ruolo
@@ -114,10 +114,14 @@ UPDATE impianto
 SET stato = 1
 WHERE cod_impianto = 1;
 
-INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('davidebonura', 'Bonura', 'Davide', 'davide.bonura@mailfalsa.com', '$2y$10$z2aKc.WqF.w.9CnzLMXFk.UejZZKN/aed7y/ptSirnmgV3P82jl.y'); -- pass = '124'
-INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('gabrielebova01', 'Bova', 'Gabriele', 'gabriele.bova@mailfalsa.com',
-                                                                          '$2a$10$5tkWlCPD2.fJMoE3ppYdpeGEP/a6.qkaLbXCbxs6AEG/P4TxEodaq'); -- pass = 'prova'
-INSERT INTO utente(username, cognome, nome, email, password_hash) VALUES ('ciaosalvo', 'D\'Anna', 'Salvatore', 'salvodanna@mailfalsa.com', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1e8aKg0xRE2McMhqdbI83bt15bU6'); -- pass = 'qwerty'
+INSERT INTO utente(username, cognome, nome, email, password_hash)
+VALUES ('davidebonura', 'Bonura', 'Davide', 'davide.bonura@mailfalsa.com',
+        '$2y$10$z2aKc.WqF.w.9CnzLMXFk.UejZZKN/aed7y/ptSirnmgV3P82jl.y'); -- pass = '124'
+INSERT INTO utente(username, cognome, nome, email, password_hash)
+VALUES ('gabrielebova01', 'Bova', 'Gabriele', 'gabriele.bova@mailfalsa.com',
+        '$2a$10$5tkWlCPD2.fJMoE3ppYdpeGEP/a6.qkaLbXCbxs6AEG/P4TxEodaq'); -- pass = 'prova'
+INSERT INTO utente(username, cognome, nome, email, password_hash)
+VALUES ('ciaosalvo', 'D\'Anna', 'Salvatore', 'salvodanna@mailfalsa.com', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1e8aKg0xRE2McMhqdbI83bt15bU6'); -- pass = 'qwerty'
 
 INSERT INTO ruolo(nome) VALUES ('ADMIN');
 INSERT INTO ruolo(nome) VALUES ('REPORTISTICA');

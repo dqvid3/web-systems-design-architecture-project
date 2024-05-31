@@ -20,7 +20,7 @@ public class ImpiantoController {
             model.addAttribute("codImpianto", codImpianto);
             return "led_wall";
         } catch (IllegalStateException e) {
-            model.addAttribute("message", e.getMessage());
+            model.addAttribute("errore", e.getMessage());
             return "error";
         }
     }

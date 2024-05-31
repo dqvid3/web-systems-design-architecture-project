@@ -1,6 +1,7 @@
 package it.unipa.wsda.gestione.entities;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -8,8 +9,8 @@ public class Visualizzazione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codSegnalazione;
-    @ManyToOne
-    @JoinColumn(name = "ref_impianto", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ref_impianto")
     private Impianto impianto;
     @ManyToOne
     @JoinColumn(name = "ref_cartellone", nullable = false)
