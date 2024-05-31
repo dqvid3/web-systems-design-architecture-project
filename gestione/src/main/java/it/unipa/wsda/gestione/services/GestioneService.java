@@ -20,20 +20,9 @@ public class GestioneService {
     public Iterable<Impianto> getImpianti() {
         return impiantoRepository.findAll();
     }
-    public Impianto getImpianto(Integer codImpianto) {
-        return impiantoRepository.findByCodImpianto(codImpianto);
-    }
 
     public Iterable<Palinsesto> getPalinsesti() {
         return palinsestoRepository.findAll();
-    }
-
-    public void aggiungiImpianto(Impianto impianto) {
-        try {
-            impiantoRepository.save(impianto);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void eliminaImpianto(Integer codImpianto) {
@@ -44,7 +33,7 @@ public class GestioneService {
         }
     }
 
-    public void modificaImpianto(Impianto impianto) {
+    public void salvaImpianto(Impianto impianto) {
         try {
             impiantoRepository.save(impianto);
         } catch (Exception e) {

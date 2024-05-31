@@ -19,7 +19,7 @@ public class ImpiantoService {
         Impianto impianto = impiantoRepository.findByCodImpianto(codImpianto);
         if (impianto == null)
             throw new IllegalStateException("Impianto non esistente");
-        if (!impianto.isAttivo())
+        if (!impianto.getStato())
             throw new IllegalStateException("Impianto spento");
         int codPalinsesto = impianto.getPalinsesto().getCodPalinsesto();
         Palinsesto palinsesto = palinsestoRepository.findByCodPalinsesto(codPalinsesto);

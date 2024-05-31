@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>Salva Impianto</title>
+    <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+<body>
+<form th:action="@{/salva_impianto_successo}" method="post" th:object="${impianto}">
+    <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
+
+    <label for="descrizione">Descrizione:</label>
+    <textarea id="descrizione" required="required" placeholder="descrizione" th:field="*{descrizione}"></textarea>
+
+    <label for="latitudine">Latitudine:</label>
+    <input id="latitudine" type="number" step="any" placeholder="latitudine" required="required"
+           th:field="*{latitudine}">
+
+    <label for="longitudine">Longitudine:</label>
+    <input id="longitudine" type="number" step="any" placeholder="longitudine" required="required"
+           th:field="*{longitudine}"/>
+
+    <label for="palinsesto">Nome Palinsesto:</label>
+    <select id="palinsesto" required th:field="*{palinsesto}">
+        <option th:each="palinsesto: ${palinsesti}"
+                th:value="${palinsesto.codPalinsesto}"
+                th:text="${palinsesto.nomePalinsesto}"
+                th:selected="${impianto.palinsesto!=null && impianto.palinsesto.codPalinsesto == palinsesto.codPalinsesto}">
+        </option>
+    </select>
+    <button type="submit">Conferma</button>
+</form>
+</body>
+</html>

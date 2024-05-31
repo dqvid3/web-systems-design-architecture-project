@@ -7,9 +7,11 @@
         table {
             border-collapse: collapse;
         }
+
         td, th {
             text-align: center;
-            border: 1px solid #ddd; padding: 8px;
+            border: 1px solid #ddd;
+            padding: 8px;
         }
     </style>
 </head>
@@ -36,14 +38,15 @@
             <td th:text="${impianto.latitudine}">Latitudine</td>
             <td th:text="${impianto.longitudine}">Longitudine</td>
             <td th:text="${impianto.palinsesto.getNomePalinsesto()}">Palinsesto</td>
-            <td th:text="${impianto.isAttivo() ? 'Acceso':'Spento'}">Stato</td>
+            <td th:text="${impianto.stato ? 'Acceso':'Spento'}">Stato</td>
             <td>
-                <form th:action="@{/modifica_impianto}" method="post">
-                    <input type="hidden" name="cod" th:value="${impianto.codImpianto}">
-                    <input type="hidden" name="desc" th:value="${impianto.descrizione}">
-                    <input type="hidden" name="lat" th:value="${impianto.latitudine}">
-                    <input type="hidden" name="lon" th:value="${impianto.longitudine}">
-                    <input type="hidden" name="pal" th:value="${impianto.palinsesto.getNomePalinsesto()}">
+                <form th:action="@{/salva_impianto}" method="post" th:object="${impianto}">
+                    <input type="hidden" th:name="codImpianto" th:value="*{codImpianto}">
+                    <input type="hidden" th:name="descrizione" th:value="*{descrizione}">
+                    <input type="hidden" th:name="latitudine" th:value="*{latitudine}">
+                    <input type="hidden" th:name="longitudine" th:value="*{longitudine}">
+                    <input type="hidden" th:name="palinsesto." th:value="*{palinsesto}">
+                    <input type="hidden" th:name="palinsesto.codPalinsesto" th:value="*{palinsesto.codPalinsesto}">
                     <button type="submit">Modifica</button>
                 </form>
             </td>
@@ -56,7 +59,7 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/aggiungi_impianto}" method="get">
+    <form th:action="@{/salva_impianto}" method="get">
         <button type="submit">Aggiungi</button>
     </form>
 </div>
