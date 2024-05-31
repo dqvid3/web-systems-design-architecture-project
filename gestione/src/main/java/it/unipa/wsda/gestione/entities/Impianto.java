@@ -3,6 +3,7 @@ package it.unipa.wsda.gestione.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Impianto {
     private boolean stato;
 
     @OneToMany(mappedBy = "impianto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Visualizzazione> visualizzazioni;
+    private List<Visualizzazione> visualizzazioni = new ArrayList<>();
 
     public Integer getCodImpianto() {
         return codImpianto;

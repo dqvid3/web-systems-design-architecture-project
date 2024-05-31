@@ -2,7 +2,6 @@ package it.unipa.wsda.gestione.controllers;
 
 import it.unipa.wsda.gestione.entities.Impianto;
 import it.unipa.wsda.gestione.services.GestioneService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +13,11 @@ public class GestioneController {
     private GestioneService gestioneService;
 
     @GetMapping("/gestione")
-    public String showImpianti(Model model, HttpSession session) {
+    public String showImpianti(Model model) {
         Iterable<Impianto> impianti = gestioneService.getImpianti();
         model.addAttribute("impianti", impianti);
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impiantoDaModificare", null);
-        session.setAttribute("impianti", impianti);
         return "gestione";
     }
 
@@ -33,10 +31,16 @@ public class GestioneController {
     @PostMapping("/salva_impianto_successo")
     public String salvaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model){
         try {
+            System.out.println(impianto.getCodImpianto());
             gestioneService.salvaImpianto(impianto);
         } catch (RuntimeException e) {
-            model.addAttribute("errore", "Errore nella modifica di un impianto");
-            return "error";
+            String messaggio = "Errore durante il salvataggio dell'impianto";
+            if (impianto.getCodImpianto() != null)
+                messaggio = "Errore durante l'inserimento dell'impianto";
+            model.addAttribute("errore", messaggio);
+            model.addAttribute("impianto", impianto);
+            model.addAttribute("palinsesti", gestioneService.getPalinsesti());
+            return "salva_impianto";
         }
         return "redirect:/gestione";
     }

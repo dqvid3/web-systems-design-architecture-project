@@ -49,9 +49,9 @@ button:hover {
 }
 
 .acceso:hover {
-    background-color: red;
+    background-color: darkgreen;
 }
 
 .spento:hover {
-    background-color: #76ff03;
+    background-color: darkred;
 }

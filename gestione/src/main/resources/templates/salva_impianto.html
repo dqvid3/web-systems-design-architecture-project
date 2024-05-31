@@ -14,8 +14,10 @@
             padding: 8px;
         }
     </style>
+
 </head>
 <body>
+<div th:if="${errore}" style="color: red;" th:text="${errore}"></div>
 <form th:action="@{/salva_impianto_successo}" method="post" th:object="${impianto}">
     <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
 
