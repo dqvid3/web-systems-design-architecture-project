@@ -5,19 +5,9 @@
     <script src="reportistica/script.js"></script>
     <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
     <link href="reportistica/style.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-<header>
-    <div sec:authorize="isAuthenticated()">
-        Benvenuto <b><span sec:authentication="name">Username</span></b>
-        <span id="role" sec:authentication="principal.authorities">Roles</span>
-    </div>
-    <div>
-        <form th:action="@{/logout}" class="logout" method="post">
-            <button type="submit" value="Logout">Logout</button>
-        </form>
-    </div>
-</header>
 <main>
     <div class="filtri">
         <h1>Genera Report</h1>

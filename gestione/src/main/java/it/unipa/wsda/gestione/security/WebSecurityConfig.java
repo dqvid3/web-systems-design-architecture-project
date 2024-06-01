@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -33,32 +33,16 @@ public class ReportService {
     }
 
     public List<ReportDTO> getReports(LocalDateTime startDate,
-                                   LocalDateTime endDate,
-                                   String cartelloneName,
-                                   String operator,
-                                   String sortOrder,
-                                   int minViews,
-                                   int limit) {
+                                      LocalDateTime endDate,
+                                      String cartelloneName,
+                                      String operator,
+                                      String sortOrder,
+                                      int minViews,
+                                      int limit) {
         List<Cartellone> cartelloni = cartelloneRepository.findByNomeLike(cartelloneName);
         int refCartellone = 0;
         if (cartelloni.size() == 1)
-            refCartellone =  cartelloni.get(0).getCodCartellone();
-        System.out.println("SELECT v.ref_cartellone, " +
-                        "CASE " +
-                        "    WHEN "+ operator+" = 'COUNT' THEN COUNT(*) " +
-                        "    WHEN "+ operator+" = 'AVG' THEN AVG(v.durata_visualizzazione) " +
-                        "    WHEN "+ operator+" = 'SUM' THEN SUM(v.durata_visualizzazione) " +
-                        "    WHEN "+ operator+" = 'MAX' THEN MAX(v.durata_visualizzazione) " +
-                        "    WHEN "+ operator+" = 'MIN' THEN MIN(v.durata_visualizzazione) " +
-                        "END AS risultato " +
-                        "FROM visualizzazione v " +
-                        "WHERE v.ultimo_segnale BETWEEN "+ startDate+" AND "+ endDate+" " +
-                        "AND (" + refCartellone + "  = 0 OR v.ref_cartellone = "+ refCartellone +") " +
-                        "GROUP BY v.ref_cartellone " +
-                        "HAVING risultato > "+ minViews + " " +
-                        "ORDER BY CASE WHEN "+ sortOrder+" = 'ASC' THEN risultato END ASC, " +
-                        "CASE WHEN "+ sortOrder+" = 'DESC' THEN risultato END DESC " +
-                        "LIMIT "+ limit);
+            refCartellone = cartelloni.get(0).getCodCartellone();
         List<List<Integer>> records = visualizzazioneRepository.findVisualizzazioniByPeriodo(startDate, endDate, refCartellone, operator, minViews, sortOrder, limit);
         List<ReportDTO> reports = new ArrayList<>(records.size());
         Map<Integer, String> cartelloneNames = new HashMap<>(cartelloni.size());

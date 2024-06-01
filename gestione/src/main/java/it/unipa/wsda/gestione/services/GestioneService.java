@@ -7,8 +7,6 @@ import it.unipa.wsda.gestione.repositories.PalinsestoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-
 @Service
 public class GestioneService {
     @Autowired
@@ -25,13 +23,14 @@ public class GestioneService {
         return palinsestoRepository.findAll();
     }
 
+    /*
     public void eliminaImpianto(Integer codImpianto) {
         try {
             impiantoRepository.deleteById(codImpianto);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     public void salvaImpianto(Impianto impianto) {
         try {

@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.security;
 
 import it.unipa.wsda.gestione.entities.Utente;
 import it.unipa.wsda.gestione.repositories.UtenteRepository;

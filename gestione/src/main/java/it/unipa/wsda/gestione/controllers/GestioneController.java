@@ -12,6 +12,11 @@ public class GestioneController {
     @Autowired
     private GestioneService gestioneService;
 
+    @GetMapping("/403")
+    public String _403() {
+        return "403";
+    }
+
     @GetMapping("/gestione")
     public String showImpianti(Model model) {
         Iterable<Impianto> impianti = gestioneService.getImpianti();
@@ -21,17 +26,16 @@ public class GestioneController {
         return "gestione";
     }
 
-    @PostMapping("/salva_impianto")
-    public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto,  Model model) {
+    @PostMapping("gestione/salva_impianto")
+    public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", impianto);
         return "salva_impianto";
     }
 
-    @PostMapping("/salva_impianto_successo")
-    public String salvaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model){
+    @PostMapping("gestione/salva_impianto_conferma")
+    public String salvaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
         try {
-            System.out.println(impianto.getCodImpianto());
             gestioneService.salvaImpianto(impianto);
         } catch (RuntimeException e) {
             String messaggio = "Errore durante il salvataggio dell'impianto";
@@ -45,13 +49,14 @@ public class GestioneController {
         return "redirect:/gestione";
     }
 
-    @GetMapping("/salva_impianto")
+    @GetMapping("gestione/salva_impianto")
     public String showAggiungiImpianto(Model model) {
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", new Impianto());
         return "salva_impianto";
     }
 
+    /*
     @PostMapping("/elimina_impianto")
     public String eliminaImpianto(@RequestParam Integer codImpianto, Model model) {
         try {
@@ -61,5 +66,5 @@ public class GestioneController {
             return "error";
         }
         return "redirect:/gestione";
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package it.unipa.wsda.gestione;
+package it.unipa.wsda.gestione.security;
 
 import java.util.Collection;
 import java.util.Set;

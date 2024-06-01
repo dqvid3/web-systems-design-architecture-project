@@ -3,8 +3,6 @@ package it.unipa.wsda.gestione.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Impianto {
@@ -20,8 +18,10 @@ public class Impianto {
     private Palinsesto palinsesto;
     private boolean stato;
 
+    /* Per eliminare gli impianti
     @OneToMany(mappedBy = "impianto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Visualizzazione> visualizzazioni = new ArrayList<>();
+    */
 
     public Integer getCodImpianto() {
         return codImpianto;
