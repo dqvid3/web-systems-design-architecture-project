@@ -3,44 +3,59 @@
 <head>
     <title>Salva Impianto</title>
     <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
+    <link href="gestione/style.css"/>
+    <link href="style.css"/>
 
-        td, th {
-            text-align: center;
-            border: 1px solid #ddd;
-            padding: 8px;
+    <style>
+        body { font-family: Calibri, sans-serif; }
+
+        .input_container {
+            display: flex;
+            flex-direction: row;
+            margin-top: 50px;
+        }
+        .input_container div{
+            margin-right: 30px;
         }
     </style>
-
 </head>
 <body>
+<h1>Aggiungi/Modifica impianto</h1>
 <div th:if="${errore}" style="color: red;" th:text="${errore}"></div>
 <form th:action="@{/gestione/salva_impianto_conferma}" method="post" th:object="${impianto}">
     <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
 
-    <label for="descrizione">Descrizione:</label>
-    <textarea id="descrizione" required="required" placeholder="descrizione" th:field="*{descrizione}"></textarea>
+    <div class="input_container">
+    <div>
+        <label for="descrizione">Descrizione:</label></br>
+        <textarea id="descrizione" required="required" placeholder="descrizione" th:field="*{descrizione}"></textarea>
+    </div>
 
-    <label for="latitudine">Latitudine:</label>
-    <input id="latitudine" type="number" step="any" placeholder="latitudine" required="required"
-           th:field="*{latitudine}">
+    <div>
+        <label for="latitudine">Latitudine:</label></br>
+        <input id="latitudine" type="number" step="any" placeholder="latitudine" required="required" th:field="*{latitudine}">
+    </div>
 
-    <label for="longitudine">Longitudine:</label>
-    <input id="longitudine" type="number" step="any" placeholder="longitudine" required="required"
-           th:field="*{longitudine}"/>
+    <div>
+        <label for="longitudine">Longitudine:</label></br>
+        <input id="longitudine" type="number" step="any" placeholder="longitudine" required="required" th:field="*{longitudine}"/>
+    </div>
 
-    <label for="palinsesto">Nome Palinsesto:</label>
-    <select id="palinsesto" required th:field="*{palinsesto}">
-        <option th:each="palinsesto: ${palinsesti}"
-                th:value="${palinsesto.codPalinsesto}"
-                th:text="${palinsesto.nomePalinsesto}"
-                th:selected="${impianto.palinsesto!=null && impianto.palinsesto.codPalinsesto == palinsesto.codPalinsesto}">
-        </option>
-    </select>
-    <button type="submit">Conferma</button>
+    <div>
+        <label for="palinsesto">Palinsesto:</label></br>
+        <select id="palinsesto" required th:field="*{palinsesto}">
+            <option th:each="palinsesto: ${palinsesti}"
+                    th:value="${palinsesto.codPalinsesto}"
+                    th:text="${palinsesto.nomePalinsesto}"
+                    th:selected="${impianto.palinsesto!=null && impianto.palinsesto.codPalinsesto == palinsesto.codPalinsesto}">
+            </option>
+        </select>
+    </div>
+
+    <div></br>
+        <button type="submit">Conferma</button>
+    </div>
+    </div>
 </form>
 </body>
 </html>

@@ -26,7 +26,7 @@
         </form>
     </div>
 </header>
-<h2>Risultati</h2>
+<h1>Gestione impianti</h1>
 <div th:if="${impianti != null}">
     <table>
         <thead>
@@ -84,12 +84,11 @@
         </tr>
         </tbody>
     </table>
+
     <form th:action="@{gestione/salva_impianto}" method="get">
         <button type="submit">Aggiungi</button>
     </form>
-</div>
-
-<div>
 
 </div>
+
 </body>
