@@ -32,10 +32,9 @@ public class GestioneController {
     }
 
     @PostMapping("gestione/salva_impianto")
-    public String showModificaImpianto(@RequestParam(name="bottone", required = false) String bottone,@ModelAttribute("impianto") Impianto impianto, Model model) {
-        if("modifica".equals(bottone)){
-            model.addAttribute("message", "Modifica impianto");
-        }
+    public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
+        model.addAttribute("message", "Modifica impianto");
+        System.out.println(impianto.getStato());
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", impianto);
         return "salva_impianto";
@@ -58,10 +57,8 @@ public class GestioneController {
     }
 
     @GetMapping("gestione/salva_impianto")
-    public String showAggiungiImpianto(@RequestParam(name="bottone" ,required=false) String bottone, Model model) {
-        if("aggiungi".equals(bottone)){
-            model.addAttribute("message", "Aggiungi impianto");
-        }
+    public String showAggiungiImpianto(Model model) {
+        model.addAttribute("message", "Aggiungi impianto");
 
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", new Impianto());

@@ -1,7 +1,8 @@
-package it.unipa.wsda.gestione.security;
+package it.unipa.wsda.gestione.services;
 
 import it.unipa.wsda.gestione.entities.Utente;
 import it.unipa.wsda.gestione.repositories.UtenteRepository;
+import it.unipa.wsda.gestione.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

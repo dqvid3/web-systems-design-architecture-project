@@ -28,7 +28,7 @@ public class ReportController {
             cartelloni = reportService.getCartelloni();
         } catch (IllegalStateException e) {
             model.addAttribute("errore", e.getMessage());
-            return "500";
+            return "error";
         }
         session.setAttribute("cartelloni", cartelloni);
 

@@ -2,35 +2,35 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>Salva Impianto</title>
-    <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
-    <link rel="stylesheet" href="src/main/resources/static/style.css"/>
+    <link href="../imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="../style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             let timeout = null;
 
-            $('#descrizione').on('input', function() {
+            $('#descrizione').on('input', function () {
                 clearTimeout(timeout); // Cancella la richiesta precedente se presente
-                timeout = setTimeout(function() {
+                timeout = setTimeout(function () {
                     var text = $('#descrizione').val();
                     $.ajax({
                         type: 'GET',
                         url: '/suggerisci_coordinate',
-                        data: { text: text },
-                        success: function(response) {
+                        data: {text: text},
+                        success: function (response) {
                             $('#suggerimenti').empty();
                             var places = JSON.parse(response);
-                            places.forEach(function(place) {
+                            places.forEach(function (place) {
                                 $('#suggerimenti').append('<option value="' + place.display_name + '" data-lat="' + place.lat + '" data-lon="' + place.lon + '">');
                             });
                         },
-                        error: function() {
+                        error: function () {
                             console.error('Errore nella chiamata AJAX');
                         }
                     });
                 }, 250); // Aspetta 250ms prima di fare la richiesta
             });
-            $('#descrizione').on('change', function() {
+            $('#descrizione').on('change', function () {
                 var selectedOption = $('#suggerimenti option[value="' + $(this).val() + '"]');
                 if (selectedOption.length > 0) {
                     $('#latitudine').val(selectedOption.data('lat'));
@@ -38,69 +38,104 @@
                 }
             });
         });
+
+        function toggleStato() {
+            var statoHidden = document.getElementById('statoHidden');
+            var statoButton = document.getElementById('statoButton');
+            if (statoHidden.value === 'true') {
+                statoHidden.value = 'false';
+                statoButton.className = 'spento';
+            } else {
+                statoHidden.value = 'true';
+                statoButton.className = 'acceso';
+            }
+        }
+
+        window.onload = function () {
+            console.log(document.getElementById('statoHidden').value)
+        }
     </script>
     <style>
-        .input_container {
+        main {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+        }
+
+        .column {
+            flex-direction: column;
+        }
+
+        .row {
             flex-direction: row;
-            margin-top: 50px;
         }
-        .input_container div{
-            margin-right: 30px;
+
+        textarea {
+            resize: none;
         }
-        button {
-            border: none;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 5%;
-            cursor: pointer;
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
-        button:hover {
-            background-color: #0056b3;
-        }
-        body { font-family: Calibri, sans-serif; }
-        textarea {resize: none;}
+
     </style>
 </head>
 <body>
-<h1 th:text="${message}"></h1>
-<div th:if="${errore}" style="color: red;" th:text="${errore}"></div>
-<form th:action="@{/gestione/salva_impianto_conferma}" method="post" th:object="${impianto}">
-    <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
+<main>
+    <h1 th:text="${message}">Modifica impianto</h1>
+    <div th:if="${errore}" class="error" th:text="${errore}"></div>
+    <form th:action="@{/gestione/salva_impianto_conferma}" method="post" th:object="${impianto}">
+        <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
+        <div class="column">
+            <label for="descrizione">Descrizione:</label>
+            <input id="descrizione" size="60" list="suggerimenti" required="required" placeholder="descrizione"
+                   th:field="*{descrizione}">
+            <datalist id="suggerimenti"></datalist>
+        </div>
 
-    <div class="input_container">
-    <div>
-        <label for="descrizione">Descrizione:</label>
-        <input id="descrizione" size="50" list="suggerimenti" required="required" placeholder="descrizione" th:field="*{descrizione}">
-        <datalist id="suggerimenti"></datalist>
-    </div>
+        <div class="row">
+            <div class="column">
+                <label for="latitudine">Latitudine:</label></br>
+                <input id="latitudine" type="number" step="any" placeholder="latitudine" required="required"
+                       th:field="*{latitudine}">
+            </div>
+            <div class="column">
+                <label for="longitudine">Longitudine:</label></br>
+                <input id="longitudine" type="number" step="any" placeholder="longitudine" required="required"
+                       th:field="*{longitudine}"/>
+            </div>
+        </div>
 
-    <div>
-        <label for="latitudine">Latitudine:</label></br>
-        <input id="latitudine" type="number" step="any" placeholder="latitudine" required="required" th:field="*{latitudine}">
-    </div>
-
-    <div>
-        <label for="longitudine">Longitudine:</label></br>
-        <input id="longitudine" type="number" step="any" placeholder="longitudine" required="required" th:field="*{longitudine}"/>
-    </div>
-
-    <div>
-        <label for="palinsesto">Palinsesto:</label></br>
-        <select id="palinsesto" required th:field="*{palinsesto}">
-            <option th:each="palinsesto: ${palinsesti}"
-                    th:value="${palinsesto.codPalinsesto}"
-                    th:text="${palinsesto.nomePalinsesto}"
-                    th:selected="${impianto.palinsesto!=null && impianto.palinsesto.codPalinsesto == palinsesto.codPalinsesto}">
-            </option>
-        </select>
-    </div>
-
-    <div></br>
-        <button type="submit">Conferma</button>
-    </div>
-    </div>
-</form>
+        <div class="column">
+            <label for="palinsesto">Palinsesto:</label></br>
+            <select id="palinsesto" required th:field="*{palinsesto}">
+                <option th:each="palinsesto: ${palinsesti}"
+                        th:value="${palinsesto.codPalinsesto}"
+                        th:text="${palinsesto.nomePalinsesto}"
+                        th:selected="${impianto.palinsesto!=null && impianto.palinsesto.codPalinsesto == palinsesto.codPalinsesto}">
+                </option>
+            </select>
+        </div>
+        <div class="column">
+            <label for="statoButton">Stato:</label></br>
+            <input type="hidden" id="statoHidden" th:name="stato" th:value="*{stato}">
+            <button type="button" id="statoButton" th:class="${impianto.stato ? 'acceso' : 'spento'}"
+                    onclick="toggleStato()"></button>
+        </div>
+        <div>
+            <button type="submit">Conferma</button>
+        </div>
+    </form>
+</main>
 </body>
 </html>
