@@ -47,7 +47,7 @@ CREATE TABLE utente
     username      VARCHAR(50) NOT NULL,
     cognome       VARCHAR(50) NOT NULL,
     nome          VARCHAR(50) NOT NULL,
-    email         VARCHAR(80) NOT NULL UNIQUE,
+    -- email         VARCHAR(80) NOT NULL UNIQUE,
     password_hash VARCHAR(64) NOT NULL,
     enabled       BIT         NOT NULL DEFAULT 1
 );
