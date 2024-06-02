@@ -3,12 +3,9 @@
 <head>
     <title>Salva Impianto</title>
     <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
-    <link href="gestione/style.css"/>
-    <link href="style.css"/>
+    <link rel="stylesheet" href="src/main/resources/static/style.css"/>
 
     <style>
-        body { font-family: Calibri, sans-serif; }
-
         .input_container {
             display: flex;
             flex-direction: row;
@@ -17,10 +14,23 @@
         .input_container div{
             margin-right: 30px;
         }
+        button {
+            border: none;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5%;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        body { font-family: Calibri, sans-serif; }
+        textarea {resize: none;}
     </style>
 </head>
 <body>
-<h1>Aggiungi/Modifica impianto</h1>
+<h1 th:text="${message}"></h1>
 <div th:if="${errore}" style="color: red;" th:text="${errore}"></div>
 <form th:action="@{/gestione/salva_impianto_conferma}" method="post" th:object="${impianto}">
     <input id="codImpianto" type="hidden" th:field="*{codImpianto}">
