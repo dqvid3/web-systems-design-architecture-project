@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class GestioneController {
     @Autowired
     private GestioneService gestioneService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/403")
     public String _403() {
@@ -62,7 +67,6 @@ public class GestioneController {
         model.addAttribute("impianto", new Impianto());
         return "salva_impianto";
     }
-
     /*
     @PostMapping("/elimina_impianto")
     public String eliminaImpianto(@RequestParam Integer codImpianto, Model model) {
@@ -73,5 +77,13 @@ public class GestioneController {
             return "error";
         }
         return "redirect:/gestione";
-    }*/
+    }
+    */
+    @GetMapping("/suggerisci_coordinate")
+    @ResponseBody
+    public ResponseEntity<String> suggerisciCoordinate(@RequestParam String text) {
+        String apiUrl = "https://nominatim.openstreetmap.org/search.php?q=" + text + "&countrycodes=it&format=jsonv2&limit=10";
+        ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
+        return ResponseEntity.ok(response.getBody());
+    }
 }

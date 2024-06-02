@@ -4,7 +4,39 @@
     <title>Salva Impianto</title>
     <link href="imgs/favicon.ico" id="favicon" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="src/main/resources/static/style.css"/>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#descrizione').on('input', function() {
+                var text = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/suggerisci_coordinate',
+                    data: { text: text },
+                    success: function(response) {
+                        $('#suggerimenti').empty();
+                        var places = JSON.parse(response);
+                        places.forEach(function(place) {
+                            $('#suggerimenti').append('<option value="' + place.display_name + '" data-lat="' + place.lat + '" data-lon="' + place.lon + '">');
+                        });
+                    },
+                    error: function() {
+                        console.error('Errore nella chiamata AJAX');
+                    }
+                });
+            });
+            $('#descrizione').on('change', function() {
+                var selectedOption = $('#suggerimenti option[value="' + $(this).val() + '"]');
+                if (selectedOption.length > 0) {
+                    // $("#descrizione").blur();
+                    // $("#descrizione").focusout();
+                    // $("#descrizione").trigger('blur');
+                    $('#latitudine').val(selectedOption.data('lat'));
+                    $('#longitudine').val(selectedOption.data('lon'));
+                }
+            });
+        });
+    </script>
     <style>
         .input_container {
             display: flex;
@@ -37,8 +69,9 @@
 
     <div class="input_container">
     <div>
-        <label for="descrizione">Descrizione:</label></br>
-        <textarea id="descrizione" required="required" placeholder="descrizione" th:field="*{descrizione}"></textarea>
+        <label for="descrizione">Descrizione:</label>
+        <input id="descrizione" size="50" list="suggerimenti" required="required" placeholder="descrizione" th:field="*{descrizione}">
+        <datalist id="suggerimenti"></datalist>
     </div>
 
     <div>
