@@ -7,30 +7,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            let timeout = null;
+
             $('#descrizione').on('input', function() {
-                var text = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/suggerisci_coordinate',
-                    data: { text: text },
-                    success: function(response) {
-                        $('#suggerimenti').empty();
-                        var places = JSON.parse(response);
-                        places.forEach(function(place) {
-                            $('#suggerimenti').append('<option value="' + place.display_name + '" data-lat="' + place.lat + '" data-lon="' + place.lon + '">');
-                        });
-                    },
-                    error: function() {
-                        console.error('Errore nella chiamata AJAX');
-                    }
-                });
+                clearTimeout(timeout); // Cancella la richiesta precedente se presente
+                timeout = setTimeout(function() {
+                    var text = $('#descrizione').val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/suggerisci_coordinate',
+                        data: { text: text },
+                        success: function(response) {
+                            $('#suggerimenti').empty();
+                            var places = JSON.parse(response);
+                            places.forEach(function(place) {
+                                $('#suggerimenti').append('<option value="' + place.display_name + '" data-lat="' + place.lat + '" data-lon="' + place.lon + '">');
+                            });
+                        },
+                        error: function() {
+                            console.error('Errore nella chiamata AJAX');
+                        }
+                    });
+                }, 250); // Aspetta 500ms prima di fare la richiesta
             });
             $('#descrizione').on('change', function() {
                 var selectedOption = $('#suggerimenti option[value="' + $(this).val() + '"]');
                 if (selectedOption.length > 0) {
-                    // $("#descrizione").blur();
-                    // $("#descrizione").focusout();
-                    // $("#descrizione").trigger('blur');
                     $('#latitudine').val(selectedOption.data('lat'));
                     $('#longitudine').val(selectedOption.data('lon'));
                 }
