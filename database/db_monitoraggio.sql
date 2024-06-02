@@ -114,20 +114,19 @@ UPDATE impianto
 SET stato = 1
 WHERE cod_impianto = 1;
 
-INSERT INTO utente(username, cognome, nome, email, password_hash)
-VALUES ('davidebonura', 'Bonura', 'Davide', 'davide.bonura@mailfalsa.com',
+INSERT INTO utente(username, cognome, nome, password_hash)
+VALUES ('davidebonura', 'Bonura', 'Davide',
         '$2y$10$z2aKc.WqF.w.9CnzLMXFk.UejZZKN/aed7y/ptSirnmgV3P82jl.y'); -- pass = '124'
-INSERT INTO utente(username, cognome, nome, email, password_hash)
-VALUES ('gabrielebova01', 'Bova', 'Gabriele', 'gabriele.bova@mailfalsa.com',
+INSERT INTO utente(username, cognome, nome, password_hash)
+VALUES ('gabrielebova01', 'Bova', 'Gabriele',
         '$2a$10$5tkWlCPD2.fJMoE3ppYdpeGEP/a6.qkaLbXCbxs6AEG/P4TxEodaq'); -- pass = 'prova'
-INSERT INTO utente(username, cognome, nome, email, password_hash)
-VALUES ('ciaosalvo', 'D\' Anna', 'Salvatore', 'salvodanna@mailfalsa.com', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1e8aKg0xRE2McMhqdbI83bt15bU6'); -- pass = 'qwerty'
+INSERT INTO utente(username, cognome, nome, password_hash)
+VALUES ('ciaosalvo', 'D\' Anna', 'Salvatore', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1e8aKg0xRE2McMhqdbI83bt15bU6'); -- pass = 'qwerty'
 
 INSERT INTO ruolo(nome) VALUES ('ADMIN');
-INSERT INTO ruolo(nome) VALUES ('REPORTISTICA');
-INSERT INTO ruolo(nome) VALUES ('GESTIONE');
 INSERT INTO ruolo(nome) VALUES ('USER');
 
+
 INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (1, 1);
-INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (2, 4);
-INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (3, 3);
+INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (2, 1);
+INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (3, 2);

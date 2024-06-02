@@ -21,7 +21,7 @@ public interface VisualizzazioneRepository extends CrudRepository<Visualizzazion
             "WHERE v.ultimo_segnale BETWEEN :startDate AND :endDate " +
             "AND (:refCartellone = 0 OR v.ref_cartellone = :refCartellone) " +
             "GROUP BY v.ref_cartellone " +
-            "HAVING risultato > :minViews " +
+            "HAVING risultato >= :minViews " +
             "ORDER BY CASE WHEN :sortOrder = 'ASC' THEN risultato END ASC, " +
             "CASE WHEN :sortOrder = 'DESC' THEN risultato END DESC " +
             "LIMIT :limit", nativeQuery = true)
