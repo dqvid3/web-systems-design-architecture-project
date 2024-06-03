@@ -16,10 +16,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class ReportService {
@@ -54,7 +56,6 @@ public class ReportService {
             String nome = cartelloneNames.get(record.get(0));
             reports.add(new ReportDTO(codCartellone, nome, record.get(1)));
         }
-
         if (reports == null) throw new IllegalStateException("Risultati non trovati");
         return reports;
     }
@@ -63,7 +64,6 @@ public class ReportService {
         response.setContentType("application/octet-stream");
         LocalDateTime now = LocalDateTime.now();
         response.setHeader("Content-Disposition", "attachment; filename=report_" + now + ".xlsx");
-
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Report");
             Row headerRow = sheet.createRow(0);
@@ -72,15 +72,13 @@ public class ReportService {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
             }
-
             int rowNum = 1;
             for (ReportDTO entry : results) {
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(entry.getRefCartellone());
-                row.createCell(1).setCellValue(entry.getNome());
-                row.createCell(2).setCellValue(entry.getRisultato());
+                row.createCell(0).setCellValue(entry.refCartellone()); // getRefCartellone());
+                row.createCell(1).setCellValue(entry.nome()); // getNome());
+                row.createCell(2).setCellValue(entry.risultato()); // getRisultato());
             }
-
             workbook.write(response.getOutputStream());
         } catch (IOException e) {
             throw new RuntimeException("Errore durante l'esportazione in Excel", e);
@@ -91,23 +89,19 @@ public class ReportService {
         response.setContentType("application/pdf");
         LocalDateTime now = LocalDateTime.now();
         response.setHeader("Content-Disposition", "attachment; filename=report_" + now + ".pdf");
-
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, response.getOutputStream());
             document.open();
-
             PdfPTable table = new PdfPTable(3);
             table.addCell("Ref Cartellone");
             table.addCell("Nome");
             table.addCell("Numero Visualizzazioni");
-
             for (ReportDTO entry : results) {
-                table.addCell(String.valueOf(entry.getRefCartellone()));
-                table.addCell(entry.getNome());
-                table.addCell(String.valueOf(entry.getRisultato()));
+                table.addCell(String.valueOf(entry.refCartellone())); // getRefCartellone()));
+                table.addCell(entry.nome()); // getNome());
+                table.addCell(String.valueOf(entry.risultato())); // getRisultato()));
             }
-
             document.add(table);
             document.close();
         } catch (IOException e) {

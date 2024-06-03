@@ -22,7 +22,6 @@ public class GestioneService {
     public Iterable<Palinsesto> getPalinsesti() {
         return palinsestoRepository.findAll();
     }
-
     /*
     public void eliminaImpianto(Integer codImpianto) {
         try {
@@ -30,8 +29,8 @@ public class GestioneService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }*/
-
+    }
+    */
     public void salvaImpianto(Impianto impianto) {
         try {
             impiantoRepository.save(impianto);

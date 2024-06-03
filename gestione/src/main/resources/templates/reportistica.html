@@ -17,10 +17,10 @@
                 <select id="dateRange" name="dateRange" th:value="Oggi" onchange="setDateRange(this.value)">
                     <option value="Oggi" th:selected="${dateRange == 'Oggi'}">Oggi</option>
                     <option value="Ieri" th:selected="${dateRange == 'Ieri'}">Ieri</option>
-                    <option value="Ultima settimana" th:selected="${dateRange == 'Ultima settimana'}">Ultima settimana
+                    <option value="Settimana corrente" th:selected="${dateRange == 'Settimana corrente'}">Settimana corrente
                     </option>
-                    <option value="Ultimo mese" th:selected="${dateRange == 'Ultimo mese'}">Ultimo mese</option>
-                    <option value="Ultimo anno" th:selected="${dateRange == 'Ultimo anno'}">Ultimo anno</option>
+                    <option value="Mese corrente" th:selected="${dateRange == 'Mese corrente'}">Mese corrente</option>
+                    <option value="Anno corrente" th:selected="${dateRange == 'Anno corrente'}">Anno corrente</option>
                     <option value="custom" th:selected="${dateRange == 'custom'}">Intervallo personalizzato</option>
                 </select>
             </div>
@@ -46,7 +46,6 @@
             <div>
                 <label for="operator">Operatore</label>
                 <select id="operator" name="operator" th:value="COUNT" required>
-                    <option value="COUNT" th:selected="${operator == 'LIST'}">Lista</option>
                     <option value="COUNT" th:selected="${operator == 'COUNT'}">Conteggio</option>
                     <option value="AVG" th:selected="${operator == 'AVG'}">Media</option>
                     <option value="SUM" th:selected="${operator == 'SUM'}">Somma</option>
@@ -88,7 +87,6 @@
                 <tr>
                     <th>Id Cartellone</th>
                     <th>Nome Cartellone</th>
-                    <th th:if="${operator == 'LIST'}">bo Visualizzazioni</th>
                     <th th:if="${operator == 'COUNT'}">Numero Visualizzazioni</th>
                     <th th:if="${operator == 'AVG'}">Durata Media Visualizzazioni</th>
                     <th th:if="${operator == 'SUM'}">Durata Totale Visualizzazioni</th>

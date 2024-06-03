@@ -13,20 +13,20 @@ function setDateRange(range) {
             startDate.setHours(0, 0, 0, 0);
             endDate = new Date(now.setHours(23, 59, 59, 999));
             break;
-        case 'Ultima settimana':
+        case 'Settimana corrente':
             const dayOfWeek = now.getDay();
-            startDate = new Date(now.setDate(now.getDate() - dayOfWeek - 6));
+            startDate = new Date(now.setDate(now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)));
             startDate.setHours(0, 0, 0, 0);
             endDate = new Date(now.setDate(now.getDate() + 6));
             endDate.setHours(23, 59, 59, 999);
             break;
-        case 'Ultimo mese':
-            startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-            endDate = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
+        case 'Mese corrente':
+            startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+            endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
             break;
-        case 'Ultimo anno':
-            startDate = new Date(now.getFullYear() - 1, 0, 1);
-            endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
+        case 'Anno corrente':
+            startDate = new Date(now.getFullYear(), 0, 1);
+            endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
             break;
         case 'custom':
             document.getElementById('customDates').style.display = 'flex';
@@ -35,6 +35,8 @@ function setDateRange(range) {
             startDate = new Date();
             endDate = new Date();
     }
+    console.log(startDate);
+    console.log(endDate);
     document.getElementById('startDate').value = new Date(startDate - tzoffset).toISOString().slice(0, 16);
     document.getElementById('endDate').value = new Date(endDate - tzoffset).toISOString().slice(0, 16);
     document.getElementById('customDates').style.display = 'none';

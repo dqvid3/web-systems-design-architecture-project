@@ -1,5 +1,9 @@
 package it.unipa.wsda.gestione.dto;
 
+// https://medium.com/@pipash/record-vs-normal-dto-class-in-java-17-956fea93c406
+public record ReportDTO(Integer refCartellone, String nome, Integer risultato) { }
+
+/*
 public class ReportDTO {
     private Integer refCartellone;
     private String nome;
@@ -35,3 +39,4 @@ public class ReportDTO {
         this.risultato = risultato;
     }
 }
+*/

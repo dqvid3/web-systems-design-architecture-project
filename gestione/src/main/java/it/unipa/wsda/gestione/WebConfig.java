@@ -28,7 +28,6 @@ public class WebConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
@@ -43,7 +42,6 @@ public class WebConfig {
                 .logout(logout -> logout.permitAll())
                 .exceptionHandling(eh -> eh.accessDeniedPage("/403"))
         ;
-
         return http.build();
     }
 

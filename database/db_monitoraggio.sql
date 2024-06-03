@@ -126,7 +126,6 @@ VALUES ('ciaosalvo', 'D\' Anna', 'Salvatore', '$2a$10$QPS1SLC69IWmnBKhMdD6wewUh1
 INSERT INTO ruolo(nome) VALUES ('ADMIN');
 INSERT INTO ruolo(nome) VALUES ('USER');
 
-
 INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (1, 1);
 INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (2, 1);
 INSERT INTO ruolo_utente(ref_utente, ref_ruolo) VALUES (3, 2);

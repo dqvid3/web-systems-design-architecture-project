@@ -5,7 +5,11 @@ import it.unipa.wsda.gestione.services.GestioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -59,7 +63,6 @@ public class GestioneController {
     @GetMapping("gestione/salva_impianto")
     public String showAggiungiImpianto(Model model) {
         model.addAttribute("message", "Aggiungi impianto");
-
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", new Impianto());
         return "salva_impianto";

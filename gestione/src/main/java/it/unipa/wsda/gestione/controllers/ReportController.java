@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,23 +30,20 @@ public class ReportController {
             return "error";
         }
         session.setAttribute("cartelloni", cartelloni);
-
         // Genera il report con parametri predefiniti
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime endDate = now.withHour(23).withMinute(59).withSecond(59).withNano(0);
         String operator = "COUNT";
-
         List<ReportDTO> results = reportService.getReports(startDate, endDate, "%", operator, "DESC", 0, 1000);
         System.out.println(results.size());
         for(ReportDTO r : results)
-            System.out.println(r.getRisultato());
+            System.out.println(r.risultato()); // getRisultato());
         session.setAttribute("results", results);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);
         model.addAttribute("cartelloni", cartelloni);
         model.addAttribute("dateRange", "Oggi");
-
         return "reportistica";
     }
 
