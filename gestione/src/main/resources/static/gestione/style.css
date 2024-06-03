@@ -31,6 +31,10 @@ main {
     align-items: start;
 }
 
+main div {
+    width: 90%;
+}
+
 .info div {
     padding: 0 1%;
 }
