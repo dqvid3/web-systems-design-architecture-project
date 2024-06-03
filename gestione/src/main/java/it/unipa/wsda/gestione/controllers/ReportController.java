@@ -35,7 +35,7 @@ public class ReportController {
         LocalDateTime startDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime endDate = now.withHour(23).withMinute(59).withSecond(59).withNano(0);
         String operator = "COUNT";
-        List<ReportDTO> results = reportService.getReports(startDate, endDate, "%", operator, "DESC", 0, 1000);
+        List<ReportDTO> results = reportService.getReports(startDate, endDate, "%", operator, "ASC", 0, 1000);
         session.setAttribute("results", results);
         model.addAttribute("results", results);
         model.addAttribute("operator", operator);

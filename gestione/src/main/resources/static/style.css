@@ -6,17 +6,13 @@ body {
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
-    z-index: 2;
     border-spacing: 0;
-    border-radius: 10px;
-    border: solid 1px black;
+    width: 100%;
 }
 
 td, th {
     text-align: center;
-    padding: 8px;
+    padding: 10px 25px;
 }
 
 th {
@@ -24,15 +20,36 @@ th {
     font-size: 25px;
     background-color: #003366;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 td {
+    border: 1px solid #ccc;
     font-size: 20px;
 }
 
 tr {
     font-family: 'Montserrat', sans-serif;
+}
+
+table tr:first-child th:first-child {
+    border-spacing: 0;
+    border-top-left-radius: 15px;
+}
+
+
+table tr:first-child th:last-child {
+    border-spacing: 0;
+    border-top-right-radius: 15px;
+}
+
+table tr:last-child td:first-child {
+    border-spacing: 0;
+    border-bottom-left-radius: 15px;
+}
+
+table tr:last-child td:last-child {
+    border-spacing: 0;
+    border-bottom-right-radius: 15px;
 }
 
 tbody tr:nth-child(even) {
@@ -71,4 +88,11 @@ button:hover {
 
 .spento:hover {
     background-color: darkred;
+}
+
+hr {
+    width: 80%;
+    color: lightgrey;
+    display: flex;
+    align-items: center;
 }

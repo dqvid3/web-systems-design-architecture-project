@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Reportistica</title>
     <script src="reportistica/script.js"></script>
@@ -17,7 +17,8 @@
                 <select id="dateRange" name="dateRange" th:value="Oggi" onchange="setDateRange(this.value)">
                     <option value="Oggi" th:selected="${dateRange == 'Oggi'}">Oggi</option>
                     <option value="Ieri" th:selected="${dateRange == 'Ieri'}">Ieri</option>
-                    <option value="Settimana corrente" th:selected="${dateRange == 'Settimana corrente'}">Settimana corrente
+                    <option value="Settimana corrente" th:selected="${dateRange == 'Settimana corrente'}">Settimana
+                        corrente
                     </option>
                     <option value="Mese corrente" th:selected="${dateRange == 'Mese corrente'}">Mese corrente</option>
                     <option value="Anno corrente" th:selected="${dateRange == 'Anno corrente'}">Anno corrente</option>
@@ -79,14 +80,17 @@
         </form>
     </div>
     <div class="risultati">
-        <h1>Risultati</h1>
+        <div>
+            <h1>Risultati</h1>
+        </div>
         <div th:if="${results.isEmpty()}">
             <h2 th:text="${dateRange == 'custom'} ? 'Il report per il periodo: ' + ${startDate} + ' - ' + ${endDate} + ' è vuoto'
             : 'Il report di ' + ${dateRange} + ' è vuoto'"/>
         </div>
         <div th:if="${!results.isEmpty() && results != null}">
             <table>
-                <caption th:text="${dateRange == 'custom'} ? 'Report per il periodo: ' + ${startDate} + ' - ' + ${endDate} : 'Report di ' + ${dateRange}"/>
+                <caption
+                        th:text="${dateRange == 'custom'} ? 'Report per il periodo: ' + ${startDate} + ' - ' + ${endDate} : 'Report di ' + ${dateRange}"/>
                 <thead>
                 <tr>
                     <th>Id Cartellone</th>

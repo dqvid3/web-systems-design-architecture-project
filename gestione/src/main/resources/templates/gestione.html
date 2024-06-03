@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<header>
+<div class="info">
     <div sec:authorize="isAuthenticated()">
         Benvenuto <b><span sec:authentication="name">Username</span></b>
         <span id="role" sec:authentication="principal.authorities">Roles</span>
@@ -25,10 +25,18 @@
             <button type="submit" value="Logout">Logout</button>
         </form>
     </div>
-</header>
-<div class="title">
-    <h1>Gestione impianti</h1>
 </div>
+<hr/>
+<header>
+    <div>
+        <h1>Gestione impianti</h1>
+    </div>
+    <div>
+        <form th:action="@{gestione/salva_impianto}" method="get">
+            <button type="submit">Aggiungi un nuovo Impianto</button>
+        </form>
+    </div>
+</header>
 <main>
     <div th:if="${impianti != null}">
         <table>
@@ -90,9 +98,4 @@
         </table>
     </div>
 </main>
-<footer>
-    <form th:action="@{gestione/salva_impianto}" method="get">
-        <button type="submit">Aggiungi</button>
-    </form>
-</footer>
 </body>

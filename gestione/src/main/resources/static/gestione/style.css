@@ -2,7 +2,7 @@
     color: green;
 }
 
-header {
+.info {
     font-size: 24px;
     display: flex;
     justify-content: right;
@@ -11,34 +11,28 @@ header {
     height: 10%;
 }
 
-.title {
-    height: 5%;
+th img {
+    width: 20%;
+    height: 20%;
+}
+
+header {
     display: flex;
     justify-content: center;
-    font-size: 24px;
-    color: #003366;
+    align-items: center;
+    flex-direction: column;
+    height: 20%;
 }
 
 main {
-    height: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-main div {
-    width: 90%;
-}
-
-footer {
-    height: 10%;
+    height: 65%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
-header div {
-    padding: 0 1%;;
+.info div {
+    padding: 0 1%;
 }
 
 .logout {
@@ -46,3 +40,6 @@ header div {
     align-items: center;
 }
 
+h1 {
+    color: #003366;
+}
