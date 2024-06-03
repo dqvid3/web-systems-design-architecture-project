@@ -11,6 +11,7 @@
 <main>
     <div class="filtri">
         <h1>Genera Report</h1>
+        <hr/>
         <form th:action="@{/reportistica}" method="post" id="generaReport">
             <div>
                 <label for="dateRange">Intervallo di Date</label>
@@ -114,6 +115,7 @@
     </div>
     <div class="esporta">
         <h1>Esporta</h1>
+        <hr/>
         <form th:action="@{/reportistica/esporta}" method="get">
             <div>
                 <label for="formato">Formato </label>
