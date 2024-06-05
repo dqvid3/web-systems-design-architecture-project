@@ -71,7 +71,7 @@ public class ReportController {
     }
 
     @GetMapping("/reportistica/esporta")
-    public void exportReport(@RequestParam String formato, HttpServletResponse response, HttpSession session, Model model) {
+    public void exportReport(@RequestParam String formato, HttpServletResponse response, HttpSession session) {
         List<ReportDTO> results = (List<ReportDTO>) session.getAttribute("results");
         if (results != null) {
             try {

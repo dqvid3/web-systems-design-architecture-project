@@ -35,8 +35,6 @@ function setDateRange(range) {
             startDate = new Date();
             endDate = new Date();
     }
-    console.log(startDate);
-    console.log(endDate);
     document.getElementById('startDate').value = new Date(startDate - tzoffset).toISOString().slice(0, 16);
     document.getElementById('endDate').value = new Date(endDate - tzoffset).toISOString().slice(0, 16);
     document.getElementById('customDates').style.display = 'none';
@@ -44,7 +42,6 @@ function setDateRange(range) {
 
 window.onload = function () {
     setDateRange(document.getElementById('dateRange').value)
-    console.log(document.getElementById('startDate').value, document.getElementById('endDate').value)
 }
 
 function setDefaultParams() {

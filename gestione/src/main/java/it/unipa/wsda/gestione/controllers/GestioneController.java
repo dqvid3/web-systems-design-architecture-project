@@ -2,6 +2,7 @@ package it.unipa.wsda.gestione.controllers;
 
 import it.unipa.wsda.gestione.entities.Impianto;
 import it.unipa.wsda.gestione.services.GestioneService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,15 +37,16 @@ public class GestioneController {
     }
 
     @PostMapping("gestione/salva_impianto")
-    public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
+    public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model, HttpSession session) {
         model.addAttribute("message", "Modifica impianto");
+        session.setAttribute("message","Modifica impianto");
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", impianto);
         return "salva_impianto";
     }
 
     @PostMapping("gestione/salva_impianto_conferma")
-    public String salvaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
+    public String salvaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model, HttpSession session) {
         try {
             gestioneService.salvaImpianto(impianto);
         } catch (RuntimeException e) {
@@ -53,6 +55,7 @@ public class GestioneController {
                 messaggio = "Errore durante l'inserimento dell'impianto";
             model.addAttribute("errore", messaggio);
             model.addAttribute("impianto", impianto);
+            model.addAttribute("message",session.getAttribute("message"));
             model.addAttribute("palinsesti", gestioneService.getPalinsesti());
             return "salva_impianto";
         }
@@ -60,8 +63,9 @@ public class GestioneController {
     }
 
     @GetMapping("gestione/salva_impianto")
-    public String showAggiungiImpianto(Model model) {
+    public String showAggiungiImpianto(Model model, HttpSession session) {
         model.addAttribute("message", "Aggiungi impianto");
+        session.setAttribute("message","Aggiungi impianto");
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", new Impianto());
         return "salva_impianto";

@@ -12,14 +12,14 @@
             $('#descrizione').on('input', function () {
                 clearTimeout(timeout); // Cancella la richiesta precedente se presente
                 timeout = setTimeout(function () {
-                    var text = $('#descrizione').val();
+                    const text = $('#descrizione').val();
                     $.ajax({
                         type: 'GET',
                         url: '/suggerisci_coordinate',
                         data: {text: text},
                         success: function (response) {
                             $('#suggerimenti').empty();
-                            var places = JSON.parse(response);
+                            const places = JSON.parse(response);
                             places.forEach(function (place) {
                                 $('#suggerimenti').append('<option value="' + place.display_name + '" data-lat="' + place.lat + '" data-lon="' + place.lon + '">');
                             });
@@ -31,7 +31,7 @@
                 }, 250); // Aspetta 250ms prima di fare la richiesta
             });
             $('#descrizione').on('change', function () {
-                var selectedOption = $('#suggerimenti option[value="' + $(this).val() + '"]');
+                const selectedOption = $('#suggerimenti option[value="' + $(this).val() + '"]');
                 if (selectedOption.length > 0) {
                     $('#latitudine').val(selectedOption.data('lat'));
                     $('#longitudine').val(selectedOption.data('lon'));
@@ -40,8 +40,8 @@
         });
 
         function toggleStato() {
-            var statoHidden = document.getElementById('statoHidden');
-            var statoButton = document.getElementById('statoButton');
+            const statoHidden = document.getElementById('statoHidden');
+            const statoButton = document.getElementById('statoButton');
             if (statoHidden.value === 'true') {
                 statoHidden.value = 'false';
                 statoButton.className = 'spento';
@@ -105,12 +105,12 @@
         <div class="row">
             <div class="column">
                 <label for="latitudine">Latitudine:</label></br>
-                <input id="latitudine" type="number" min="-90" max="90" step="0.000001" placeholder="latitudine" required="required"
+                <input id="latitudine" type="number" min="-90" max="90" step="any" placeholder="latitudine" required="required"
                        th:field="*{latitudine}">
             </div>
             <div class="column">
                 <label for="longitudine">Longitudine:</label></br>
-                <input id="longitudine" type="number"  min="-180" max="180" step="0.000001" placeholder="longitudine" required="required"
+                <input id="longitudine" type="number"  min="-180" max="180" step="any" placeholder="longitudine" required="required"
                        th:field="*{longitudine}"/>
             </div>
         </div>
