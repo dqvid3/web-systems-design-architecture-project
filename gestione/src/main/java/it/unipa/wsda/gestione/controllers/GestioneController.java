@@ -38,7 +38,6 @@ public class GestioneController {
     @PostMapping("gestione/salva_impianto")
     public String showModificaImpianto(@ModelAttribute("impianto") Impianto impianto, Model model) {
         model.addAttribute("message", "Modifica impianto");
-        System.out.println(impianto.getStato());
         model.addAttribute("palinsesti", gestioneService.getPalinsesti());
         model.addAttribute("impianto", impianto);
         return "salva_impianto";
