@@ -15,10 +15,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Servlet che gestisce l'inserimento dei dati nella base di dati tramite una richiesta POST.
+ * Servlet che gestisce l'inserimento nella base di dati tramite una richiesta POST.
  * <p>
  * Questa servlet si occupa di inserire i dati di visualizzazione nel database,
- * verificando l'origine della richiesta e rispondendo con un messaggio di successo o errore.
+ * verificando l'origine della richiesta e rispondendo con un messaggio JSON di successo o errore.
  * </p>
  * 
  * @version 1.0
@@ -41,7 +41,7 @@ public class InsertServlet extends HttpServlet {
      * Gestisce le richieste HTTP POST per l'inserimento dei dati.
      * <p>
      * La richiesta deve includere i parametri necessari per l'inserimento dei dati
-     * nella tabella di visualizzazione del database. La servlet verifica l'origine
+     * nella tabella visualizzazione del database. La servlet verifica l'origine
      * della richiesta e risponde con un JSON che indica il successo o il fallimento
      * dell'operazione.
      * </p>
@@ -65,11 +65,11 @@ public class InsertServlet extends HttpServlet {
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        // Query SQL per inserire i dati nella tabella di visualizzazione
+        // Query SQL per inserire i dati nella tabella visualizzazione
         final String query = "INSERT INTO visualizzazione(ref_impianto, ref_cartellone, " +
                 "durata_visualizzazione) VALUES (?, (SELECT c.cod_cartellone FROM cartellone c WHERE c.nome = ?), ?);";
 
-        // Raccolta dei parametri dalla richiesta
+        // Recupero dei parametri dalla richiesta
         List<String> parametri = new LinkedList<>();
         parametri.add(request.getParameter("ref_impianto"));
         parametri.add(request.getParameter("nome_cartellone"));

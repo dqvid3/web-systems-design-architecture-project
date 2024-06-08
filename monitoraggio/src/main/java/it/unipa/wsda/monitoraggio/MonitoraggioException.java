@@ -3,7 +3,7 @@ package it.unipa.wsda.monitoraggio;
 import java.io.Serial;
 
 /**
- * Eccezione personalizzata per il monitoraggio.
+ * Eccezione personalizzata per il sistema di monitoraggio.
  * <p>
  * Questa classe rappresenta un'eccezione specifica per situazioni di errore 
  * durante il monitoraggio all'interno dell'applicazione. Estende {@link Exception}
@@ -27,7 +27,7 @@ public class MonitoraggioException extends Exception {
     private static final long serialVersionUID = 1234568L;
 
     /**
-     * Costruisce una nuova eccezione di monitoraggio con il messaggio specificato.
+     * Costruisce una nuova eccezione con il messaggio specificato.
      *
      * @param messaggio il messaggio di dettaglio. Il messaggio di dettaglio è 
      * salvato per il successivo recupero tramite il metodo {@link #getMessage()}.

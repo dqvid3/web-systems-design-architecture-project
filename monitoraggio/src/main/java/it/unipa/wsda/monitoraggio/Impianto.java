@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
- * Rappresenta un impianto di monitoraggio con attributi quali codice, descrizione,
+ * Rappresenta un impianto con attributi quali codice, descrizione,
  * posizione geografica e ultimo segnale ricevuto.
  * <p>
- * La classe implementa {@link Serializable} per permettere la serializzazione
+ * Implementa {@link Serializable} per permettere la serializzazione
  * degli oggetti di questa classe.
  * </p>
  * 
@@ -62,7 +62,7 @@ public class Impianto implements Serializable {
 
     /*
     public Impianto() {
-        this(0, "", BigDecimal.ZERO, BigDecimal.ZERO, new Timestamp(System.currentTimeMillis()));
+        this(0, "", BigDecimal.ZERO, BigDecimal.ZERO, new Timestamp(System.currentTimeMillis()), false);
     }
     */
 
@@ -212,7 +212,7 @@ public class Impianto implements Serializable {
      * Restituisce una rappresentazione stringa HTML di questa istanza dell'impianto.
      * <p>
      * La rappresentazione include la latitudine, longitudine, descrizione, stato 
-     * e l'ultimo segnale in formato leggibile.
+     * e l'ultimo segnale in formato leggibile dal sistema di monitoraggio.
      * </p>
      *
      * @return una stringa HTML che rappresenta questa istanza dell'impianto

@@ -17,7 +17,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 /**
- * Servlet che gestisce la selezione e il monitoraggio degli impianti tramite una richiesta GET.
+ * Servlet che gestisce il recupero dei dati e il monitoraggio degli impianti tramite una richiesta GET.
  * <p>
  * Questa servlet si occupa di recuperare i dati degli impianti dal database, scriverli su file,
  * calcolare il centro geografico degli impianti e restituire un JSON con i risultati.
@@ -40,7 +40,7 @@ public class SelectServlet extends HttpServlet {
     private static final long serialVersionUID = 1234567L;
 
     /**
-     * Gestisce le richieste HTTP GET per la selezione dei dati.
+     * Gestisce le richieste HTTP GET per il recupero dei dati.
      * <p>
      * La richiesta recupera i dati degli impianti dal database, li scrive su file,
      * calcola il centro geografico degli impianti e risponde con un JSON che indica
@@ -57,7 +57,7 @@ public class SelectServlet extends HttpServlet {
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        // Query SQL per selezionare i dati delle tabelle di impianto e di visualizzazione
+        // Query SQL per selezionare i dati delle tabelle impianto e visualizzazione
         final String query = "SELECT i.cod_impianto, i.descrizione, i.latitudine, i.longitudine, i.stato, " +
                 "MAX(v.ultimo_segnale) as ultimo_segnale " +
                 "FROM impianto i LEFT JOIN visualizzazione v ON i.cod_impianto = v.ref_impianto " +

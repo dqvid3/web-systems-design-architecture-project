@@ -18,7 +18,7 @@ import java.util.List;
  * Classe che gestisce la connessione al database e l'esecuzione di query e update.
  * <p>
  * Questa classe fornisce metodi statici per ottenere una connessione al database,
- * eseguire query e aggiornamenti SQL, gestendo eventuali eccezioni e errori di connessione.
+ * eseguire query e aggiornamenti SQL, gestendo eventuali eccezioni ed errori di connessione.
  * </p>
  * 
  * @version 1.0
@@ -69,7 +69,7 @@ public class DBConnection {
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     impianti = new LinkedList<>();
-                    // Itera sui risultati della query e crea oggetti Impianto
+                    // Itera i risultati della query e crea oggetti Impianto
                     while (rs.next()) {
                         Impianto impianto = new Impianto(rs.getInt("cod_impianto"), rs.getString("descrizione"),
                                 rs.getBigDecimal("latitudine"), rs.getBigDecimal("longitudine"),
@@ -105,7 +105,7 @@ public class DBConnection {
         try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                 try {
-                    // Imposta i parametri nella query preparata
+                    // Imposta i parametri nell'oggetto PreparedStatement
                     for (int i = 0; i < parametri.size(); i++) {
                         pstmt.setString(i + 1, parametri.get(i));
                     }
